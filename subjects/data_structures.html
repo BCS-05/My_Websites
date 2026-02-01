@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="png" href="../images/icon/favicon.png">
+	<title>Data Structures & Algorithms | TechLearn</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap">
+	<style>
+		:root {
+			--primary: #2563eb;
+			--primary-dark: #1d4ed8;
+			--secondary: #7c3aed;
+			--accent: #06b6d4;
+			--dark: #0f172a;
+			--light: #f8fafc;
+			--gray: #64748b;
+			--gray-light: #e2e8f0;
+			--success: #10b981;
+			--card-bg: #ffffff;
+			--shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+			--shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+			--border-radius: 12px;
+			--transition: all 0.3s ease;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Poppins', sans-serif;
+			line-height: 1.6;
+			color: #333;
+			background-color: #f5f7fa;
+			overflow-x: hidden;
+		}
+
+		.container {
+			width: 100%;
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		/* Header & Navigation */
+		header {
+			background-color: var(--dark);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+			padding: 15px 0;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			position: relative;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			color: white;
+			font-weight: 700;
+			font-size: 1.8rem;
+			text-decoration: none;
+		}
+
+		.logo img {
+			width: 45px;
+			height: 45px;
+		}
+
+		.logo span {
+			background: linear-gradient(to right, var(--primary), var(--accent));
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+		}
+
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: 25px;
+			align-items: center;
+		}
+
+		.nav-links a {
+			color: var(--gray-light);
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 1rem;
+			padding: 12px 20px;
+			border-radius: 8px;
+			transition: var(--transition);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.nav-links a:hover {
+			color: white;
+			background-color: rgba(37, 99, 235, 0.2);
+			transform: translateY(-2px);
+		}
+
+		.nav-links a.active {
+			background: linear-gradient(to right, var(--primary), var(--secondary));
+			color: white;
+			font-weight: 600;
+			box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+		}
+
+		.nav-links .icon {
+			font-size: 1.2rem;
+			width: 24px;
+			height: 24px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		/* Mobile Menu Toggle */
+		.mobile-toggle {
+			display: none;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 44px;
+			height: 44px;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			padding: 0;
+			z-index: 1002;
+			position: relative;
+		}
+
+		.hamburger-line {
+			width: 24px;
+			height: 2px;
+			background-color: white;
+			border-radius: 2px;
+			transition: all 0.3s ease;
+			position: absolute;
+		}
+
+		.hamburger-line:nth-child(1) {
+			transform: translateY(-8px);
+		}
+
+		.hamburger-line:nth-child(2) {
+			width: 18px;
+		}
+
+		.hamburger-line:nth-child(3) {
+			transform: translateY(8px);
+		}
+
+		.mobile-toggle.active .hamburger-line:nth-child(1) {
+			transform: rotate(45deg) translateY(0);
+			width: 24px;
+		}
+
+		.mobile-toggle.active .hamburger-line:nth-child(2) {
+			opacity: 0;
+			transform: translateX(-20px);
+		}
+
+		.mobile-toggle.active .hamburger-line:nth-child(3) {
+			transform: rotate(-45deg) translateY(0);
+			width: 24px;
+		}
+
+		/* Mobile Navigation */
+		@media (max-width: 992px) {
+			.mobile-toggle {
+				display: flex;
+			}
+
+			.nav-links {
+				position: fixed;
+				top: 85px;
+				left: 0;
+				right: 0;
+				background: rgba(15, 23, 42, 0.98);
+				backdrop-filter: blur(20px);
+				flex-direction: column;
+				padding: 2rem;
+				gap: 1rem;
+				transform: translateY(-100%);
+				opacity: 0;
+				visibility: hidden;
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				z-index: 998;
+				border-top: 1px solid rgba(255, 255, 255, 0.1);
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+				max-height: calc(100vh - 85px);
+				overflow-y: auto;
+			}
+
+			.nav-links.active {
+				transform: translateY(0);
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.nav-links li {
+				width: 100%;
+			}
+
+			.nav-links a {
+				display: block;
+				padding: 1.25rem;
+				font-size: 1.1rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+				width: 100%;
+				border-radius: 12px;
+				margin-bottom: 0.5rem;
+			}
+
+			.nav-links a:hover {
+				background: rgba(37, 99, 235, 0.3);
+				border-radius: 12px;
+				padding-left: 1.5rem;
+			}
+
+			.search-box {
+				display: none;
+			}
+
+			.mobile-search {
+				display: block;
+				width: 100%;
+				margin-top: 1rem;
+			}
+
+			.mobile-search .search-box {
+				display: flex;
+				width: 100%;
+			}
+
+			.mobile-search .search-box input {
+				width: 100%;
+			}
+		}
+
+		.search-box {
+			display: flex;
+			align-items: center;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 8px;
+			padding: 8px 15px;
+			border: 1px solid transparent;
+			transition: var(--transition);
+		}
+
+		.search-box:focus-within {
+			background: rgba(255, 255, 255, 0.15);
+			border-color: var(--primary);
+			box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+		}
+
+		.search-box input {
+			background: transparent;
+			border: none;
+			color: white;
+			width: 200px;
+			padding: 8px;
+			outline: none;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		.search-box input::placeholder {
+			color: rgba(255, 255, 255, 0.6);
+		}
+
+		.search-box button {
+			background: transparent;
+			border: none;
+			color: white;
+			cursor: pointer;
+			transition: transform 0.3s ease;
+		}
+
+		.search-box button:hover {
+			transform: scale(1.1);
+			color: var(--accent);
+		}
+
+		/* Video Modal Styles */
+		.video-modal {
+			display: none;
+			position: fixed;
+			z-index: 2000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.9);
+			animation: fadeIn 0.3s ease;
+		}
+
+		.modal-content {
+			position: relative;
+			background: var(--dark);
+			margin: 5% auto;
+			padding: 20px;
+			width: 85%;
+			max-width: 900px;
+			border-radius: var(--border-radius);
+			animation: slideIn 0.4s ease;
+		}
+
+		.close-modal {
+			position: absolute;
+			right: 20px;
+			top: 10px;
+			color: white;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+			z-index: 2001;
+			transition: var(--transition);
+		}
+
+		.close-modal:hover {
+			color: var(--accent);
+			transform: scale(1.1);
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+		@keyframes slideIn {
+			from {
+				transform: translateY(-50px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+
+		/* Hero Section */
+		.hero {
+			padding: 100px 0 60px;
+			background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+			color: white;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.hero::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.03)"/></svg>');
+			background-size: cover;
+		}
+
+		.hero h1 {
+			font-size: 3.5rem;
+			margin-bottom: 20px;
+			font-weight: 700;
+			line-height: 1.2;
+			position: relative;
+			z-index: 1;
+		}
+
+		.hero h1 span {
+			background: linear-gradient(to right, var(--primary), var(--accent));
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+		}
+
+		.hero p {
+			font-size: 1.2rem;
+			max-width: 800px;
+			margin: 0 auto 30px;
+			color: var(--gray-light);
+			position: relative;
+			z-index: 1;
+		}
+
+		.cta-buttons {
+			display: flex;
+			justify-content: center;
+			gap: 20px;
+			margin-top: 30px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.btn {
+			padding: 14px 32px;
+			border-radius: 8px;
+			font-weight: 600;
+			font-size: 1rem;
+			text-decoration: none;
+			transition: var(--transition);
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			cursor: pointer;
+			border: none;
+		}
+
+		.btn-primary {
+			background: linear-gradient(to right, var(--primary), var(--secondary));
+			color: white;
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+		}
+
+		.btn-outline {
+			background: transparent;
+			color: white;
+			border: 2px solid rgba(255, 255, 255, 0.3);
+		}
+
+		.btn-outline:hover {
+			background: rgba(255, 255, 255, 0.1);
+			border-color: white;
+		}
+
+		/* Course Overview */
+		.course-overview {
+			padding: 80px 0;
+			background-color: white;
+		}
+
+		.section-title {
+			text-align: center;
+			margin-bottom: 50px;
+		}
+
+		.section-title h2 {
+			font-size: 2.5rem;
+			color: var(--dark);
+			margin-bottom: 15px;
+		}
+
+		.section-title p {
+			color: var(--gray);
+			max-width: 700px;
+			margin: 0 auto;
+			font-size: 1.1rem;
+		}
+
+		.overview-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+			gap: 30px;
+			margin-bottom: 60px;
+		}
+
+		.overview-card {
+			background: var(--card-bg);
+			border-radius: var(--border-radius);
+			padding: 30px;
+			box-shadow: var(--shadow);
+			transition: var(--transition);
+			border-top: 4px solid var(--primary);
+		}
+
+		.overview-card:hover {
+			transform: translateY(-10px);
+			box-shadow: var(--shadow-hover);
+		}
+
+		.overview-card h3 {
+			font-size: 1.5rem;
+			margin-bottom: 15px;
+			color: var(--dark);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.overview-card h3 i {
+			color: var(--primary);
+		}
+
+		.overview-card ul {
+			list-style: none;
+			margin-top: 15px;
+		}
+
+		.overview-card li {
+			padding: 8px 0;
+			border-bottom: 1px solid var(--gray-light);
+			color: var(--gray);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.overview-card li i {
+			color: var(--success);
+			font-size: 0.9rem;
+		}
+
+		/* Related Topics */
+		.related-topics {
+			padding: 60px 0;
+			background-color: #f8fafc;
+		}
+
+		.topics-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 15px;
+			margin-top: 40px;
+		}
+
+		.topic-tag {
+			background: white;
+			padding: 12px 24px;
+			border-radius: 50px;
+			text-decoration: none;
+			color: var(--dark);
+			font-weight: 500;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+			transition: var(--transition);
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			border: 1px solid var(--gray-light);
+		}
+
+		.topic-tag:hover {
+			background: var(--primary);
+			color: white;
+			transform: translateY(-3px);
+			box-shadow: 0 8px 15px rgba(37, 99, 235, 0.2);
+		}
+
+		/* Video Lectures */
+		.video-lectures {
+			padding: 80px 0;
+			background-color: white;
+		}
+
+		.video-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+			gap: 30px;
+			margin-top: 40px;
+		}
+
+		.video-card {
+			background: var(--card-bg);
+			border-radius: var(--border-radius);
+			overflow: hidden;
+			box-shadow: var(--shadow);
+			transition: var(--transition);
+		}
+
+		.video-card:hover {
+			transform: translateY(-10px);
+			box-shadow: var(--shadow-hover);
+		}
+
+		.video-header {
+			position: relative;
+			height: 180px;
+			overflow: hidden;
+			cursor: pointer;
+		}
+
+		.video-header img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+
+		.video-card:hover .video-header img {
+			transform: scale(1.1);
+		}
+
+		.video-tag {
+			position: absolute;
+			top: 15px;
+			left: 15px;
+			background: var(--primary);
+			color: white;
+			padding: 5px 12px;
+			border-radius: 50px;
+			font-size: 0.9rem;
+			font-weight: 600;
+			z-index: 2;
+		}
+
+		.video-play {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: rgba(0, 0, 0, 0.7);
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 1.5rem;
+			transition: var(--transition);
+		}
+
+		.video-header:hover .video-play {
+			background: var(--primary);
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1.1);
+		}
+
+		.video-content {
+			padding: 20px;
+		}
+
+		.video-content h4 {
+			font-size: 1.2rem;
+			margin-bottom: 10px;
+			color: var(--dark);
+		}
+
+		.video-content p {
+			color: var(--gray);
+			font-size: 0.95rem;
+			margin-bottom: 15px;
+		}
+
+		.video-meta {
+			display: flex;
+			justify-content: space-between;
+			color: var(--gray);
+			font-size: 0.9rem;
+			margin-bottom: 15px;
+		}
+
+		.watch-btn {
+			display: block;
+			text-align: center;
+			margin-top: 40px;
+		}
+
+		/* Footer */
+		footer {
+			background-color: var(--dark);
+			color: white;
+			padding: 70px 0 30px;
+		}
+
+		.footer-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+			gap: 40px;
+			margin-bottom: 50px;
+		}
+
+		.footer-col h3 {
+			font-size: 1.3rem;
+			margin-bottom: 20px;
+			color: white;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.footer-col h3::after {
+			content: "";
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 50px;
+			height: 3px;
+			background: var(--primary);
+		}
+
+		.footer-col p {
+			color: var(--gray-light);
+			margin-bottom: 20px;
+			line-height: 1.8;
+		}
+
+		.social-icons {
+			display: flex;
+			gap: 15px;
+			margin-top: 20px;
+		}
+
+		.social-icons a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50%;
+			color: white;
+			text-decoration: none;
+			transition: var(--transition);
+		}
+
+		.social-icons a:hover {
+			background: var(--primary);
+			transform: translateY(-5px);
+		}
+
+		.footer-links {
+			list-style: none;
+		}
+
+		.footer-links li {
+			margin-bottom: 12px;
+		}
+
+		.footer-links a {
+			color: var(--gray-light);
+			text-decoration: none;
+			transition: var(--transition);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.footer-links a:hover {
+			color: white;
+			padding-left: 5px;
+		}
+
+		.newsletter-form {
+			display: flex;
+			margin-top: 20px;
+		}
+
+		.newsletter-form input {
+			flex: 1;
+			padding: 12px 15px;
+			border: none;
+			border-radius: 8px 0 0 8px;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			outline: none;
+			border: 1px solid transparent;
+			transition: var(--transition);
+		}
+
+		.newsletter-form input:focus {
+			border-color: var(--primary);
+			background: rgba(255, 255, 255, 0.15);
+		}
+
+		.newsletter-form button {
+			background: var(--primary);
+			color: white;
+			border: none;
+			padding: 0 20px;
+			border-radius: 0 8px 8px 0;
+			cursor: pointer;
+			transition: var(--transition);
+		}
+
+		.newsletter-form button:hover {
+			background: var(--primary-dark);
+		}
+
+		.copyright {
+			text-align: center;
+			padding-top: 30px;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			color: var(--gray-light);
+			font-size: 0.9rem;
+		}
+
+		/* Responsive Styles */
+		@media (max-width: 1024px) {
+			.hero h1 {
+				font-size: 3rem;
+			}
+
+			.overview-grid {
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			}
+		}
+
+		@media (max-width: 768px) {
+			.hero {
+				padding: 80px 0 40px;
+			}
+
+			.hero h1 {
+				font-size: 2.5rem;
+			}
+
+			.hero p {
+				font-size: 1.1rem;
+				padding: 0 15px;
+			}
+
+			.cta-buttons {
+				flex-direction: column;
+				align-items: center;
+				gap: 15px;
+			}
+
+			.btn {
+				width: 100%;
+				max-width: 300px;
+			}
+
+			.video-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.footer-container {
+				grid-template-columns: 1fr;
+			}
+
+			.modal-content {
+				margin: 10% auto;
+				width: 95%;
+				padding: 15px;
+			}
+
+			iframe {
+				height: 300px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.hero h1 {
+				font-size: 2rem;
+			}
+
+			.section-title h2 {
+				font-size: 2rem;
+			}
+
+			.overview-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.topics-container {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.topic-tag {
+				width: 100%;
+				max-width: 300px;
+				justify-content: center;
+			}
+
+			iframe {
+				height: 250px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Video Modal -->
+	<div id="videoModal" class="video-modal">
+		<div class="modal-content">
+			<span class="close-modal">&times;</span>
+			<iframe id="videoPlayer" width="100%" height="500" src="" frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
+		</div>
+	</div>
+
+	<!-- Header & Navigation -->
+	<header>
+		<div class="container nav-container">
+			<a href="../index.html" class="logo">
+				<img src="../images/icon/logo.png" alt="TechLearn Logo">
+				<span>TechLearn</span>
+			</a>
+
+			<!-- Mobile Menu Toggle Button -->
+			<button class="mobile-toggle" id="mobileToggle">
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+			</button>
+
+			<!-- Navigation Links with Font Awesome Icons -->
+			<nav>
+				<ul class="nav-links" id="navLinks">
+					<li><a href="python.html">
+							<i class="fab fa-python icon"></i> Python
+						</a></li>
+					<li><a href="webdev.html">
+							<i class="fas fa-code icon"></i> Web Development
+						</a></li>
+					<li><a href="java.html">
+							<i class="fab fa-java icon"></i> Java
+						</a></li>
+					<li><a href="data_structures.html" class="active">
+							<i class="fas fa-project-diagram icon"></i> DSA
+						</a></li>
+					<li><a href="c++.html">
+							<i class="fas fa-cogs icon"></i> C++
+						</a></li>
+					<li><a href="ai.html">
+							<i class="fas fa-brain icon"></i> AI & ML
+						</a></li>
+					<!-- Mobile Search - Hidden on desktop -->
+					<li class="mobile-search" style="display: none;">
+						<div class="search-box">
+							<input type="search" placeholder="Search DSA topics...">
+							<button><i class="fas fa-search"></i></button>
+						</div>
+					</li>
+				</ul>
+			</nav>
+
+			<!-- Desktop Search -->
+			<div class="search-box">
+				<input type="search" placeholder="Search DSA topics...">
+				<button><i class="fas fa-search"></i></button>
+			</div>
+		</div>
+	</header>
+
+	<!-- Hero Section -->
+	<section class="hero">
+		<div class="container">
+			<h1>Master <span>Data Structures & Algorithms</span></h1>
+			<p>Build a strong foundation in computer science with comprehensive tutorials on essential data structures
+				and algorithms. Learn to write efficient, scalable code for technical interviews and real-world
+				applications.</p>
+
+			<div class="cta-buttons">
+				<a href="https://www.w3schools.com/dsa/index.php" class="btn btn-primary">
+					<i class="fas fa-play-circle"></i> Start Learning
+				</a>
+				<a href="#video-lectures" class="btn btn-outline">
+					<i class="fas fa-video"></i> Browse Lectures
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Course Overview -->
+	<section class="course-overview">
+		<div class="container">
+			<div class="section-title">
+				<h2>Course Overview</h2>
+				<p>This comprehensive course covers everything from basic data structures to advanced algorithm design
+					and analysis.</p>
+			</div>
+
+			<div class="overview-grid">
+				<div class="overview-card">
+					<h3><i class="fas fa-sitemap"></i> Data Structures</h3>
+					<p>Learn how to organize and store data efficiently for different use cases.</p>
+					<ul>
+						<li><i class="fas fa-check-circle"></i> Arrays & Linked Lists</li>
+						<li><i class="fas fa-check-circle"></i> Stacks & Queues</li>
+						<li><i class="fas fa-check-circle"></i> Trees & Binary Search Trees</li>
+						<li><i class="fas fa-check-circle"></i> Hash Tables & Heaps</li>
+						<li><i class="fas fa-check-circle"></i> Graphs & Tries</li>
+					</ul>
+				</div>
+
+				<div class="overview-card">
+					<h3><i class="fas fa-cogs"></i> Algorithms</h3>
+					<p>Master algorithmic techniques and problem-solving strategies.</p>
+					<ul>
+						<li><i class="fas fa-check-circle"></i> Sorting & Searching Algorithms</li>
+						<li><i class="fas fa-check-circle"></i> Graph Traversal (BFS/DFS)</li>
+						<li><i class="fas fa-check-circle"></i> Dynamic Programming</li>
+						<li><i class="fas fa-check-circle"></i> Greedy Algorithms</li>
+						<li><i class="fas fa-check-circle"></i> Divide & Conquer</li>
+					</ul>
+				</div>
+
+				<div class="overview-card">
+					<h3><i class="fas fa-chart-line"></i> Complexity Analysis</h3>
+					<p>Understand time and space complexity to write optimal code.</p>
+					<ul>
+						<li><i class="fas fa-check-circle"></i> Big O Notation</li>
+						<li><i class="fas fa-check-circle"></i> Time & Space Trade-offs</li>
+						<li><i class="fas fa-check-circle"></i> Algorithm Optimization</li>
+						<li><i class="fas fa-check-circle"></i> Real-world Applications</li>
+						<li><i class="fas fa-check-circle"></i> Interview Preparation</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Related Topics -->
+	<section class="related-topics">
+		<div class="container">
+			<div class="section-title">
+				<h2>Related Topics</h2>
+				<p>Explore other computer science domains that complement your DSA knowledge.</p>
+			</div>
+
+			<div class="topics-container">
+				<a href="python.html" class="topic-tag">
+					<i class="fab fa-python"></i> Python Programming
+				</a>
+				<a href="webdev.html" class="topic-tag">
+					<i class="fas fa-code"></i> Web Development
+				</a>
+				<a href="java.html" class="topic-tag">
+					<i class="fab fa-java"></i> Java Programming
+				</a>
+				<a href="c++.html" class="topic-tag">
+					<i class="fas fa-cogs"></i> C++ Programming
+				</a>
+				<a href="ai.html" class="topic-tag">
+					<i class="fas fa-brain"></i> AI & Machine Learning
+				</a>
+				<a href="#" class="topic-tag">
+					<i class="fas fa-user-secret"></i> Cybersecurity
+				</a>
+				<a href="#" class="topic-tag">
+					<i class="fas fa-layer-group"></i> Full Stack Development
+				</a>
+				<a href="#" class="topic-tag">
+					<i class="fab fa-android"></i> Android Development
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Data Structures Videos -->
+	<section class="video-lectures" id="data-structures">
+		<div class="container">
+			<div class="section-title">
+				<h2>Data Structures Tutorials</h2>
+				<p>Master essential data structures with our comprehensive video tutorials.</p>
+			</div>
+
+			<div class="video-grid">
+				<div class="video-card">
+					<div class="video-header" data-video-id="O9v10jQkm5c">
+						<img src="../images/courses/data-course.jpg" alt="Arrays Tutorial">
+						<span class="video-tag">1/8</span>
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-content">
+						<h4>Arrays & Linked Lists</h4>
+						<p>Learn about linear data structures, their implementations, and use cases.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 25 min</span>
+							<span><i class="fas fa-level-up-alt"></i> Beginner</span>
+						</div>
+						<button class="btn btn-primary watch-video-btn" data-video-id="BBpAmxU_NQo"
+							style="margin-top: 15px; width: 100%;">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card">
+					<div class="video-header" data-video-id="Db9ZYbJONHc">
+						<img src="../images/courses/data-course.jpg" alt="Stacks & Queues">
+						<span class="video-tag">2/8</span>
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-content">
+						<h4>Stacks & Queues</h4>
+						<p>Understanding LIFO and FIFO data structures with practical examples.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 32 min</span>
+							<span><i class="fas fa-level-up-alt"></i> Beginner</span>
+						</div>
+						<button class="btn btn-primary watch-video-btn" data-video-id="Db9ZYbJONHc"
+							style="margin-top: 15px; width: 100%;">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card">
+					<div class="video-header" data-video-id="Db9ZYbJONHc">
+						<img src="../images/courses/data-course.jpg" alt="Trees Tutorial">
+						<span class="video-tag">3/8</span>
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-content">
+						<h4>Trees & Binary Search Trees</h4>
+						<p>Hierarchical data structures and their applications in searching.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 45 min</span>
+							<span><i class="fas fa-level-up-alt"></i> Intermediate</span>
+						</div>
+						<button class="btn btn-primary watch-video-btn" data-video-id="Db9ZYbJONHc"
+							style="margin-top: 15px; width: 100%;">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="watch-btn">
+				<a href="https://www.youtube.com/watch?v=Db9ZYbJONHc" target="_blank" class="btn btn-outline"
+					style="border-color: var(--primary); color: var(--primary);">
+					<i class="fab fa-youtube"></i> View Full Data Structures Playlist (8 Videos)
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Algorithms Videos -->
+	<section class="video-lectures" id="video-lectures">
+		<div class="container">
+			<div class="section-title">
+				<h2>Algorithm Tutorials</h2>
+				<p>Learn to implement and analyze efficient algorithms for problem-solving.</p>
+			</div>
+
+			<div class="video-grid">
+				<div class="video-card">
+					<div class="video-header" data-video-id="0IAPZzGSbME">
+						<img src="../images/courses/algo-course.jpg" alt="Sorting Algorithms">
+						<span class="video-tag">1/8</span>
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-content">
+						<h4>Sorting Algorithms</h4>
+						<p>Bubble Sort, Quick Sort, Merge Sort and their time complexities.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 38 min</span>
+							<span><i class="fas fa-level-up-alt"></i> Intermediate</span>
+						</div>
+						<button class="btn btn-primary watch-video-btn" data-video-id="0IAPZzGSbME"
+							style="margin-top: 15px; width: 100%;">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card">
+					<div class="video-header" data-video-id="pkYVOmU3MgA">
+						<img src="../images/courses/algo-course.jpg" alt="Search Algorithms">
+						<span class="video-tag">2/8</span>
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-content">
+						<h4>Searching Algorithms</h4>
+						<p>Linear Search, Binary Search, and advanced searching techniques.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 28 min</span>
+							<span><i class="fas fa-level-up-alt"></i> Beginner</span>
+						</div>
+						<button class="btn btn-primary watch-video-btn" data-video-id="0IAPZzGSbME"
+							style="margin-top: 15px; width: 100%;">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card">
+					<div class="video-header" data-video-id="CBYHwZcbD-s">
+						<img src="../images/courses/algo-course.jpg" alt="Graph Algorithms">
+						<span class="video-tag">3/8</span>
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-content">
+						<h4>Graph Algorithms</h4>
+						<p>BFS, DFS, Dijkstra's Algorithm for shortest path finding.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 52 min</span>
+							<span><i class="fas fa-level-up-alt"></i> Advanced</span>
+						</div>
+						<button class="btn btn-primary watch-video-btn" data-video-id="0IAPZzGSbME"
+							style="margin-top: 15px; width: 100%;">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="watch-btn">
+				<a href="https://www.youtube.com/watch?v=0IAPZzGSbME" target="_blank" class="btn btn-outline"
+					style="border-color: var(--primary); color: var(--primary);">
+					<i class="fab fa-youtube"></i> View Full Algorithms Playlist (8 Videos)
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="footer-container">
+				<div class="footer-col">
+					<h3>TechLearn</h3>
+					<p>Your gateway to mastering computer science and programming. We provide high-quality courses to
+						help you succeed in your tech career.</p>
+
+					<div class="social-icons">
+						<a href="#"><i class="fab fa-facebook-f"></i></a>
+						<a href="#"><i class="fab fa-twitter"></i></a>
+						<a href="#"><i class="fab fa-instagram"></i></a>
+						<a href="#"><i class="fab fa-youtube"></i></a>
+						<a href="#"><i class="fab fa-linkedin-in"></i></a>
+					</div>
+				</div>
+
+				<div class="footer-col">
+					<h3>Quick Links</h3>
+					<ul class="footer-links">
+						<li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+						<li><a href="python.html"><i class="fab fa-python"></i> Python Course</a></li>
+						<li><a href="webdev.html"><i class="fas fa-code"></i> Web Development</a></li>
+						<li><a href="java.html"><i class="fab fa-java"></i> Java Programming</a></li>
+						<li><a href="data_structures.html"><i class="fas fa-project-diagram"></i> Data Structures</a>
+						</li>
+						<li><a href="c++.html"><i class="fas fa-cogs"></i> C++ Programming</a></li>
+						<li><a href="ai.html"><i class="fas fa-brain"></i> AI & ML</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-col">
+					<h3>Contact Info</h3>
+					<p><i class="fas fa-map-marker-alt"></i> JKUAT Enterprise, Juja, Nairobi-00100</p>
+					<p><i class="fas fa-phone"></i> +254-704-702-600</p>
+					<p><i class="fas fa-envelope"></i> samuelthairu77@gmail.com</p>
+				</div>
+
+				<div class="footer-col">
+					<h3>Newsletter</h3>
+					<p>Subscribe to our newsletter for updates on new courses and tech insights.</p>
+
+					<form class="newsletter-form">
+						<input type="email" placeholder="Enter your email" required>
+						<button type="submit"><i class="fas fa-paper-plane"></i></button>
+					</form>
+				</div>
+			</div>
+
+			<div class="copyright">
+				<p>Copyright © 2025 TechLearn. Created by Samthairu and Squire.AI. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Mobile Navigation Toggle
+			const mobileToggle = document.getElementById('mobileToggle');
+			const navLinks = document.getElementById('navLinks');
+			const mobileSearch = document.querySelector('.mobile-search');
+			const desktopSearch = document.querySelector('.search-box');
+
+			// Toggle mobile menu
+			mobileToggle.addEventListener('click', function () {
+				navLinks.classList.toggle('active');
+				mobileToggle.classList.toggle('active');
+
+				// Show/hide mobile search
+				if (navLinks.classList.contains('active')) {
+					mobileSearch.style.display = 'block';
+					// Clone desktop search functionality
+					const desktopSearchClone = desktopSearch.cloneNode(true);
+					mobileSearch.innerHTML = '';
+					mobileSearch.appendChild(desktopSearchClone);
+				} else {
+					mobileSearch.style.display = 'none';
+				}
+			});
+
+			// Close mobile menu when clicking outside
+			document.addEventListener('click', function (event) {
+				const isClickInsideNav = navLinks.contains(event.target) || mobileToggle.contains(event.target);
+				if (!isClickInsideNav && navLinks.classList.contains('active')) {
+					navLinks.classList.remove('active');
+					mobileToggle.classList.remove('active');
+					mobileSearch.style.display = 'none';
+				}
+			});
+
+			// Close mobile menu when clicking a link (except search)
+			navLinks.querySelectorAll('a').forEach(link => {
+				link.addEventListener('click', function (event) {
+					if (!this.closest('.mobile-search')) {
+						navLinks.classList.remove('active');
+						mobileToggle.classList.remove('active');
+						mobileSearch.style.display = 'none';
+					}
+				});
+			});
+
+			// Video Modal Functionality
+			const videoModal = document.getElementById('videoModal');
+			const videoPlayer = document.getElementById('videoPlayer');
+			const closeModal = document.querySelector('.close-modal');
+
+			// Function to open video modal
+			function openVideoModal(videoId) {
+				if (videoId) {
+					videoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+					videoModal.style.display = 'block';
+					document.body.style.overflow = 'hidden';
+				}
+			}
+
+			// Add click handlers to all video headers and watch buttons
+			document.querySelectorAll('.video-header, .watch-video-btn').forEach(element => {
+				element.addEventListener('click', function (e) {
+					e.preventDefault();
+					const videoId = this.getAttribute('data-video-id');
+					openVideoModal(videoId);
+				});
+			});
+
+			// Close modal functionality
+			closeModal.addEventListener('click', function () {
+				videoModal.style.display = 'none';
+				videoPlayer.src = '';
+				document.body.style.overflow = 'auto';
+			});
+
+			// Close modal when clicking outside
+			window.addEventListener('click', function (e) {
+				if (e.target === videoModal) {
+					videoModal.style.display = 'none';
+					videoPlayer.src = '';
+					document.body.style.overflow = 'auto';
+				}
+			});
+
+			// Close modal with Escape key
+			document.addEventListener('keydown', function (e) {
+				if (e.key === 'Escape' && videoModal.style.display === 'block') {
+					videoModal.style.display = 'none';
+					videoPlayer.src = '';
+					document.body.style.overflow = 'auto';
+				}
+			});
+
+			// Search functionality
+			function initSearch() {
+				document.querySelectorAll('.search-box button').forEach(button => {
+					button.addEventListener('click', function () {
+						const searchInput = this.parentElement.querySelector('input');
+						performSearch(searchInput.value);
+					});
+				});
+
+				document.querySelectorAll('.search-box input').forEach(input => {
+					input.addEventListener('keypress', function (e) {
+						if (e.key === 'Enter') {
+							performSearch(this.value);
+						}
+					});
+				});
+
+				function performSearch(query) {
+					if (query.trim() !== '') {
+						alert(`Searching for: ${query}`);
+						// In a real application, you would redirect to search results page
+						// window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+					}
+				}
+			}
+
+			// Smooth scrolling for anchor links
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+
+					const targetId = this.getAttribute('href');
+					if (targetId === '#') return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						window.scrollTo({
+							top: targetElement.offsetTop - 80,
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+
+			// Add animation to cards on scroll
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.style.opacity = '1';
+						entry.target.style.transform = 'translateY(0)';
+					}
+				});
+			}, observerOptions);
+
+			// Observe elements for animation
+			document.querySelectorAll('.overview-card, .video-card').forEach(el => {
+				el.style.opacity = '0';
+				el.style.transform = 'translateY(20px)';
+				el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+				observer.observe(el);
+			});
+
+			// Initialize search
+			initSearch();
+
+			// Newsletter form submission
+			const newsletterForm = document.querySelector('.newsletter-form');
+			if (newsletterForm) {
+				newsletterForm.addEventListener('submit', function (e) {
+					e.preventDefault();
+					const email = this.querySelector('input[type="email"]').value;
+					if (email && validateEmail(email)) {
+						alert(`Thank you for subscribing with ${email}! You'll receive our newsletter soon.`);
+						this.reset();
+					} else {
+						alert('Please enter a valid email address.');
+					}
+				});
+
+				function validateEmail(email) {
+					const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+					return re.test(email);
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

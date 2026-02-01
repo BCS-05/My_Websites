@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Web Development | CLIN-TECH Code Camp</title>
+	<meta name="description"
+		content="Master Full Stack Web Development from beginner to advanced level. Learn HTML, CSS, JavaScript, React, Node.js, and build modern web applications.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="png" href="../images/icon/favicon.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+	<style>
+		/* Modern CSS Reset & Base Styles */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+		}
+
+		:root {
+			--html-color: #E34F26;
+			/* HTML Orange */
+			--css-color: #1572B6;
+			/* CSS Blue */
+			--js-color: #F7DF1E;
+			/* JavaScript Yellow */
+			--react-color: #61DAFB;
+			/* React Cyan */
+			--node-color: #339933;
+			/* Node.js Green */
+			--accent: #06b6d4;
+			--dark: #0f172a;
+			--darker: #020617;
+			--light: #f8fafc;
+			--lighter: #f1f5f9;
+			--gray: #64748b;
+			--gradient-web: linear-gradient(135deg, var(--html-color) 0%, var(--css-color) 50%, var(--js-color) 100%);
+			--gradient-dark: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+			--shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+			--shadow-xl: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+			--shadow-primary: 0 10px 30px rgba(227, 79, 38, 0.2);
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			background-color: var(--light);
+			color: var(--dark);
+			line-height: 1.6;
+			overflow-x: hidden;
+		}
+
+		body.menu-open {
+			overflow: hidden;
+		}
+
+		.container {
+			max-width: 1280px;
+			margin: 0 auto;
+			padding: 0 20px;
+			width: 100%;
+		}
+
+		.btn {
+			padding: 0.875rem 1.75rem;
+			border-radius: 50px;
+			font-weight: 600;
+			font-size: 1rem;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			border: none;
+			cursor: pointer;
+			white-space: nowrap;
+		}
+
+		.btn-primary {
+			background: var(--gradient-web);
+			color: white;
+			box-shadow: var(--shadow-primary);
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.btn-secondary {
+			background: white;
+			color: var(--html-color);
+			border: 2px solid var(--html-color);
+		}
+
+		.btn-secondary:hover {
+			background: var(--html-color);
+			color: white;
+			transform: translateY(-3px);
+		}
+
+		/* Navigation */
+		header {
+			background: var(--darker);
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+			box-shadow: var(--shadow-lg);
+		}
+
+		.nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 2rem;
+			max-width: 1400px;
+			margin: 0 auto;
+		}
+
+		#learned-logo img {
+			height: 40px;
+			width: auto;
+			filter: brightness(0) invert(1);
+		}
+
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: 2rem;
+			align-items: center;
+		}
+
+		.nav-links a {
+			color: white;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 0.95rem;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.nav-links a:hover {
+			color: var(--accent);
+		}
+
+		.nav-links a.active {
+			color: var(--accent);
+			font-weight: 600;
+		}
+
+		.icon {
+			width: 24px;
+			height: 24px;
+			object-fit: contain;
+		}
+
+		.search {
+			display: flex;
+			align-items: center;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50px;
+			padding: 0.5rem 1rem;
+			transition: all 0.3s ease;
+		}
+
+		.search:focus-within {
+			background: rgba(255, 255, 255, 0.15);
+			box-shadow: 0 0 0 2px rgba(227, 79, 38, 0.3);
+		}
+
+		.srch {
+			border: none;
+			background: transparent;
+			color: white;
+			width: 200px;
+			padding: 0.5rem;
+			outline: none;
+			font-size: 0.9rem;
+		}
+
+		.srch::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		#srchbtn {
+			background: none;
+			border: none;
+			color: white;
+			cursor: pointer;
+			padding: 0;
+			font-size: 1rem;
+		}
+
+		.switch-tab {
+			display: none;
+			background: none;
+			border: none;
+			color: white;
+			font-size: 1.75rem;
+			cursor: pointer;
+			line-height: 1;
+		}
+
+		/* Hero Section */
+		.hero-section {
+			background: linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.95)),
+				url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+			background-size: cover;
+			background-position: center;
+			color: white;
+			padding: 80px 0;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.web-bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			z-index: 0;
+		}
+
+		.code-snippet {
+			position: absolute;
+			font-family: 'Courier New', monospace;
+			color: rgba(97, 218, 251, 0.1);
+			font-size: 14px;
+			animation: floatCode 20s linear infinite;
+		}
+
+		@keyframes floatCode {
+			0% {
+				transform: translateY(100vh) translateX(-100px);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 0.3;
+			}
+
+			90% {
+				opacity: 0.3;
+			}
+
+			100% {
+				transform: translateY(-100px) translateX(100px);
+				opacity: 0;
+			}
+		}
+
+		.hero-content {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		.hero-title {
+			font-size: clamp(2.5rem, 5vw, 4rem);
+			font-weight: 900;
+			line-height: 1.1;
+			margin-bottom: 1.5rem;
+			background: linear-gradient(135deg, var(--html-color), var(--css-color), var(--js-color));
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+		}
+
+		.hero-description {
+			font-size: clamp(1.1rem, 2vw, 1.3rem);
+			color: #cbd5e1;
+			margin-bottom: 2.5rem;
+			line-height: 1.7;
+		}
+
+		.tech-stack {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 2rem;
+			margin: 2.5rem 0;
+		}
+
+		.tech-item {
+			text-align: center;
+			background: rgba(255, 255, 255, 0.1);
+			padding: 1.5rem;
+			border-radius: 12px;
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			transition: all 0.3s ease;
+			min-width: 120px;
+		}
+
+		.tech-item:hover {
+			transform: translateY(-5px);
+			background: rgba(255, 255, 255, 0.15);
+		}
+
+		.tech-item i {
+			font-size: 2.5rem;
+			margin-bottom: 1rem;
+			display: block;
+		}
+
+		.tech-item.html i {
+			color: var(--html-color);
+		}
+
+		.tech-item.css i {
+			color: var(--css-color);
+		}
+
+		.tech-item.js i {
+			color: var(--js-color);
+		}
+
+		.tech-item.react i {
+			color: var(--react-color);
+		}
+
+		.tech-item.node i {
+			color: var(--node-color);
+		}
+
+		.tech-item h4 {
+			font-size: 1.1rem;
+			margin-bottom: 0.5rem;
+			color: white;
+		}
+
+		.tech-item p {
+			color: #94a3b8;
+			font-size: 0.9rem;
+		}
+
+		/* Course Grid */
+		.course-section {
+			padding: 80px 0;
+			background: var(--light);
+		}
+
+		.section-title {
+			text-align: center;
+			font-size: clamp(2rem, 4vw, 3rem);
+			font-weight: 800;
+			color: var(--dark);
+			margin-bottom: 1rem;
+		}
+
+		.section-subtitle {
+			text-align: center;
+			color: var(--gray);
+			font-size: 1.1rem;
+			max-width: 700px;
+			margin: 0 auto 3rem;
+		}
+
+		.course-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+			gap: 1.5rem;
+			margin-bottom: 3rem;
+		}
+
+		.course-card {
+			background: white;
+			border-radius: 15px;
+			padding: 2rem;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.3s ease;
+			text-align: center;
+			border: 1px solid transparent;
+			cursor: pointer;
+		}
+
+		.course-card:hover {
+			transform: translateY(-10px);
+			box-shadow: var(--shadow-xl);
+			border-color: var(--html-color);
+		}
+
+		.course-icon {
+			width: 70px;
+			height: 70px;
+			background: var(--gradient-web);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 1.5rem;
+			font-size: 1.75rem;
+			color: white;
+		}
+
+		.course-card h3 {
+			color: var(--dark);
+			margin-bottom: 0.75rem;
+			font-size: 1.25rem;
+			font-weight: 700;
+		}
+
+		.course-card p {
+			color: var(--gray);
+			line-height: 1.5;
+			font-size: 0.95rem;
+			margin-bottom: 1rem;
+		}
+
+		.course-meta {
+			display: flex;
+			justify-content: space-between;
+			color: var(--gray);
+			font-size: 0.85rem;
+			padding-top: 1rem;
+			border-top: 1px solid var(--lighter);
+		}
+
+		/* Topics Grid */
+		.topics-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+			gap: 1rem;
+			margin-bottom: 3rem;
+		}
+
+		.topic-item {
+			background: white;
+			border-radius: 10px;
+			padding: 1rem 1.5rem;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.3s ease;
+			text-align: center;
+		}
+
+		.topic-item:hover {
+			transform: translateY(-5px);
+			background: var(--gradient-web);
+			color: white;
+		}
+
+		.topic-item a {
+			color: inherit;
+			text-decoration: none;
+			font-weight: 500;
+			display: block;
+		}
+
+		/* Web Development Paths */
+		.paths-section {
+			background: var(--gradient-dark);
+			color: white;
+			padding: 80px 0;
+		}
+
+		.paths-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+			gap: 2rem;
+			margin-top: 3rem;
+		}
+
+		.path-card {
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 15px;
+			padding: 2.5rem;
+			text-align: center;
+			transition: all 0.3s ease;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.path-card:hover {
+			transform: translateY(-10px);
+			background: rgba(255, 255, 255, 0.1);
+			border-color: var(--accent);
+		}
+
+		.path-icon {
+			font-size: 3rem;
+			color: var(--accent);
+			margin-bottom: 1.5rem;
+			display: block;
+		}
+
+		.path-card h3 {
+			font-size: 1.5rem;
+			margin-bottom: 1rem;
+			color: white;
+		}
+
+		.path-card p {
+			color: #94a3b8;
+			font-size: 1rem;
+			line-height: 1.6;
+			margin-bottom: 1.5rem;
+		}
+
+		.path-tech {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			justify-content: center;
+		}
+
+		.path-tech span {
+			background: rgba(255, 255, 255, 0.1);
+			padding: 0.4rem 0.8rem;
+			border-radius: 20px;
+			font-size: 0.85rem;
+		}
+
+		/* Videos Section */
+		.videos-section {
+			background: var(--light);
+			padding: 80px 0;
+		}
+
+		.tech-section {
+			margin-bottom: 4rem;
+		}
+
+		.tech-section-title {
+			font-size: 2rem;
+			margin-bottom: 2rem;
+			text-align: center;
+			color: var(--dark);
+			font-weight: 700;
+		}
+
+		.videos-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+			gap: 2rem;
+		}
+
+		.video-card {
+			background: white;
+			border-radius: 15px;
+			overflow: hidden;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.3s ease;
+			border: 1px solid var(--lighter);
+			position: relative;
+		}
+
+		.video-card:hover {
+			transform: translateY(-10px);
+			box-shadow: var(--shadow-xl);
+			border-color: var(--html-color);
+		}
+
+		.video-tag {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			background: var(--gradient-web);
+			color: white;
+			padding: 0.4rem 0.8rem;
+			border-radius: 50px;
+			font-size: 0.75rem;
+			font-weight: 600;
+			z-index: 2;
+		}
+
+		.video-thumbnail {
+			position: relative;
+			height: 200px;
+			overflow: hidden;
+			cursor: pointer;
+		}
+
+		.video-thumbnail img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.3s ease;
+		}
+
+		.video-card:hover .video-thumbnail img {
+			transform: scale(1.05);
+		}
+
+		.video-play {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 60px;
+			height: 60px;
+			background: rgba(255, 255, 255, 0.9);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.5rem;
+			color: var(--html-color);
+			opacity: 0;
+			transition: all 0.3s ease;
+			cursor: pointer;
+			z-index: 2;
+		}
+
+		.video-card:hover .video-play {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1.1);
+		}
+
+		.video-info {
+			padding: 1.5rem;
+		}
+
+		.video-info h3 {
+			font-size: 1.1rem;
+			margin-bottom: 0.75rem;
+			color: var(--dark);
+		}
+
+		.video-info p {
+			color: var(--gray);
+			font-size: 0.9rem;
+			line-height: 1.5;
+			margin-bottom: 1rem;
+		}
+
+		.full-playlist {
+			text-align: center;
+			margin-top: 3rem;
+		}
+
+		/* Footer */
+		footer {
+			background: var(--darker);
+			color: white;
+			padding: 60px 0 30px;
+		}
+
+		.footer-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+			gap: 3rem;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		.footer-logo img {
+			height: 50px;
+			margin-bottom: 1.5rem;
+			filter: brightness(0) invert(1);
+		}
+
+		.footer-about {
+			color: #94a3b8;
+			margin-bottom: 1.5rem;
+			line-height: 1.6;
+		}
+
+		.social-media {
+			display: flex;
+			gap: 1rem;
+			margin-bottom: 2rem;
+		}
+
+		.social-media a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50%;
+			transition: all 0.3s ease;
+		}
+
+		.social-media a:hover {
+			background: var(--html-color);
+			transform: translateY(-3px);
+		}
+
+		.social-media img {
+			width: 20px;
+			height: 20px;
+			filter: brightness(0) invert(1);
+		}
+
+		.footer-contact {
+			color: #94a3b8;
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		.footer-contact i {
+			color: var(--accent);
+			margin-right: 10px;
+			width: 20px;
+		}
+
+		.footer-newsletter h3 {
+			color: white;
+			font-size: 1.25rem;
+			margin-bottom: 1rem;
+		}
+
+		.newsletter-form {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			margin-top: 1.5rem;
+		}
+
+		.txtb {
+			padding: 0.875rem 1rem;
+			border: none;
+			border-radius: 50px;
+			outline: none;
+			font-size: 0.95rem;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			width: 100%;
+		}
+
+		.txtb::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		.footer-bottom {
+			text-align: center;
+			padding-top: 2rem;
+			margin-top: 3rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			color: #64748b;
+			font-size: 0.85rem;
+			line-height: 1.5;
+		}
+
+		/* Mobile Styles */
+		@media (max-width: 768px) {
+			.nav {
+				padding: 1rem;
+			}
+
+			.nav-links {
+				display: none;
+				position: fixed;
+				top: 64px;
+				left: 0;
+				width: 100%;
+				background: var(--darker);
+				flex-direction: column;
+				padding: 20px;
+				gap: 1rem;
+				box-shadow: var(--shadow-xl);
+			}
+
+			.nav-links.active {
+				display: flex;
+			}
+
+			.switch-tab {
+				display: block;
+			}
+
+			.search {
+				display: none;
+			}
+
+			.hero-section {
+				padding: 60px 0;
+			}
+
+			.tech-stack {
+				gap: 1rem;
+			}
+
+			.tech-item {
+				padding: 1rem;
+				min-width: 100px;
+			}
+
+			.course-section,
+			.paths-section,
+			.videos-section {
+				padding: 60px 0;
+			}
+
+			.footer-container {
+				grid-template-columns: 1fr;
+				gap: 2rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav {
+				padding: 0.75rem;
+			}
+
+			.hero-title {
+				font-size: 2rem;
+			}
+
+			.hero-description {
+				font-size: 1rem;
+			}
+
+			.tech-stack {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.course-grid,
+			.paths-grid,
+			.topics-grid,
+			.videos-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.course-card,
+			.path-card,
+			.video-card {
+				padding: 1.5rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<header>
+		<div class="nav">
+			<div id="learned-logo">
+				<a href="../index.html"><img src="../images/icon/logo.png" alt="CLIN-TECH Logo"></a>
+			</div>
+
+			<button class="switch-tab" id="menuToggle" type="button" aria-controls="navLinks" aria-expanded="false"
+				aria-label="Open menu">
+				<i class="fas fa-bars"></i>
+			</button>
+
+			<ul class="nav-links" id="navLinks">
+				<li><a href="python.html"><img src="../images/courses/python.png" class="icon" alt="Python">Python</a>
+				</li>
+				<li><a href="webdev.html" class="active"><img src="../images/courses/d1.png" class="icon"
+							alt="Web Dev">Web Development</a></li>
+				<li><a href="java.html"><img src="../images/courses/java.png" class="icon" alt="Java">Java</a></li>
+				<li><a href="data_structures.html"><img src="../images/courses/data.png" class="icon"
+							alt="Data Structures">Data Structures</a></li>
+				<li><a href="c++.html"><img src="../images/courses/c++.png" class="icon" alt="C++">C++</a></li>
+			</ul>
+
+			<div class="search">
+				<input type="search" placeholder="Search courses..." class="srch">
+				<button id="srchbtn"><i class="fas fa-search"></i></button>
+			</div>
+		</div>
+	</header>
+
+	<!-- Hero Section -->
+	<section class="hero-section">
+		<div class="web-bg" id="webBg"></div>
+		<div class="container">
+			<div class="hero-content">
+				<h1 class="hero-title">Master Full Stack Web Development</h1>
+				<p class="hero-description">
+					Web development is the process of creating websites and web applications.
+					Learn both frontend and backend technologies to build complete, modern web solutions.
+				</p>
+
+				<div class="tech-stack">
+					<div class="tech-item html">
+						<i class="fab fa-html5"></i>
+						<h4>HTML5</h4>
+						<p>Structure</p>
+					</div>
+					<div class="tech-item css">
+						<i class="fab fa-css3-alt"></i>
+						<h4>CSS3</h4>
+						<p>Styling</p>
+					</div>
+					<div class="tech-item js">
+						<i class="fab fa-js-square"></i>
+						<h4>JavaScript</h4>
+						<p>Interactivity</p>
+					</div>
+					<div class="tech-item react">
+						<i class="fab fa-react"></i>
+						<h4>React</h4>
+						<p>UI Framework</p>
+					</div>
+					<div class="tech-item node">
+						<i class="fab fa-node-js"></i>
+						<h4>Node.js</h4>
+						<p>Backend</p>
+					</div>
+				</div>
+
+				<a href="https://www.w3schools.com/htmlcss/default.asp" class="btn btn-primary">
+					<i class="fas fa-play-circle"></i> Start Learning Now
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Course Cards -->
+	<section class="course-section">
+		<div class="container">
+			<h2 class="section-title">Explore Related Courses</h2>
+			<p class="section-subtitle">Master complementary skills to become a complete developer</p>
+
+			<div class="course-grid">
+				<div class="course-card" onclick="window.location.href='python.html'">
+					<div class="course-icon">
+						<i class="fab fa-python"></i>
+					</div>
+					<h3>Python Programming</h3>
+					<p>Master Python for data science, automation, and backend development with hands-on projects.</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 10 Weeks</span>
+						<span><i class="fas fa-signal"></i> Beginner</span>
+					</div>
+				</div>
+
+				<div class="course-card" onclick="window.location.href='java.html'">
+					<div class="course-icon">
+						<i class="fab fa-java"></i>
+					</div>
+					<h3>Java & Spring Boot</h3>
+					<p>Master Java fundamentals and enterprise development with Spring Boot framework.</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 10 Weeks</span>
+						<span><i class="fas fa-signal"></i> Beginner</span>
+					</div>
+				</div>
+
+				<div class="course-card" onclick="window.location.href='c++.html'">
+					<div class="course-icon">
+						<i class="fab fa-cuttlefish"></i>
+					</div>
+					<h3>C++ Programming</h3>
+					<p>Master system programming, memory management, and high-performance computing.</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 8 Weeks</span>
+						<span><i class="fas fa-signal"></i> Intermediate</span>
+					</div>
+				</div>
+
+				<div class="course-card" onclick="window.location.href='data_structures.html'">
+					<div class="course-icon">
+						<i class="fas fa-project-diagram"></i>
+					</div>
+					<h3>Data Structures & Algorithms</h3>
+					<p>Master algorithms and data structures essential for coding interviews and efficient programming.
+					</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 8 Weeks</span>
+						<span><i class="fas fa-signal"></i> Advanced</span>
+					</div>
+				</div>
+			</div>
+
+			<h3 class="section-title" style="font-size: 1.75rem; margin-bottom: 2rem;">Web Development Topics</h3>
+			<div class="topics-grid">
+				<div class="topic-item"><a href="#html">HTML5</a></div>
+				<div class="topic-item"><a href="#css">CSS3 & Flexbox</a></div>
+				<div class="topic-item"><a href="#javascript">JavaScript ES6+</a></div>
+				<div class="topic-item"><a href="#react">React.js</a></div>
+				<div class="topic-item"><a href="#node">Node.js</a></div>
+				<div class="topic-item"><a href="#database">Databases</a></div>
+				<div class="topic-item"><a href="#api">REST APIs</a></div>
+				<div class="topic-item"><a href="#deployment">Deployment</a></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Web Development Paths -->
+	<section class="paths-section">
+		<div class="container">
+			<h2 class="section-title">Web Development Paths</h2>
+			<p class="section-subtitle">Choose your specialization based on your interests and career goals</p>
+
+			<div class="paths-grid">
+				<div class="path-card">
+					<i class="fas fa-paint-brush path-icon"></i>
+					<h3>Frontend Development</h3>
+					<p>Create beautiful, responsive user interfaces using modern web technologies</p>
+					<div class="path-tech">
+						<span>HTML5</span>
+						<span>CSS3</span>
+						<span>JavaScript</span>
+						<span>React</span>
+						<span>Vue.js</span>
+					</div>
+				</div>
+
+				<div class="path-card">
+					<i class="fas fa-server path-icon"></i>
+					<h3>Backend Development</h3>
+					<p>Build server-side logic, APIs, and database interactions for web applications</p>
+					<div class="path-tech">
+						<span>Node.js</span>
+						<span>Express</span>
+						<span>Python</span>
+						<span>Java</span>
+						<span>PHP</span>
+					</div>
+				</div>
+
+				<div class="path-card">
+					<i class="fas fa-layer-group path-icon"></i>
+					<h3>Full Stack Development</h3>
+					<p>Master both frontend and backend technologies to build complete web applications</p>
+					<div class="path-tech">
+						<span>MERN Stack</span>
+						<span>MEAN Stack</span>
+						<span>LAMP Stack</span>
+						<span>Django</span>
+						<span>Spring Boot</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Videos Section -->
+	<section class="videos-section" id="videos">
+		<div class="container">
+			<h2 class="section-title">Master Web Development</h2>
+			<p class="section-subtitle">Complete video series from basics to advanced concepts</p>
+
+			<!-- HTML/CSS Videos -->
+			<div class="tech-section" id="html_css">
+				<h3 class="tech-section-title">HTML & CSS Tutorials</h3>
+				<div class="videos-grid">
+					<div class="video-card">
+						<span class="video-tag">1/8</span>
+						<div class="video-thumbnail">
+							<img src="https://img.youtube.com/vi/TKYsuU86-DQ/maxresdefault.jpg" alt="HTML Basics">
+							<div class="video-play">
+								<i class="fas fa-play"></i>
+							</div>
+						</div>
+						<div class="video-info">
+							<h3>HTML5 Introduction</h3>
+							<p>Learn HTML5 structure, tags, and semantic elements for modern web pages.</p>
+							<button class="btn btn-primary watch-video-btn"
+								data-video-url="https://www.youtube.com/watch?v=TKYsuU86-DQ">
+								<i class="fas fa-play"></i> Watch Now
+							</button>
+						</div>
+					</div>
+
+					<div class="video-card">
+						<span class="video-tag">2/8</span>
+						<div class="video-thumbnail">
+							<img src="https://img.youtube.com/vi/1PnVor36_40/maxresdefault.jpg" alt="CSS Basics">
+							<div class="video-play">
+								<i class="fas fa-play"></i>
+							</div>
+						</div>
+						<div class="video-info">
+							<h3>CSS3 Fundamentals</h3>
+							<p>Master CSS selectors, properties, box model, and responsive design.</p>
+							<button class="btn btn-primary watch-video-btn"
+								data-video-url="https://www.youtube.com/watch?v=1PnVor36_40">
+								<i class="fas fa-play"></i> Watch Now
+							</button>
+						</div>
+					</div>
+
+					<div class="video-card">
+						<span class="video-tag">3/8</span>
+						<div class="video-thumbnail">
+							<img src="https://img.youtube.com/vi/jx5jmI0UlXU/maxresdefault.jpg" alt="Flexbox">
+							<div class="video-play">
+								<i class="fas fa-play"></i>
+							</div>
+						</div>
+						<div class="video-info">
+							<h3>CSS Flexbox</h3>
+							<p>Learn modern layout techniques with CSS Flexbox for responsive designs.</p>
+							<button class="btn btn-primary watch-video-btn"
+								data-video-url="https://www.youtube.com/watch?v=jx5jmI0UlXU">
+								<i class="fas fa-play"></i> Watch Now
+							</button>
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="full-playlist">
+					<a href="https://www.youtube.com/watch?v=TKYsuU86-DQ&list=PL4cUxeGkcC9ivBf_eKCPIAYXWzLlPAm6G"
+						target="_blank" class="btn btn-secondary">
+						<i class="fab fa-youtube"></i> Watch HTML/CSS Full Playlist
+					</a>
+				</div>
+			</div>
+
+			<!-- JavaScript Videos -->
+			<div class="tech-section" id="javascript">
+				<h3 class="tech-section-title">JavaScript Tutorials</h3>
+				<div class="videos-grid">
+					<div class="video-card">
+						<span class="video-tag">1/3</span>
+						<div class="video-thumbnail">
+							<img src="https://img.youtube.com/vi/uDwSnnhl1Ng/maxresdefault.jpg" alt="JS Basics">
+							<div class="video-play">
+								<i class="fas fa-play"></i>
+							</div>
+						</div>
+						<div class="video-info">
+							<h3>JavaScript Fundamentals</h3>
+							<p>Learn variables, data types, operators, and basic JavaScript syntax.</p>
+							<button class="btn btn-primary watch-video-btn"
+								data-video-url="https://www.youtube.com/watch?v=uDwSnnhl1Ng">
+								<i class="fas fa-play"></i> Watch Now
+							</button>
+						</div>
+					</div>
+
+					<div class="video-card">
+						<span class="video-tag">2/3</span>
+						<div class="video-thumbnail">
+							<img src="https://img.youtube.com/vi/hdI2bqOjy3c/maxresdefault.jpg" alt="JS Functions">
+							<div class="video-play">
+								<i class="fas fa-play"></i>
+							</div>
+						</div>
+						<div class="video-info">
+							<h3>Functions & Scope</h3>
+							<p>Master functions, arrow functions, and variable scope in JavaScript.</p>
+							<button class="btn btn-primary watch-video-btn"
+								data-video-url="https://www.youtube.com/watch?v=hdI2bqOjy3c">
+								<i class="fas fa-play"></i> Watch Now
+							</button>
+						</div>
+					</div>
+
+					<div class="video-card">
+						<span class="video-tag">3/3</span>
+						<div class="video-thumbnail">
+							<img src="https://img.youtube.com/vi/9M4XKi25I2M/maxresdefault.jpg" alt="DOM Manipulation">
+							<div class="video-play">
+								<i class="fas fa-play"></i>
+							</div>
+						</div>
+						<div class="video-info">
+							<h3>DOM Manipulation</h3>
+							<p>Learn to interact with and manipulate web page elements.</p>
+							<button class="btn btn-primary watch-video-btn"
+								data-video-url="https://www.youtube.com/watch?v=9M4XKi25I2M">
+								<i class="fas fa-play"></i> Watch Now
+							</button>
+						</div>
+					</div>
+
+					<div class="video-card">
+						<span class="video-tag">4/8</span>
+						<div class="video-thumbnail">
+							<img src="https://img.youtube.com/vi/4lqI7B7e3dQ/maxresdefault.jpg" alt="ES6+ Features">
+							<div class="video-play">
+								<i class="fas fa-play"></i>
+							</div>
+						</div>
+						<div class="video-info">
+							<h3>ES6+ Modern Features</h3>
+							<p>Master let/const, template literals, destructuring, and modern syntax.</p>
+							<button class="btn btn-primary watch-video-btn"
+								data-video-url="https://www.youtube.com/watch?v=4lqI7B7e3dQ">
+								<i class="fas fa-play"></i> Watch Now
+							</button>
+						</div>
+					</div>
+
+					<div class="video-card">
+						<span class="video-tag">5/8</span>
+						<div class="video-thumbnail">
+							<img src="https://img.youtube.com/vi/PkZNo7MFNFg/maxresdefault.jpg" alt="Async JS">
+							<div class="video-play">
+								<i class="fas fa-play"></i>
+							</div>
+						</div>
+						<div class="video-info">
+							<h3>Async JavaScript</h3>
+							<p>Learn promises, async/await, and handling asynchronous operations.</p>
+							<button class="btn btn-primary watch-video-btn"
+								data-video-url="https://www.youtube.com/watch?v=PkZNo7MFNFg">
+								<i class="fas fa-play"></i> Watch Now
+							</button>
+						</div>
+					</div>
+
+					<div class="video-card">
+						<span class="video-tag">6/8</span>
+						<div class="video-thumbnail">
+							<img src="https://img.youtube.com/vi/DHvZLI7Db8E/maxresdefault.jpg" alt="Fetch API">
+							<div class="video-play">
+								<i class="fas fa-play"></i>
+							</div>
+						</div>
+						<div class="video-info">
+							<h3>Fetch API & AJAX</h3>
+							<p>Make HTTP requests and work with APIs in JavaScript.</p>
+							<button class="btn btn-primary watch-video-btn"
+								data-video-url="https://www.youtube.com/watch?v=DHvZLI7Db8E">
+								<i class="fas fa-play"></i> Watch Now
+							</button>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="full-playlist">
+					<a href="https://www.youtube.com/watch?v=uDwSnnhl1Ng&list=PL4cUxeGkcC9i9Ae2D9Ee1RvylH38dKuET"
+						target="_blank" class="btn btn-secondary">
+						<i class="fab fa-youtube"></i> Watch JavaScript Full Playlist
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<div class="footer-container">
+			<div class="footer-col">
+				<div class="footer-logo">
+					<img src="../images/icon/logo.png" alt="CLIN-TECH Logo">
+				</div>
+				<p class="footer-about">
+					CLIN-TECH Code Camp is dedicated to transforming beginners into professional programmers through
+					hands-on, industry-relevant training.
+				</p>
+				<div class="social-media">
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-linkedin-in"></i></a>
+					<a href="#"><i class="fab fa-youtube"></i></a>
+				</div>
+			</div>
+
+			<div class="footer-col">
+				<h3>Contact Info</h3>
+				<div class="footer-contact">
+					<p><i class="fas fa-map-marker-alt"></i> Multimedia Lab, Rongai, Nairobi-00100</p>
+					<p><i class="fas fa-phone"></i> +254-707-326-661</p>
+					<p><i class="fas fa-envelope"></i> mjanjezclint@gmail.com</p>
+					<p><i class="far fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+				</div>
+			</div>
+
+			<div class="footer-col">
+				<div class="footer-newsletter">
+					<h3>Our Newsletter</h3>
+					<p>Get updates on new courses, coding tips, and industry insights.</p>
+					<form class="newsletter-form">
+						<input type="email" placeholder="Enter Your Email" class="txtb" required>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-paper-plane"></i> Subscribe
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<p>Copyright © 2025 CLIN-TECH Code Camp. All Rights Reserved. | Designed by clintonmogoi</p>
+		</div>
+	</footer>
+
+	<script>
+		// Generate animated background with web development code snippets
+		function generateWebBackground() {
+			const webBg = document.getElementById('webBg');
+			const codeSnippets = [
+				'<!DOCTYPE html>',
+				'<html lang="en">',
+				'<head>',
+				'<meta charset="UTF-8">',
+				'<title>My Website</title>',
+				'</head>',
+				'<body>',
+				'<div class="container">',
+				'<h1>Hello World</h1>',
+				'</div>',
+				'</body>',
+				'</html>',
+				'.container {',
+				'display: flex;',
+				'justify-content: center;',
+				'align-items: center;',
+				'}',
+				'const greeting = "Hello";',
+				'function sayHello() {',
+				'console.log(greeting);',
+				'}',
+				'sayHello();'
+			];
+
+			for (let i = 0; i < 15; i++) {
+				const snippet = document.createElement('div');
+				snippet.className = 'code-snippet';
+				snippet.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+				snippet.style.left = `${Math.random() * 100}%`;
+				snippet.style.top = `${Math.random() * 100}%`;
+				snippet.style.animationDelay = `${Math.random() * 10}s`;
+				snippet.style.animationDuration = `${15 + Math.random() * 20}s`;
+				webBg.appendChild(snippet);
+			}
+		}
+
+		// Mobile menu toggle (accessible, robust)
+		function initMobileMenu() {
+			const menuToggle = document.getElementById('menuToggle');
+			const navLinks = document.getElementById('navLinks');
+			if (!menuToggle || !navLinks) return;
+
+			const setState = () => {
+				const isOpen = navLinks.classList.contains('active');
+				menuToggle.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+				menuToggle.setAttribute('aria-expanded', isOpen.toString());
+				document.body.classList.toggle('menu-open', isOpen);
+			};
+
+			menuToggle.addEventListener('click', (e) => {
+				e.stopPropagation();
+				navLinks.classList.toggle('active');
+				setState();
+			});
+
+			document.addEventListener('click', (e) => {
+				if (!navLinks.contains(e.target) && !menuToggle.contains(e.target) && navLinks.classList.contains('active')) {
+					navLinks.classList.remove('active');
+					setState();
+				}
+			});
+
+			navLinks.querySelectorAll('a').forEach(link => {
+				link.addEventListener('click', () => {
+					navLinks.classList.remove('active');
+					setState();
+				});
+			});
+
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+					navLinks.classList.remove('active');
+					setState();
+				}
+			});
+
+			// initialize state
+			menuToggle.setAttribute('aria-controls', 'navLinks');
+			menuToggle.setAttribute('aria-expanded', 'false');
+			setState();
+		}
+
+		// Function to open YouTube video directly
+		function openYouTubeVideo(url) {
+			// Open YouTube video in a new tab
+			window.open(url, '_blank');
+		}
+
+		// Initialize video button click handlers
+		function initVideoPlayback() {
+			// Add click handlers to all "Watch Now" buttons
+			document.querySelectorAll('.watch-video-btn').forEach(button => {
+				button.addEventListener('click', function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+
+					// Get the YouTube URL from data attribute
+					const videoUrl = this.getAttribute('data-video-url');
+
+					if (videoUrl) {
+						// Open YouTube video directly
+						openYouTubeVideo(videoUrl);
+					} else {
+						console.error('No video URL found for button:', this);
+					}
+				});
+			});
+
+			// Also make the video thumbnail clickable
+			document.querySelectorAll('.video-thumbnail, .video-play').forEach(element => {
+				element.addEventListener('click', function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+
+					// Find the nearest video card
+					const videoCard = this.closest('.video-card');
+					if (videoCard) {
+						// Find the watch button inside this video card
+						const watchButton = videoCard.querySelector('.watch-video-btn');
+						if (watchButton) {
+							const videoUrl = watchButton.getAttribute('data-video-url');
+							if (videoUrl) {
+								openYouTubeVideo(videoUrl);
+							}
+						}
+					}
+				});
+			});
+
+			// Make the entire video card clickable (except the button itself)
+			document.querySelectorAll('.video-card').forEach(card => {
+				card.addEventListener('click', function (e) {
+					// Don't trigger if clicking on the button
+					if (!e.target.closest('.watch-video-btn')) {
+						const watchButton = this.querySelector('.watch-video-btn');
+						if (watchButton) {
+							const videoUrl = watchButton.getAttribute('data-video-url');
+							if (videoUrl) {
+								openYouTubeVideo(videoUrl);
+							}
+						}
+					}
+				});
+			});
+		}
+
+		// Search functionality
+		function initSearch() {
+			const searchBtn = document.getElementById('srchbtn');
+			const searchInput = document.querySelector('.srch');
+
+			if (searchBtn && searchInput) {
+				searchBtn.addEventListener('click', () => {
+					const query = searchInput.value.trim();
+					if (query) {
+						alert(`Searching for: ${query}`);
+						// Implement actual search functionality here
+					}
+				});
+
+				searchInput.addEventListener('keypress', (e) => {
+					if (e.key === 'Enter') {
+						searchBtn.click();
+					}
+				});
+			}
+		}
+
+		// Newsletter form
+		function initNewsletter() {
+			const form = document.querySelector('.newsletter-form');
+			if (form) {
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+					const email = form.querySelector('input[type="email"]').value;
+					if (email) {
+						alert(`Thank you for subscribing with ${email}! You'll receive our newsletter soon.`);
+						form.reset();
+					}
+				});
+			}
+		}
+
+		// Course card animations
+		function initCourseCards() {
+			const cards = document.querySelectorAll('.course-card, .path-card');
+			cards.forEach(card => {
+				card.addEventListener('mouseenter', () => {
+					card.style.transform = 'translateY(-10px) scale(1.02)';
+				});
+				card.addEventListener('mouseleave', () => {
+					card.style.transform = 'translateY(0) scale(1)';
+				});
+			});
+		}
+
+		// Smooth scrolling for anchor links
+		function initSmoothScroll() {
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+					const targetId = this.getAttribute('href');
+					if (targetId === '#') return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						window.scrollTo({
+							top: targetElement.offsetTop - 80,
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+		}
+
+		// Initialize everything
+		document.addEventListener('DOMContentLoaded', () => {
+			generateWebBackground();
+			initMobileMenu();
+			initVideoPlayback();
+			initSearch();
+			initNewsletter();
+			initCourseCards();
+			initSmoothScroll();
+		});
+	</script>
+</body>
+
+</html>

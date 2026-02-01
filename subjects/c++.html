@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>C/C++ Programming | CLIN-TECH Code Camp</title>
+	<meta name="description"
+		content="Master C/C++ programming from beginner to advanced level. Learn system programming, memory management, and high-performance computing.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="png" href="../images/icon/favicon.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+	<style>
+		/* Modern CSS Reset & Base Styles */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+		}
+
+		:root {
+			--primary: #2563eb;
+			--primary-dark: #1d4ed8;
+			--secondary: #7c3aed;
+			--accent: #06b6d4;
+			--dark: #0f172a;
+			--darker: #020617;
+			--light: #f8fafc;
+			--lighter: #f1f5f9;
+			--gray: #64748b;
+			--gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+			--gradient-dark: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+			--shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+			--shadow-xl: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+			--shadow-primary: 0 10px 30px rgba(37, 99, 235, 0.2);
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			background-color: var(--light);
+			color: var(--dark);
+			line-height: 1.6;
+			overflow-x: hidden;
+		}
+
+		.container {
+			max-width: 1280px;
+			margin: 0 auto;
+			padding: 0 20px;
+			width: 100%;
+		}
+
+		.btn {
+			padding: 0.875rem 1.75rem;
+			border-radius: 50px;
+			font-weight: 600;
+			font-size: 1rem;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			border: none;
+			cursor: pointer;
+			white-space: nowrap;
+		}
+
+		.btn-primary {
+			background: var(--gradient-primary);
+			color: white;
+			box-shadow: var(--shadow-primary);
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.btn-secondary {
+			background: white;
+			color: var(--primary);
+			border: 2px solid var(--primary);
+		}
+
+		.btn-secondary:hover {
+			background: var(--primary);
+			color: white;
+			transform: translateY(-3px);
+		}
+
+		/* Navigation */
+		header {
+			background: var(--darker);
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+			box-shadow: var(--shadow-lg);
+		}
+
+		.nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 2rem;
+			max-width: 1400px;
+			margin: 0 auto;
+		}
+
+		#learned-logo img {
+			height: 40px;
+			width: auto;
+			filter: brightness(0) invert(1);
+			transition: transform 0.3s ease;
+		}
+
+		#learned-logo:hover img {
+			transform: scale(1.05);
+		}
+
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: 1.5rem;
+			align-items: center;
+		}
+
+		.nav-links a {
+			color: white;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 0.95rem;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 0.75rem 1.25rem;
+			border-radius: 8px;
+		}
+
+		.nav-links a:hover {
+			background: rgba(37, 99, 235, 0.2);
+			color: var(--accent);
+			transform: translateY(-2px);
+		}
+
+		.nav-links a.active {
+			background: var(--gradient-primary);
+			color: white;
+			font-weight: 600;
+			box-shadow: var(--shadow-primary);
+		}
+
+		.search {
+			display: flex;
+			align-items: center;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50px;
+			padding: 0.5rem 1rem;
+			transition: all 0.3s ease;
+			border: 1px solid transparent;
+		}
+
+		.search:focus-within {
+			background: rgba(255, 255, 255, 0.15);
+			border-color: var(--primary);
+			box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+		}
+
+		.srch {
+			border: none;
+			background: transparent;
+			color: white;
+			width: 200px;
+			padding: 0.5rem;
+			outline: none;
+			font-size: 0.9rem;
+		}
+
+		.srch::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		#srchbtn {
+			background: none;
+			border: none;
+			color: white;
+			cursor: pointer;
+			padding: 0;
+			font-size: 1rem;
+			transition: transform 0.3s ease;
+		}
+
+		#srchbtn:hover {
+			transform: scale(1.1);
+			color: var(--accent);
+		}
+
+		/* Mobile Menu Toggle - IMPROVED */
+		.switch-tab {
+			display: none;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 44px;
+			height: 44px;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			padding: 0;
+			z-index: 1002;
+			position: relative;
+		}
+
+		.hamburger-line {
+			width: 24px;
+			height: 2px;
+			background-color: white;
+			border-radius: 2px;
+			transition: all 0.3s ease;
+			position: absolute;
+		}
+
+		.hamburger-line:nth-child(1) {
+			transform: translateY(-8px);
+		}
+
+		.hamburger-line:nth-child(2) {
+			width: 18px;
+		}
+
+		.hamburger-line:nth-child(3) {
+			transform: translateY(8px);
+		}
+
+		.switch-tab.active .hamburger-line:nth-child(1) {
+			transform: rotate(45deg) translateY(0);
+			width: 24px;
+		}
+
+		.switch-tab.active .hamburger-line:nth-child(2) {
+			opacity: 0;
+			transform: translateX(-20px);
+		}
+
+		.switch-tab.active .hamburger-line:nth-child(3) {
+			transform: rotate(-45deg) translateY(0);
+			width: 24px;
+		}
+
+		/* Mobile Navigation - FIXED */
+		@media (max-width: 992px) {
+			.switch-tab {
+				display: flex;
+			}
+
+			.nav-links {
+				position: fixed;
+				top: 80px;
+				left: 0;
+				right: 0;
+				background: rgba(2, 6, 23, 0.98);
+				backdrop-filter: blur(20px);
+				flex-direction: column;
+				padding: 2rem;
+				gap: 1rem;
+				transform: translateY(-100%);
+				opacity: 0;
+				visibility: hidden;
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				z-index: 998;
+				border-top: 1px solid rgba(255, 255, 255, 0.1);
+				box-shadow: var(--shadow-xl);
+				max-height: calc(100vh - 80px);
+				overflow-y: auto;
+			}
+
+			.nav-links.active {
+				transform: translateY(0);
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.nav-links li {
+				width: 100%;
+			}
+
+			.nav-links a {
+				display: block;
+				padding: 1.25rem;
+				font-size: 1.1rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+				width: 100%;
+				border-radius: 12px;
+				margin-bottom: 0.5rem;
+			}
+
+			.nav-links a:hover {
+				background: rgba(37, 99, 235, 0.3);
+				border-radius: 12px;
+				padding-left: 1.5rem;
+			}
+
+			.search {
+				display: none;
+			}
+
+			.mobile-search {
+				display: block;
+				width: 100%;
+				margin-top: 1rem;
+			}
+
+			.mobile-search .search {
+				display: flex;
+				width: 100%;
+			}
+
+			.mobile-search .srch {
+				width: 100%;
+			}
+		}
+
+		/* Hero Section */
+		.hero-section {
+			background: linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.95)),
+				url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+			background-size: cover;
+			background-position: center;
+			color: white;
+			padding: 100px 0;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.tech-bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			z-index: 0;
+			opacity: 0.3;
+		}
+
+		.code-snippet {
+			position: absolute;
+			font-family: 'Courier New', monospace;
+			color: rgba(96, 165, 250, 0.3);
+			font-size: 14px;
+			animation: floatCode 20s linear infinite;
+			text-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+		}
+
+		@keyframes floatCode {
+			0% {
+				transform: translateY(100vh) translateX(-100px);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 0.5;
+			}
+
+			90% {
+				opacity: 0.5;
+			}
+
+			100% {
+				transform: translateY(-100px) translateX(100px);
+				opacity: 0;
+			}
+		}
+
+		.hero-content {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		.hero-title {
+			font-size: clamp(2.5rem, 5vw, 4rem);
+			font-weight: 900;
+			line-height: 1.1;
+			margin-bottom: 1.5rem;
+			background: linear-gradient(135deg, #60a5fa, #c084fc);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+		}
+
+		.hero-description {
+			font-size: clamp(1.1rem, 2vw, 1.3rem);
+			color: #cbd5e1;
+			margin-bottom: 2.5rem;
+			line-height: 1.7;
+		}
+
+		.hero-stats {
+			display: flex;
+			justify-content: center;
+			gap: 3rem;
+			flex-wrap: wrap;
+			margin-top: 3rem;
+		}
+
+		.stat-item {
+			text-align: center;
+		}
+
+		.stat-number {
+			font-size: clamp(2rem, 4vw, 2.5rem);
+			font-weight: 800;
+			color: var(--accent);
+			display: block;
+			margin-bottom: 0.5rem;
+		}
+
+		.stat-label {
+			color: #94a3b8;
+			font-size: 0.9rem;
+			font-weight: 500;
+		}
+
+		/* Course Grid */
+		.course-section {
+			padding: 80px 0;
+			background: var(--light);
+			position: relative;
+		}
+
+		.section-title {
+			text-align: center;
+			font-size: clamp(2rem, 4vw, 3rem);
+			font-weight: 800;
+			color: var(--dark);
+			margin-bottom: 1rem;
+		}
+
+		.section-subtitle {
+			text-align: center;
+			color: var(--gray);
+			font-size: 1.15rem;
+			max-width: 700px;
+			margin: 0 auto 3rem;
+			line-height: 1.7;
+		}
+
+		.course-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+			gap: 2rem;
+			margin-bottom: 3rem;
+		}
+
+		.course-card {
+			background: white;
+			border-radius: 20px;
+			padding: 2rem;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			text-align: center;
+			border: 2px solid transparent;
+			cursor: pointer;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.course-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 5px;
+			background: var(--gradient-primary);
+		}
+
+		.course-card:hover {
+			transform: translateY(-15px) scale(1.02);
+			box-shadow: var(--shadow-xl), 0 20px 40px rgba(37, 99, 235, 0.15);
+			border-color: var(--primary);
+		}
+
+		.course-icon {
+			width: 80px;
+			height: 80px;
+			background: var(--gradient-primary);
+			border-radius: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 1.5rem;
+			font-size: 2rem;
+			color: white;
+			transition: transform 0.4s ease;
+			box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+		}
+
+		.course-card:hover .course-icon {
+			transform: rotateY(180deg) scale(1.1);
+		}
+
+		.course-card h3 {
+			color: var(--dark);
+			margin-bottom: 0.75rem;
+			font-size: 1.25rem;
+			font-weight: 700;
+			line-height: 1.3;
+		}
+
+		.course-card p {
+			color: var(--gray);
+			line-height: 1.5;
+			font-size: 0.95rem;
+			margin-bottom: 1rem;
+		}
+
+		.course-meta {
+			display: flex;
+			justify-content: space-between;
+			color: var(--gray);
+			font-size: 0.85rem;
+			padding-top: 1rem;
+			border-top: 1px solid var(--lighter);
+		}
+
+		/* Topics Grid */
+		.topics-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+			gap: 1rem;
+			margin-bottom: 3rem;
+		}
+
+		.topic-item {
+			background: white;
+			border-radius: 12px;
+			padding: 1.2rem 1.5rem;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.3s ease;
+			text-align: center;
+			border: 2px solid transparent;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.topic-item::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 4px;
+			background: var(--gradient-primary);
+			transform: scaleX(0);
+			transition: transform 0.3s ease;
+		}
+
+		.topic-item:hover::before {
+			transform: scaleX(1);
+		}
+
+		.topic-item:hover {
+			transform: translateY(-8px);
+			background: var(--gradient-primary);
+			color: white;
+			box-shadow: var(--shadow-xl), var(--shadow-primary);
+			border-color: transparent;
+		}
+
+		.topic-item a {
+			color: inherit;
+			text-decoration: none;
+			font-weight: 600;
+			display: block;
+			font-size: 1.05rem;
+		}
+
+		/* Videos Section */
+		.videos-section {
+			background: var(--darker);
+			color: white;
+			padding: 100px 0;
+			position: relative;
+		}
+
+		.videos-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+			gap: 2.5rem;
+		}
+
+		.video-card {
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			border: 2px solid transparent;
+			position: relative;
+			cursor: pointer;
+		}
+
+		.video-card:hover {
+			transform: translateY(-15px) scale(1.02);
+			background: rgba(255, 255, 255, 0.1);
+			border-color: var(--primary);
+			box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+		}
+
+		.video-tag {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			background: var(--gradient-primary);
+			color: white;
+			padding: 0.5rem 1rem;
+			border-radius: 50px;
+			font-size: 0.85rem;
+			font-weight: 700;
+			z-index: 2;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+		}
+
+		.video-thumbnail {
+			position: relative;
+			height: 220px;
+			overflow: hidden;
+		}
+
+		.video-thumbnail img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+			filter: brightness(0.9);
+		}
+
+		.video-card:hover .video-thumbnail img {
+			transform: scale(1.1);
+			filter: brightness(1);
+		}
+
+		.video-play {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 70px;
+			height: 70px;
+			background: rgba(255, 255, 255, 0.95);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.8rem;
+			color: var(--primary);
+			opacity: 0;
+			transition: all 0.4s ease;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+		}
+
+		.video-card:hover .video-play {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1.1);
+		}
+
+		.video-info {
+			padding: 2rem;
+		}
+
+		.video-info h3 {
+			font-size: 1.2rem;
+			margin-bottom: 1rem;
+			color: white;
+			font-weight: 700;
+			line-height: 1.4;
+		}
+
+		.video-info p {
+			color: #94a3b8;
+			font-size: 0.95rem;
+			line-height: 1.6;
+			margin-bottom: 1.2rem;
+		}
+
+		.video-meta {
+			display: flex;
+			justify-content: space-between;
+			color: #94a3b8;
+			font-size: 0.85rem;
+			padding-top: 1rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.video-meta span {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		.full-playlist {
+			text-align: center;
+			margin-top: 4rem;
+		}
+
+		/* Video Modal Styles - ADDED */
+		.video-modal {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.95);
+			z-index: 2000;
+			display: none;
+			justify-content: center;
+			align-items: center;
+			animation: fadeIn 0.3s ease;
+		}
+
+		.video-modal.active {
+			display: flex;
+		}
+
+		.video-modal-content {
+			width: 90%;
+			max-width: 1000px;
+			position: relative;
+			animation: slideUp 0.3s ease;
+		}
+
+		.video-modal-close {
+			position: absolute;
+			top: -50px;
+			right: 0;
+			background: var(--gradient-primary);
+			color: white;
+			border: none;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			font-size: 1.2rem;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.3s ease;
+		}
+
+		.video-modal-close:hover {
+			transform: scale(1.1);
+			background: var(--primary);
+		}
+
+		.video-modal-iframe {
+			width: 100%;
+			height: 500px;
+			border-radius: 10px;
+			border: none;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+		@keyframes slideUp {
+			from {
+				transform: translateY(50px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.video-modal-content {
+				width: 95%;
+			}
+
+			.video-modal-iframe {
+				height: 300px;
+			}
+
+			.video-modal-close {
+				top: -40px;
+				right: 10px;
+			}
+		}
+
+		/* Footer */
+		footer {
+			background: var(--darker);
+			color: white;
+			padding: 80px 0 40px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.footer-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+			gap: 3.5rem;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.footer-logo img {
+			height: 50px;
+			margin-bottom: 1.8rem;
+			filter: brightness(0) invert(1);
+			transition: transform 0.3s ease;
+		}
+
+		.footer-logo:hover img {
+			transform: scale(1.05);
+		}
+
+		.footer-about {
+			color: #94a3b8;
+			margin-bottom: 1.8rem;
+			line-height: 1.7;
+			font-size: 0.98rem;
+		}
+
+		.social-media {
+			display: flex;
+			gap: 1.2rem;
+			margin-bottom: 2.5rem;
+		}
+
+		.social-media a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 45px;
+			height: 45px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50%;
+			transition: all 0.3s ease;
+			text-decoration: none;
+			color: white;
+			font-size: 1.2rem;
+		}
+
+		.social-media a:hover {
+			background: var(--gradient-primary);
+			transform: translateY(-5px) scale(1.1);
+			box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+		}
+
+		.footer-contact {
+			color: #94a3b8;
+			font-size: 0.98rem;
+			line-height: 1.7;
+		}
+
+		.footer-contact i {
+			color: var(--accent);
+			margin-right: 12px;
+			width: 20px;
+			font-size: 1.1rem;
+		}
+
+		.footer-newsletter h3 {
+			color: white;
+			font-size: 1.3rem;
+			margin-bottom: 1.2rem;
+			font-weight: 600;
+		}
+
+		.newsletter-form {
+			display: flex;
+			flex-direction: column;
+			gap: 1.2rem;
+			margin-top: 2rem;
+		}
+
+		.txtb {
+			padding: 1rem 1.2rem;
+			border: none;
+			border-radius: 50px;
+			outline: none;
+			font-size: 1rem;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			width: 100%;
+			transition: all 0.3s ease;
+			border: 1px solid transparent;
+		}
+
+		.txtb:focus {
+			background: rgba(255, 255, 255, 0.15);
+			border-color: var(--primary);
+			box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+		}
+
+		.txtb::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		.footer-bottom {
+			text-align: center;
+			padding-top: 3rem;
+			margin-top: 4rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			color: #64748b;
+			font-size: 0.9rem;
+			line-height: 1.6;
+			position: relative;
+			z-index: 1;
+		}
+
+		/* Mobile Styles */
+		@media (max-width: 768px) {
+			.nav {
+				padding: 1rem;
+			}
+
+			.hero-section {
+				padding: 80px 0;
+			}
+
+			.hero-stats {
+				gap: 2rem;
+			}
+
+			.course-section,
+			.videos-section {
+				padding: 60px 0;
+			}
+
+			.footer-container {
+				grid-template-columns: 1fr;
+				gap: 2.5rem;
+			}
+
+			.course-grid,
+			.topics-grid,
+			.videos-grid {
+				grid-template-columns: 1fr;
+				gap: 1.5rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav {
+				padding: 0.75rem;
+			}
+
+			.hero-title {
+				font-size: 2.2rem;
+			}
+
+			.hero-description {
+				font-size: 1.1rem;
+			}
+
+			.course-card,
+			.video-card {
+				padding: 1.8rem;
+			}
+
+			.section-title {
+				font-size: 2rem;
+			}
+
+			.section-subtitle {
+				font-size: 1.1rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<header>
+		<div class="nav">
+			<div id="learned-logo">
+				<a href="../index.html"><img src="../images/icon/logo.png" alt="CLIN-TECH Logo"></a>
+			</div>
+
+			<!-- Mobile Menu Toggle Button - FIXED -->
+			<button class="switch-tab" id="menuToggle">
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+			</button>
+
+			<!-- Navigation Links with Font Awesome Icons -->
+			<ul class="nav-links" id="navLinks">
+				<li><a href="python.html">
+						<i class="fab fa-python"></i> Python
+					</a></li>
+				<li><a href="webdev.html">
+						<i class="fas fa-code"></i> Web Development
+					</a></li>
+				<li><a href="java.html">
+						<i class="fab fa-java"></i> Java
+					</a></li>
+				<li><a href="data_structures.html">
+						<i class="fas fa-project-diagram"></i> Data Structures
+					</a></li>
+				<li><a href="c++.html" class="active">
+						<i class="fas fa-cogs"></i> C++
+					</a></li>
+				<li><a href="ai.html">
+						<i class="fas fa-brain"></i> AI & ML
+					</a></li>
+				<!-- Mobile Search - Hidden on desktop -->
+				<li class="mobile-search" style="display: none;">
+					<div class="search">
+						<input type="search" placeholder="Search C++ courses..." class="srch">
+						<button id="srchbtn"><i class="fas fa-search"></i></button>
+					</div>
+				</li>
+			</ul>
+
+			<!-- Desktop Search -->
+			<div class="search">
+				<input type="search" placeholder="Search C++ courses..." class="srch">
+				<button id="srchbtn"><i class="fas fa-search"></i></button>
+			</div>
+		</div>
+	</header>
+
+	<!-- Hero Section -->
+	<section class="hero-section">
+		<div class="tech-bg" id="techBg"></div>
+		<div class="container">
+			<div class="hero-content">
+				<h1 class="hero-title">Master C/C++ Programming</h1>
+				<p class="hero-description">
+					C++ is a powerful, high-performance programming language developed by Bjarne Stroustrup.
+					Learn system programming, memory management, and build performance-critical applications
+					from beginner to expert level.
+				</p>
+
+				<div class="hero-stats">
+					<div class="stat-item">
+						<span class="stat-number">8+</span>
+						<span class="stat-label">Weeks Course</span>
+					</div>
+					<div class="stat-item">
+						<span class="stat-number">50+</span>
+						<span class="stat-label">Projects</span>
+					</div>
+					<div class="stat-item">
+						<span class="stat-number">24/7</span>
+						<span class="stat-label">Mentor Support</span>
+					</div>
+				</div>
+
+				<a href="https://www.w3schools.com/c/index.php" class="btn btn-primary">
+					<i class="fas fa-play-circle"></i> Start Learning Now
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Course Cards -->
+	<section class="course-section">
+		<div class="container">
+			<h2 class="section-title">Explore Related Courses</h2>
+			<p class="section-subtitle">Master complementary skills to become a complete developer</p>
+
+			<div class="course-grid">
+				<div class="course-card" onclick="window.location.href='python.html'">
+					<div class="course-icon">
+						<i class="fab fa-python"></i>
+					</div>
+					<h3>Python Programming</h3>
+					<p>Master Python for data science, automation, and backend development with hands-on projects.</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 10 Weeks</span>
+						<span><i class="fas fa-signal"></i> Beginner</span>
+					</div>
+				</div>
+
+				<div class="course-card" onclick="window.location.href='webdev.html'">
+					<div class="course-icon">
+						<i class="fas fa-code"></i>
+					</div>
+					<h3>Web Development</h3>
+					<p>Learn HTML, CSS, JavaScript, React, and Node.js to build modern web applications.</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 12 Weeks</span>
+						<span><i class="fas fa-signal"></i> Intermediate</span>
+					</div>
+				</div>
+
+				<div class="course-card" onclick="window.location.href='java.html'">
+					<div class="course-icon">
+						<i class="fab fa-java"></i>
+					</div>
+					<h3>Java & Spring Boot</h3>
+					<p>Master Java fundamentals and enterprise development with Spring Boot framework.</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 10 Weeks</span>
+						<span><i class="fas fa-signal"></i> Beginner</span>
+					</div>
+				</div>
+
+				<div class="course-card" onclick="window.location.href='data_structures.html'">
+					<div class="course-icon">
+						<i class="fas fa-project-diagram"></i>
+					</div>
+					<h3>Data Structures & Algorithms</h3>
+					<p>Master algorithms and data structures essential for coding interviews and efficient programming.
+					</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 8 Weeks</span>
+						<span><i class="fas fa-signal"></i> Advanced</span>
+					</div>
+				</div>
+			</div>
+
+			<h3 class="section-title" style="font-size: 1.75rem; margin-bottom: 2rem;">C++ Applications & Topics</h3>
+			<div class="topics-grid">
+				<div class="topic-item"><a href="#system">System Programming</a></div>
+				<div class="topic-item"><a href="#game">Game Development</a></div>
+				<div class="topic-item"><a href="#embedded">Embedded Systems</a></div>
+				<div class="topic-item"><a href="#compiler">Compiler Design</a></div>
+				<div class="topic-item"><a href="#performance">High-Performance Computing</a></div>
+				<div class="topic-item"><a href="#os">Operating Systems</a></div>
+				<div class="topic-item"><a href="#gui">GUI Applications</a></div>
+				<div class="topic-item"><a href="#database">Database Systems</a></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Videos Section - UPDATED with working video links -->
+	<section class="videos-section" id="videos">
+		<div class="container">
+			<h2 class="section-title">Master C++ Programming</h2>
+			<p class="section-subtitle">Complete video series from basics to advanced concepts</p>
+
+			<div class="videos-grid">
+				<!-- Video 1: C++ Introduction -->
+				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/vLnPwxZdW4Y')">
+					<span class="video-tag">1/8</span>
+					<div class="video-thumbnail">
+						<img src="https://i3.ytimg.com/vi/vLnPwxZdW4Y/maxresdefault.jpg" alt="C++ Basics"
+							onerror="this.src='https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>C++ Introduction & Setup</h3>
+						<p>Learn about C++ history, installation, and write your first "Hello World" program.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 35 min</span>
+							<span><i class="fas fa-eye"></i> 2.8M views</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Video 2: Variables & Data Types -->
+				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/_bYFu9mBnr4')">
+					<span class="video-tag">2/8</span>
+					<div class="video-thumbnail">
+						<img src="https://i3.ytimg.com/vi/_bYFu9mBnr4/maxresdefault.jpg" alt="C++ Variables"
+							onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Variables & Data Types</h3>
+						<p>Master C++ variables, data types, type casting, and memory allocation.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 42 min</span>
+							<span><i class="fas fa-eye"></i> 1.9M views</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Video 3: Control Flow Statements -->
+				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/yGB9jhsEsr8')">
+					<span class="video-tag">3/8</span>
+					<div class="video-thumbnail">
+						<img src="https://i3.ytimg.com/vi/yGB9jhsEsr8/maxresdefault.jpg" alt="C++ Control Flow"
+							onerror="this.src='https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Control Flow Statements</h3>
+						<p>Learn if-else, switch-case, loops, and control flow in C++ programming.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 38 min</span>
+							<span><i class="fas fa-eye"></i> 1.6M views</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Video 4: Functions & Pointers -->
+				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/Iuo9PpGE04Y')">
+					<span class="video-tag">4/8</span>
+					<div class="video-thumbnail">
+						<img src="https://i3.ytimg.com/vi/Iuo9PpGE04Y/maxresdefault.jpg" alt="C++ Functions"
+							onerror="this.src='https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Functions & Pointers</h3>
+						<p>Master functions, pointers, references, and memory management in C++.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 55 min</span>
+							<span><i class="fas fa-eye"></i> 2.1M views</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Video 5: Object-Oriented Programming -->
+				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/wN0x9eZLix4')">
+					<span class="video-tag">5/8</span>
+					<div class="video-thumbnail">
+						<img src="https://i3.ytimg.com/vi/wN0x9eZLix4/maxresdefault.jpg" alt="C++ OOP"
+							onerror="this.src='https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Object-Oriented Programming</h3>
+						<p>Learn classes, objects, inheritance, polymorphism, and encapsulation.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 48 min</span>
+							<span><i class="fas fa-eye"></i> 1.8M views</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Video 6: Templates & STL -->
+				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/Rub-JsjMhWY')">
+					<span class="video-tag">6/8</span>
+					<div class="video-thumbnail">
+						<img src="https://i3.ytimg.com/vi/Rub-JsjMhWY/maxresdefault.jpg" alt="C++ Templates"
+							onerror="this.src='https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Templates & STL</h3>
+						<p>Master templates, Standard Template Library, and generic programming.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 62 min</span>
+							<span><i class="fas fa-eye"></i> 1.4M views</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Video 7: Memory Management -->
+				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/2BP8NhxjrO0')">
+					<span class="video-tag">7/8</span>
+					<div class="video-thumbnail">
+						<img src="https://i3.ytimg.com/vi/2BP8NhxjrO0/maxresdefault.jpg" alt="C++ Memory"
+							onerror="this.src='https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Memory Management</h3>
+						<p>Deep dive into dynamic memory allocation, smart pointers, and RAII.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 45 min</span>
+							<span><i class="fas fa-eye"></i> 1.2M views</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Video 8: Real-World Projects -->
+				<div class="video-card" onclick="openVideoModal('https://www.youtube.com/embed/i_wDa2AS_8w')">
+					<span class="video-tag">8/8</span>
+					<div class="video-thumbnail">
+						<img src="https://i3.ytimg.com/vi/i_wDa2AS_8w/maxresdefault.jpg" alt="C++ Projects"
+							onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Real-World Projects</h3>
+						<p>Build complete applications and prepare for technical interviews.</p>
+						<div class="video-meta">
+							<span><i class="far fa-clock"></i> 75 min</span>
+							<span><i class="fas fa-eye"></i> 1.5M views</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="full-playlist">
+				<a href="https://www.youtube.com/watch?v=vLnPwxZdW4Y&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"
+					target="_blank" class="btn btn-secondary">
+					<i class="fab fa-youtube"></i> Watch Full Playlist
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Video Modal - ADDED -->
+	<div class="video-modal" id="videoModal">
+		<div class="video-modal-content">
+			<button class="video-modal-close" onclick="closeVideoModal()">
+				<i class="fas fa-times"></i>
+			</button>
+			<iframe class="video-modal-iframe" id="videoIframe" src="" frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen>
+			</iframe>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<footer>
+		<div class="footer-container">
+			<div class="footer-col">
+				<div class="footer-logo">
+					<img src="../images/icon/logo.png" alt="CLIN-TECH Logo">
+				</div>
+				<p class="footer-about">
+					CLIN-TECH Code Camp is dedicated to transforming beginners into professional programmers through
+					hands-on, industry-relevant training.
+				</p>
+				<div class="social-media">
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-linkedin-in"></i></a>
+					<a href="#"><i class="fab fa-youtube"></i></a>
+				</div>
+			</div>
+
+			<div class="footer-col">
+				<h3>Contact Info</h3>
+				<div class="footer-contact">
+					<p><i class="fas fa-map-marker-alt"></i> Multimedia Lab, Rongai, Nairobi-00100</p>
+					<p><i class="fas fa-phone"></i> +254-704-702-600</p>
+					<p><i class="fas fa-envelope"></i> samuelthairu77@gmail.com</p>
+					<p><i class="far fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+				</div>
+			</div>
+
+			<div class="footer-col">
+				<div class="footer-newsletter">
+					<h3>Our Newsletter</h3>
+					<p>Get updates on new courses, coding tips, and industry insights.</p>
+					<form class="newsletter-form">
+						<input type="email" placeholder="Enter Your Email" class="txtb" required>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-paper-plane"></i> Subscribe
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<p>Copyright © 2025 CLIN-TECH Code Camp. All Rights Reserved. | Designed by Samthairu and Squire..AI</p>
+		</div>
+	</footer>
+
+	<script>
+		// Video Modal Functions - ADDED
+		function openVideoModal(videoUrl) {
+			const modal = document.getElementById('videoModal');
+			const iframe = document.getElementById('videoIframe');
+
+			// Add autoplay parameter to the video URL
+			let embedUrl = videoUrl;
+			if (!embedUrl.includes('autoplay')) {
+				embedUrl += (embedUrl.includes('?') ? '&' : '?') + 'autoplay=1';
+			}
+
+			// Set the video URL
+			iframe.src = embedUrl;
+
+			// Show the modal
+			modal.classList.add('active');
+			document.body.style.overflow = 'hidden'; // Prevent scrolling
+			document.documentElement.style.overflow = 'hidden';
+		}
+
+		function closeVideoModal() {
+			const modal = document.getElementById('videoModal');
+			const iframe = document.getElementById('videoIframe');
+
+			// Hide the modal
+			modal.classList.remove('active');
+
+			// Stop the video by removing src
+			iframe.src = '';
+
+			// Re-enable scrolling
+			document.body.style.overflow = 'auto';
+			document.documentElement.style.overflow = 'auto';
+		}
+
+		// Close modal when clicking outside the video
+		document.getElementById('videoModal').addEventListener('click', function (event) {
+			if (event.target === this || event.target.classList.contains('video-modal-close')) {
+				closeVideoModal();
+			}
+		});
+
+		// Close modal with Escape key
+		document.addEventListener('keydown', function (event) {
+			if (event.key === 'Escape') {
+				closeVideoModal();
+			}
+		});
+
+		// Generate animated background
+		function generateTechBackground() {
+			const techBg = document.getElementById('techBg');
+			const codeSnippets = [
+				'#include <iostream>',
+				'using namespace std;',
+				'int main() {',
+				'cout << "Hello World";',
+				'return 0;',
+				'}',
+				'class Developer {',
+				'private:',
+				'string name;',
+				'public:',
+				'void code() {',
+				'// Write awesome code',
+				'}',
+				'};',
+				'template<typename T>',
+				'T max(T a, T b) {',
+				'return (a > b) ? a : b;',
+				'}'
+			];
+
+			// Clear existing snippets
+			techBg.innerHTML = '';
+
+			for (let i = 0; i < 15; i++) {
+				const snippet = document.createElement('div');
+				snippet.className = 'code-snippet';
+				snippet.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+				snippet.style.left = `${Math.random() * 100}%`;
+				snippet.style.top = `${Math.random() * 100}%`;
+				snippet.style.animationDelay = `${Math.random() * 10}s`;
+				snippet.style.animationDuration = `${15 + Math.random() * 20}s`;
+				snippet.style.fontSize = `${10 + Math.random() * 10}px`;
+				techBg.appendChild(snippet);
+			}
+		}
+
+		// Mobile Navigation Toggle - IMPROVED
+		document.addEventListener('DOMContentLoaded', function () {
+			const menuToggle = document.getElementById('menuToggle');
+			const navLinks = document.getElementById('navLinks');
+			const mobileSearch = document.querySelector('.mobile-search');
+			const desktopSearch = document.querySelector('.search');
+
+			// Toggle mobile menu
+			menuToggle.addEventListener('click', function () {
+				navLinks.classList.toggle('active');
+				menuToggle.classList.toggle('active');
+
+				// Show/hide mobile search
+				if (navLinks.classList.contains('active')) {
+					mobileSearch.style.display = 'block';
+					// Clone desktop search functionality
+					const desktopSearchClone = desktopSearch.cloneNode(true);
+					mobileSearch.innerHTML = '';
+					mobileSearch.appendChild(desktopSearchClone);
+				} else {
+					mobileSearch.style.display = 'none';
+				}
+			});
+
+			// Close mobile menu when clicking outside
+			document.addEventListener('click', function (event) {
+				const isClickInsideNav = navLinks.contains(event.target) || menuToggle.contains(event.target);
+				if (!isClickInsideNav && navLinks.classList.contains('active')) {
+					navLinks.classList.remove('active');
+					menuToggle.classList.remove('active');
+					mobileSearch.style.display = 'none';
+				}
+			});
+
+			// Close mobile menu when clicking a link (except search)
+			navLinks.querySelectorAll('a').forEach(link => {
+				link.addEventListener('click', function (event) {
+					if (!this.closest('.mobile-search')) {
+						navLinks.classList.remove('active');
+						menuToggle.classList.remove('active');
+						mobileSearch.style.display = 'none';
+					}
+				});
+			});
+
+			// Search functionality
+			function initSearch() {
+				document.querySelectorAll('#srchbtn').forEach(button => {
+					button.addEventListener('click', function () {
+						const searchInput = this.parentElement.querySelector('.srch');
+						performSearch(searchInput.value);
+					});
+				});
+
+				document.querySelectorAll('.srch').forEach(input => {
+					input.addEventListener('keypress', function (e) {
+						if (e.key === 'Enter') {
+							performSearch(this.value);
+						}
+					});
+				});
+
+				function performSearch(query) {
+					if (query.trim() !== '') {
+						alert(`Searching for: ${query}`);
+						// In a real application, you would redirect to search results page
+						// window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+					}
+				}
+			}
+
+			// Newsletter form
+			function initNewsletter() {
+				const form = document.querySelector('.newsletter-form');
+				if (form) {
+					form.addEventListener('submit', function (e) {
+						e.preventDefault();
+						const email = form.querySelector('input[type="email"]').value;
+						if (email && validateEmail(email)) {
+							alert(`Thank you for subscribing with ${email}! You'll receive our newsletter soon.`);
+							form.reset();
+						} else {
+							alert('Please enter a valid email address.');
+						}
+					});
+				}
+
+				function validateEmail(email) {
+					const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+					return re.test(email);
+				}
+			}
+
+			// Smooth scroll for anchor links
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+					const targetId = this.getAttribute('href');
+					if (targetId === '#') return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						window.scrollTo({
+							top: targetElement.offsetTop - 80,
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+
+			// Initialize all functions
+			generateTechBackground();
+			initSearch();
+			initNewsletter();
+
+			// Add animation to cards on scroll
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.style.opacity = '1';
+						entry.target.style.transform = 'translateY(0)';
+					}
+				});
+			}, observerOptions);
+
+			// Observe elements for animation
+			document.querySelectorAll('.course-card, .video-card, .topic-item').forEach(el => {
+				el.style.opacity = '0';
+				el.style.transform = 'translateY(20px)';
+				el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+				observer.observe(el);
+			});
+
+			// Preload video thumbnails
+			preloadVideoThumbnails();
+		});
+
+		// Preload video thumbnails for better user experience
+		function preloadVideoThumbnails() {
+			const videoUrls = [
+				'vLnPwxZdW4Y',
+				'_bYFu9mBnr4',
+				'yGB9jhsEsr8',
+				'Iuo9PpGE04Y',
+				'wN0x9eZLix4',
+				'Rub-JsjMhWY',
+				'2BP8NhxjrO0',
+				'i_wDa2AS_8w'
+			];
+
+			videoUrls.forEach(videoId => {
+				const img = new Image();
+				img.src = `https://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+			});
+		}
+	</script>
+</body>
+
+</html>

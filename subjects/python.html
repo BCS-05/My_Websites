@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Python Programming | CLIN-TECH Code Camp</title>
+	<meta name="description"
+		content="Master Python programming from beginner to advanced level. Learn data science, automation, web development, AI, and machine learning with Python.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="png" href="../images/icon/favicon.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+	<style>
+		/* Modern CSS Reset & Base Styles */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+		}
+
+		:root {
+			--primary: #306998;
+			/* Python Blue */
+			--primary-dark: #25547c;
+			--secondary: #FFD43B;
+			/* Python Yellow */
+			--accent: #06b6d4;
+			--dark: #0f172a;
+			--darker: #020617;
+			--light: #f8fafc;
+			--lighter: #f1f5f9;
+			--gray: #64748b;
+			--gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+			--gradient-dark: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+			--shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+			--shadow-xl: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+			--shadow-primary: 0 10px 30px rgba(48, 105, 152, 0.2);
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			background-color: var(--light);
+			color: var(--dark);
+			line-height: 1.6;
+			overflow-x: hidden;
+		}
+
+		.container {
+			max-width: 1280px;
+			margin: 0 auto;
+			padding: 0 20px;
+			width: 100%;
+		}
+
+		.btn {
+			padding: 0.875rem 1.75rem;
+			border-radius: 50px;
+			font-weight: 600;
+			font-size: 1rem;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			border: none;
+			cursor: pointer;
+			white-space: nowrap;
+		}
+
+		.btn-primary {
+			background: var(--gradient-primary);
+			color: white;
+			box-shadow: var(--shadow-primary);
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.btn-secondary {
+			background: white;
+			color: var(--primary);
+			border: 2px solid var(--primary);
+		}
+
+		.btn-secondary:hover {
+			background: var(--primary);
+			color: white;
+			transform: translateY(-3px);
+		}
+
+		/* Video Modal Styles */
+		.video-modal {
+			display: none;
+			position: fixed;
+			z-index: 2000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.95);
+			animation: fadeIn 0.3s ease;
+		}
+
+		.modal-content {
+			position: relative;
+			background: var(--darker);
+			margin: 5% auto;
+			padding: 20px;
+			width: 85%;
+			max-width: 900px;
+			border-radius: 20px;
+			animation: slideIn 0.4s ease;
+			border: 2px solid rgba(255, 212, 59, 0.2);
+			box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+		}
+
+		.close-modal {
+			position: absolute;
+			right: 20px;
+			top: 15px;
+			color: white;
+			font-size: 35px;
+			font-weight: bold;
+			cursor: pointer;
+			z-index: 2001;
+			transition: all 0.3s ease;
+			width: 40px;
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(0, 0, 0, 0.5);
+			border-radius: 50%;
+		}
+
+		.close-modal:hover {
+			color: var(--secondary);
+			transform: scale(1.1);
+			background: rgba(255, 212, 59, 0.1);
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+		@keyframes slideIn {
+			from {
+				transform: translateY(-50px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+
+		/* Navigation */
+		header {
+			background: var(--darker);
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+			box-shadow: var(--shadow-lg);
+		}
+
+		.nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 2rem;
+			max-width: 1400px;
+			margin: 0 auto;
+			position: relative;
+		}
+
+		#learned-logo img {
+			height: 40px;
+			width: auto;
+			filter: brightness(0) invert(1);
+			transition: transform 0.3s ease;
+		}
+
+		#learned-logo:hover img {
+			transform: scale(1.05);
+		}
+
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: 1.5rem;
+			align-items: center;
+		}
+
+		.nav-links a {
+			color: white;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 0.95rem;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 0.75rem 1.25rem;
+			border-radius: 8px;
+		}
+
+		.nav-links a:hover {
+			background: rgba(48, 105, 152, 0.2);
+			color: var(--secondary);
+			transform: translateY(-2px);
+		}
+
+		.nav-links a.active {
+			background: var(--gradient-primary);
+			color: white;
+			font-weight: 600;
+			box-shadow: var(--shadow-primary);
+		}
+
+		/* Mobile Menu Toggle - FIXED */
+		.switch-tab {
+			display: none;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 44px;
+			height: 44px;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			padding: 0;
+			z-index: 1002;
+			position: relative;
+		}
+
+		.hamburger-line {
+			width: 24px;
+			height: 2px;
+			background-color: white;
+			border-radius: 2px;
+			transition: all 0.3s ease;
+			position: absolute;
+		}
+
+		.hamburger-line:nth-child(1) {
+			transform: translateY(-8px);
+		}
+
+		.hamburger-line:nth-child(2) {
+			width: 18px;
+		}
+
+		.hamburger-line:nth-child(3) {
+			transform: translateY(8px);
+		}
+
+		.switch-tab.active .hamburger-line:nth-child(1) {
+			transform: rotate(45deg) translateY(0);
+			width: 24px;
+		}
+
+		.switch-tab.active .hamburger-line:nth-child(2) {
+			opacity: 0;
+			transform: translateX(-20px);
+		}
+
+		.switch-tab.active .hamburger-line:nth-child(3) {
+			transform: rotate(-45deg) translateY(0);
+			width: 24px;
+		}
+
+		/* Mobile Navigation - FIXED */
+		@media (max-width: 992px) {
+			.switch-tab {
+				display: flex;
+			}
+
+			.nav-links {
+				position: fixed;
+				top: 80px;
+				left: 0;
+				right: 0;
+				background: rgba(2, 6, 23, 0.98);
+				backdrop-filter: blur(20px);
+				flex-direction: column;
+				padding: 2rem;
+				gap: 1rem;
+				transform: translateY(-100%);
+				opacity: 0;
+				visibility: hidden;
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				z-index: 998;
+				border-top: 1px solid rgba(255, 255, 255, 0.1);
+				box-shadow: var(--shadow-xl);
+				max-height: calc(100vh - 80px);
+				overflow-y: auto;
+			}
+
+			.nav-links.active {
+				transform: translateY(0);
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.nav-links li {
+				width: 100%;
+			}
+
+			.nav-links a {
+				display: block;
+				padding: 1.25rem;
+				font-size: 1.1rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+				width: 100%;
+				border-radius: 12px;
+				margin-bottom: 0.5rem;
+			}
+
+			.nav-links a:hover {
+				background: rgba(48, 105, 152, 0.3);
+				border-radius: 12px;
+				padding-left: 1.5rem;
+			}
+
+			.search {
+				display: none;
+			}
+
+			.mobile-search {
+				display: block;
+				width: 100%;
+				margin-top: 1rem;
+			}
+
+			.mobile-search .search {
+				display: flex;
+				width: 100%;
+			}
+
+			.mobile-search .srch {
+				width: 100%;
+			}
+
+			.modal-content {
+				margin: 10% auto;
+				width: 95%;
+				padding: 15px;
+			}
+
+			.modal-content iframe {
+				height: 300px;
+			}
+		}
+
+		.search {
+			display: flex;
+			align-items: center;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50px;
+			padding: 0.5rem 1rem;
+			transition: all 0.3s ease;
+			border: 1px solid transparent;
+		}
+
+		.search:focus-within {
+			background: rgba(255, 255, 255, 0.15);
+			border-color: var(--primary);
+			box-shadow: 0 0 15px rgba(48, 105, 152, 0.3);
+		}
+
+		.srch {
+			border: none;
+			background: transparent;
+			color: white;
+			width: 200px;
+			padding: 0.5rem;
+			outline: none;
+			font-size: 0.9rem;
+		}
+
+		.srch::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		#srchbtn {
+			background: none;
+			border: none;
+			color: white;
+			cursor: pointer;
+			padding: 0;
+			font-size: 1rem;
+			transition: transform 0.3s ease;
+		}
+
+		#srchbtn:hover {
+			transform: scale(1.1);
+			color: var(--secondary);
+		}
+
+		/* Hero Section */
+		.hero-section {
+			background: linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.95)),
+				url('https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+			background-size: cover;
+			background-position: center;
+			color: white;
+			padding: 100px 0;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.python-bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			z-index: 0;
+			opacity: 0.3;
+		}
+
+		.code-snippet {
+			position: absolute;
+			font-family: 'Courier New', monospace;
+			color: rgba(255, 212, 59, 0.3);
+			font-size: 14px;
+			animation: floatCode 20s linear infinite;
+			text-shadow: 0 0 10px rgba(255, 212, 59, 0.3);
+		}
+
+		@keyframes floatCode {
+			0% {
+				transform: translateY(100vh) translateX(-100px);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 0.5;
+			}
+
+			90% {
+				opacity: 0.5;
+			}
+
+			100% {
+				transform: translateY(-100px) translateX(100px);
+				opacity: 0;
+			}
+		}
+
+		.hero-content {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		.hero-title {
+			font-size: clamp(2.5rem, 5vw, 4rem);
+			font-weight: 900;
+			line-height: 1.1;
+			margin-bottom: 1.5rem;
+			background: linear-gradient(135deg, #306998, #FFD43B);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+		}
+
+		.hero-description {
+			font-size: clamp(1.1rem, 2vw, 1.3rem);
+			color: #cbd5e1;
+			margin-bottom: 2.5rem;
+			line-height: 1.7;
+		}
+
+		.hero-features {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+			gap: 1.5rem;
+			margin: 2.5rem 0;
+		}
+
+		.feature-item {
+			background: rgba(255, 255, 255, 0.1);
+			padding: 1.5rem;
+			border-radius: 12px;
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			transition: all 0.3s ease;
+		}
+
+		.feature-item:hover {
+			transform: translateY(-5px);
+			background: rgba(255, 255, 255, 0.15);
+			border-color: var(--secondary);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+		}
+
+		.feature-item i {
+			font-size: 2rem;
+			color: var(--secondary);
+			margin-bottom: 1rem;
+			display: block;
+		}
+
+		.feature-item h4 {
+			font-size: 1.1rem;
+			margin-bottom: 0.5rem;
+			color: white;
+		}
+
+		.feature-item p {
+			color: #94a3b8;
+			font-size: 0.9rem;
+			line-height: 1.5;
+		}
+
+		/* Course Grid */
+		.course-section {
+			padding: 80px 0;
+			background: var(--light);
+			position: relative;
+		}
+
+		.section-title {
+			text-align: center;
+			font-size: clamp(2rem, 4vw, 3rem);
+			font-weight: 800;
+			color: var(--dark);
+			margin-bottom: 1rem;
+		}
+
+		.section-subtitle {
+			text-align: center;
+			color: var(--gray);
+			font-size: 1.15rem;
+			max-width: 700px;
+			margin: 0 auto 3rem;
+			line-height: 1.7;
+		}
+
+		.course-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+			gap: 2rem;
+			margin-bottom: 3rem;
+		}
+
+		.course-card {
+			background: white;
+			border-radius: 20px;
+			padding: 2rem;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			text-align: center;
+			border: 2px solid transparent;
+			cursor: pointer;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.course-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 5px;
+			background: var(--gradient-primary);
+		}
+
+		.course-card:hover {
+			transform: translateY(-15px) scale(1.02);
+			box-shadow: var(--shadow-xl), 0 20px 40px rgba(48, 105, 152, 0.15);
+			border-color: var(--primary);
+		}
+
+		.course-icon {
+			width: 80px;
+			height: 80px;
+			background: var(--gradient-primary);
+			border-radius: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 1.5rem;
+			font-size: 2rem;
+			color: white;
+			transition: transform 0.4s ease;
+			box-shadow: 0 10px 20px rgba(48, 105, 152, 0.2);
+		}
+
+		.course-card:hover .course-icon {
+			transform: rotateY(180deg) scale(1.1);
+		}
+
+		.course-card h3 {
+			color: var(--dark);
+			margin-bottom: 0.75rem;
+			font-size: 1.25rem;
+			font-weight: 700;
+			line-height: 1.3;
+		}
+
+		.course-card p {
+			color: var(--gray);
+			line-height: 1.5;
+			font-size: 0.95rem;
+			margin-bottom: 1rem;
+		}
+
+		.course-meta {
+			display: flex;
+			justify-content: space-between;
+			color: var(--gray);
+			font-size: 0.85rem;
+			padding-top: 1rem;
+			border-top: 1px solid var(--lighter);
+		}
+
+		/* Python Domains Section */
+		.domains-section {
+			background: var(--gradient-dark);
+			color: white;
+			padding: 100px 0;
+			position: relative;
+		}
+
+		.domains-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+			gap: 2.5rem;
+			margin-top: 3rem;
+		}
+
+		.domain-card {
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 20px;
+			padding: 2rem;
+			text-align: center;
+			transition: all 0.4s ease;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.domain-card:hover {
+			transform: translateY(-12px) scale(1.03);
+			background: rgba(255, 255, 255, 0.1);
+			border-color: var(--secondary);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 212, 59, 0.15);
+		}
+
+		.domain-icon {
+			font-size: 2.5rem;
+			color: var(--secondary);
+			margin-bottom: 1.5rem;
+			display: block;
+			transition: transform 0.4s ease;
+		}
+
+		.domain-card:hover .domain-icon {
+			transform: scale(1.2) rotate(10deg);
+		}
+
+		.domain-card h3 {
+			font-size: 1.25rem;
+			margin-bottom: 1rem;
+			color: white;
+			font-weight: 600;
+		}
+
+		.domain-card p {
+			color: #94a3b8;
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		/* Topics Grid */
+		.topics-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+			gap: 1rem;
+			margin-bottom: 3rem;
+		}
+
+		.topic-item {
+			background: white;
+			border-radius: 12px;
+			padding: 1.2rem 1.5rem;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.3s ease;
+			text-align: center;
+			border: 2px solid transparent;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.topic-item::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 4px;
+			background: var(--gradient-primary);
+			transform: scaleX(0);
+			transition: transform 0.3s ease;
+		}
+
+		.topic-item:hover::before {
+			transform: scaleX(1);
+		}
+
+		.topic-item:hover {
+			transform: translateY(-8px);
+			background: var(--gradient-primary);
+			color: white;
+			box-shadow: var(--shadow-xl), var(--shadow-primary);
+			border-color: transparent;
+		}
+
+		.topic-item a {
+			color: inherit;
+			text-decoration: none;
+			font-weight: 600;
+			display: block;
+			font-size: 1.05rem;
+		}
+
+		/* Videos Section */
+		.videos-section {
+			background: var(--light);
+			padding: 100px 0;
+			position: relative;
+		}
+
+		.videos-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+			gap: 2.5rem;
+		}
+
+		.video-card {
+			background: white;
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			border: 2px solid transparent;
+			position: relative;
+			cursor: pointer;
+		}
+
+		.video-card:hover {
+			transform: translateY(-15px) scale(1.02);
+			box-shadow: var(--shadow-xl), 0 25px 50px rgba(48, 105, 152, 0.15);
+			border-color: var(--primary);
+		}
+
+		.video-tag {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			background: var(--gradient-primary);
+			color: white;
+			padding: 0.5rem 1rem;
+			border-radius: 50px;
+			font-size: 0.85rem;
+			font-weight: 700;
+			z-index: 2;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+		}
+
+		.video-thumbnail {
+			position: relative;
+			height: 220px;
+			overflow: hidden;
+		}
+
+		.video-thumbnail img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+			filter: brightness(0.9);
+		}
+
+		.video-card:hover .video-thumbnail img {
+			transform: scale(1.1);
+			filter: brightness(1);
+		}
+
+		.video-play {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 70px;
+			height: 70px;
+			background: rgba(255, 255, 255, 0.95);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.8rem;
+			color: var(--primary);
+			opacity: 0;
+			transition: all 0.4s ease;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+			cursor: pointer;
+		}
+
+		.video-card:hover .video-play {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1.1);
+		}
+
+		.video-info {
+			padding: 2rem;
+		}
+
+		.video-info h3 {
+			font-size: 1.2rem;
+			margin-bottom: 1rem;
+			color: var(--dark);
+			font-weight: 700;
+			line-height: 1.4;
+		}
+
+		.video-info p {
+			color: var(--gray);
+			font-size: 0.95rem;
+			line-height: 1.6;
+			margin-bottom: 1.2rem;
+		}
+
+		.video-info button {
+			width: 100%;
+		}
+
+		.full-playlist {
+			text-align: center;
+			margin-top: 4rem;
+		}
+
+		/* Footer */
+		footer {
+			background: var(--darker);
+			color: white;
+			padding: 80px 0 40px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.footer-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+			gap: 3.5rem;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.footer-logo img {
+			height: 50px;
+			margin-bottom: 1.8rem;
+			filter: brightness(0) invert(1);
+			transition: transform 0.3s ease;
+		}
+
+		.footer-logo:hover img {
+			transform: scale(1.05);
+		}
+
+		.footer-about {
+			color: #94a3b8;
+			margin-bottom: 1.8rem;
+			line-height: 1.7;
+			font-size: 0.98rem;
+		}
+
+		.social-media {
+			display: flex;
+			gap: 1.2rem;
+			margin-bottom: 2.5rem;
+		}
+
+		.social-media a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 45px;
+			height: 45px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50%;
+			transition: all 0.3s ease;
+			text-decoration: none;
+			color: white;
+			font-size: 1.2rem;
+		}
+
+		.social-media a:hover {
+			background: var(--gradient-primary);
+			transform: translateY(-5px) scale(1.1);
+			box-shadow: 0 10px 20px rgba(48, 105, 152, 0.3);
+		}
+
+		.footer-contact {
+			color: #94a3b8;
+			font-size: 0.98rem;
+			line-height: 1.7;
+		}
+
+		.footer-contact i {
+			color: var(--accent);
+			margin-right: 12px;
+			width: 20px;
+			font-size: 1.1rem;
+		}
+
+		.footer-newsletter {
+			color: #94a3b8;
+		}
+
+		.footer-newsletter h3 {
+			color: white;
+			font-size: 1.3rem;
+			margin-bottom: 1.2rem;
+			font-weight: 600;
+		}
+
+		.newsletter-form {
+			display: flex;
+			flex-direction: column;
+			gap: 1.2rem;
+			margin-top: 2rem;
+		}
+
+		.txtb {
+			padding: 1rem 1.2rem;
+			border: none;
+			border-radius: 50px;
+			outline: none;
+			font-size: 1rem;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			width: 100%;
+			transition: all 0.3s ease;
+			border: 1px solid transparent;
+		}
+
+		.txtb:focus {
+			background: rgba(255, 255, 255, 0.15);
+			border-color: var(--primary);
+			box-shadow: 0 0 20px rgba(48, 105, 152, 0.2);
+		}
+
+		.txtb::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		.footer-bottom {
+			text-align: center;
+			padding-top: 3rem;
+			margin-top: 4rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			color: #64748b;
+			font-size: 0.9rem;
+			line-height: 1.6;
+			position: relative;
+			z-index: 1;
+		}
+
+		/* Mobile Styles */
+		@media (max-width: 768px) {
+			.nav {
+				padding: 1rem;
+			}
+
+			.hero-section {
+				padding: 80px 0;
+			}
+
+			.hero-features {
+				grid-template-columns: 1fr;
+				gap: 1.2rem;
+			}
+
+			.course-section,
+			.domains-section,
+			.videos-section {
+				padding: 60px 0;
+			}
+
+			.footer-container {
+				grid-template-columns: 1fr;
+				gap: 2.5rem;
+			}
+
+			.course-grid,
+			.domains-grid,
+			.topics-grid,
+			.videos-grid {
+				grid-template-columns: 1fr;
+				gap: 1.5rem;
+			}
+
+			.modal-content iframe {
+				height: 250px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav {
+				padding: 0.75rem;
+			}
+
+			.hero-title {
+				font-size: 2.2rem;
+			}
+
+			.hero-description {
+				font-size: 1.1rem;
+			}
+
+			.course-card,
+			.domain-card,
+			.video-card {
+				padding: 1.8rem;
+			}
+
+			.section-title {
+				font-size: 2rem;
+			}
+
+			.section-subtitle {
+				font-size: 1.1rem;
+			}
+
+			.modal-content iframe {
+				height: 200px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Video Modal -->
+	<div id="videoModal" class="video-modal">
+		<div class="modal-content">
+			<span class="close-modal">&times;</span>
+			<iframe id="videoPlayer" width="100%" height="500" src="" frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
+		</div>
+	</div>
+
+	<!-- Navigation -->
+	<header>
+		<div class="nav">
+			<div id="learned-logo">
+				<a href="../index.html"><img src="../images/icon/logo.png" alt="CLIN-TECH Logo"></a>
+			</div>
+
+			<!-- Mobile Menu Toggle Button - FIXED -->
+			<button class="switch-tab" id="menuToggle">
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+			</button>
+
+			<!-- Navigation Links with Font Awesome Icons -->
+			<ul class="nav-links" id="navLinks">
+				<li><a href="python.html" class="active">
+						<i class="fab fa-python"></i> Python
+					</a></li>
+				<li><a href="webdev.html">
+						<i class="fas fa-code"></i> Web Development
+					</a></li>
+				<li><a href="java.html">
+						<i class="fab fa-java"></i> Java
+					</a></li>
+				<li><a href="data_structures.html">
+						<i class="fas fa-project-diagram"></i> Data Structures
+					</a></li>
+				<li><a href="c++.html">
+						<i class="fas fa-cogs"></i> C++
+					</a></li>
+				<li><a href="ai.html">
+						<i class="fas fa-brain"></i> AI & ML
+					</a></li>
+				<!-- Mobile Search - Hidden on desktop -->
+				<li class="mobile-search" style="display: none;">
+					<div class="search">
+						<input type="search" placeholder="Search Python courses..." class="srch">
+						<button id="srchbtn"><i class="fas fa-search"></i></button>
+					</div>
+				</li>
+			</ul>
+
+			<!-- Desktop Search -->
+			<div class="search">
+				<input type="search" placeholder="Search Python courses..." class="srch">
+				<button id="srchbtn"><i class="fas fa-search"></i></button>
+			</div>
+		</div>
+	</header>
+
+	<!-- Hero Section -->
+	<section class="hero-section">
+		<div class="python-bg" id="pythonBg"></div>
+		<div class="container">
+			<div class="hero-content">
+				<h1 class="hero-title">Master Python Programming</h1>
+				<p class="hero-description">
+					Python is a high-level, interpreted programming language known for its simplicity and readability.
+					Created by Guido van Rossum, Python emphasizes code clarity, making it ideal for beginners and
+					experts alike.
+				</p>
+
+				<div class="hero-features">
+					<div class="feature-item">
+						<i class="fas fa-graduation-cap"></i>
+						<h4>Easy to Learn</h4>
+						<p>Simple, English-like syntax for rapid learning</p>
+					</div>
+					<div class="feature-item">
+						<i class="fas fa-tools"></i>
+						<h4>Versatile</h4>
+						<p>Web, data science, automation, AI, and more</p>
+					</div>
+					<div class="feature-item">
+						<i class="fas fa-laptop-code"></i>
+						<h4>Cross-Platform</h4>
+						<p>Runs on Windows, macOS, and Linux</p>
+					</div>
+					<div class="feature-item">
+						<i class="fas fa-users"></i>
+						<h4>Large Community</h4>
+						<p>Vast library ecosystem and active community</p>
+					</div>
+				</div>
+
+				<a href="https://www.w3schools.com/python/default.asp" class="btn btn-primary">
+					<i class="fas fa-play-circle"></i> Start Learning Python
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Course Cards -->
+	<section class="course-section">
+		<div class="container">
+			<h2 class="section-title">Explore Related Courses</h2>
+			<p class="section-subtitle">Master complementary skills to become a complete developer</p>
+
+			<div class="course-grid">
+				<div class="course-card" onclick="window.location.href='webdev.html'">
+					<div class="course-icon">
+						<i class="fas fa-code"></i>
+					</div>
+					<h3>Web Development</h3>
+					<p>Learn HTML, CSS, JavaScript, React, and Node.js to build modern web applications.</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 12 Weeks</span>
+						<span><i class="fas fa-signal"></i> Intermediate</span>
+					</div>
+				</div>
+
+				<div class="course-card" onclick="window.location.href='java.html'">
+					<div class="course-icon">
+						<i class="fab fa-java"></i>
+					</div>
+					<h3>Java & Spring Boot</h3>
+					<p>Master Java fundamentals and enterprise development with Spring Boot framework.</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 10 Weeks</span>
+						<span><i class="fas fa-signal"></i> Beginner</span>
+					</div>
+				</div>
+
+				<div class="course-card" onclick="window.location.href='c++.html'">
+					<div class="course-icon">
+						<i class="fas fa-cogs"></i>
+					</div>
+					<h3>C++ Programming</h3>
+					<p>Master system programming, memory management, and high-performance computing.</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 8 Weeks</span>
+						<span><i class="fas fa-signal"></i> Intermediate</span>
+					</div>
+				</div>
+
+				<div class="course-card" onclick="window.location.href='data_structures.html'">
+					<div class="course-icon">
+						<i class="fas fa-project-diagram"></i>
+					</div>
+					<h3>Data Structures & Algorithms</h3>
+					<p>Master algorithms and data structures essential for coding interviews and efficient programming.
+					</p>
+					<div class="course-meta">
+						<span><i class="far fa-clock"></i> 8 Weeks</span>
+						<span><i class="fas fa-signal"></i> Advanced</span>
+					</div>
+				</div>
+			</div>
+
+			<h3 class="section-title" style="font-size: 1.75rem; margin-bottom: 2rem;">Python Topics & Concepts</h3>
+			<div class="topics-grid">
+				<div class="topic-item"><a href="https://www.w3schools.com/python/default.asp">Python Basics</a></div>
+				<div class="topic-item"><a href="https://www.w3schools.com/python/default.asp">Functions & Modules</a>
+				</div>
+				<div class="topic-item"><a href="https://www.w3schools.com/python/default.asp">Object-Oriented
+						Python</a></div>
+				<div class="topic-item"><a href="https://www.w3schools.com/python/default.asp">Data Science</a></div>
+				<div class="topic-item"><a href="https://www.w3schools.com/python/default.asp">Web Development</a></div>
+				<div class="topic-item"><a href="https://www.w3schools.com/python/default.asp">Automation</a></div>
+				<div class="topic-item"><a href="https://www.w3schools.com/python/default.asp">AI & Machine Learning</a>
+				</div>
+				<div class="topic-item"><a href="https://www.w3schools.com/python/default.asp">Testing & Debugging</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Python Domains -->
+	<section class="domains-section">
+		<div class="container">
+			<h2 class="section-title">Python Applications</h2>
+			<p class="section-subtitle">Python powers millions of applications worldwide across various domains</p>
+
+			<div class="domains-grid">
+				<div class="domain-card">
+					<i class="fas fa-chart-line domain-icon"></i>
+					<h3>Data Science</h3>
+					<p>Analyze data with Pandas, NumPy, and visualization libraries</p>
+				</div>
+
+				<div class="domain-card">
+					<i class="fas fa-brain domain-icon"></i>
+					<h3>AI & Machine Learning</h3>
+					<p>Build intelligent systems with TensorFlow, PyTorch</p>
+				</div>
+
+				<div class="domain-card">
+					<i class="fas fa-globe domain-icon"></i>
+					<h3>Web Development</h3>
+					<p>Create websites with Django, Flask, and FastAPI</p>
+				</div>
+
+				<div class="domain-card">
+					<i class="fas fa-robot domain-icon"></i>
+					<h3>Automation</h3>
+					<p>Automate repetitive tasks and workflows</p>
+				</div>
+
+				<div class="domain-card">
+					<i class="fas fa-shield-alt domain-icon"></i>
+					<h3>Cyber Security</h3>
+					<p>Security tools, penetration testing, and analysis</p>
+				</div>
+
+				<div class="domain-card">
+					<i class="fas fa-gamepad domain-icon"></i>
+					<h3>Game Development</h3>
+					<p>Create games with PyGame and other libraries</p>
+				</div>
+
+				<div class="domain-card">
+					<i class="fas fa-mobile-alt domain-icon"></i>
+					<h3>Mobile Apps</h3>
+					<p>Cross-platform mobile development with Kivy</p>
+				</div>
+
+				<div class="domain-card">
+					<i class="fas fa-network-wired domain-icon"></i>
+					<h3>Networking</h3>
+					<p>Network programming and automation</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Videos Section -->
+	<section class="videos-section" id="videos">
+		<div class="container">
+			<h2 class="section-title">Master Python Programming</h2>
+			<p class="section-subtitle">Complete video series from basics to advanced concepts</p>
+
+			<div class="videos-grid">
+				<div class="video-card" data-video-id="_uQrJ0TkZlc">
+					<span class="video-tag">1/8</span>
+					<div class="video-thumbnail">
+						<img src="https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg" alt="Python Introduction">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Python Introduction & Setup</h3>
+						<p>Learn about Python history, installation, and write your first Python program.</p>
+						<button class="btn btn-primary watch-video-btn" data-video-id="_uQrJ0TkZlc">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card" data-video-id="QXeEoD0pB3E">
+					<span class="video-tag">2/8</span>
+					<div class="video-thumbnail">
+						<img src="https://img.youtube.com/vi/QXeEoD0pB3E/maxresdefault.jpg" alt="Python Variables">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Variables & Data Types</h3>
+						<p>Master Python variables, data types, type conversion, and input/output.</p>
+						<button class="btn btn-primary watch-video-btn" data-video-id="QXeEoD0pB3E">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card" data-video-id="f79MRyMsjrQ">
+					<span class="video-tag">3/8</span>
+					<div class="video-thumbnail">
+						<img src="https://img.youtube.com/vi/f79MRyMsjrQ/maxresdefault.jpg" alt="Python Control Flow">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Control Flow & Loops</h3>
+						<p>Learn if-else statements, while loops, for loops, and control structures.</p>
+						<button class="btn btn-primary watch-video-btn" data-video-id="f79MRyMsjrQ">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card" data-video-id="9Os0o3wzS_I">
+					<span class="video-tag">4/8</span>
+					<div class="video-thumbnail">
+						<img src="https://img.youtube.com/vi/9Os0o3wzS_I/maxresdefault.jpg" alt="Python Functions">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Functions & Modules</h3>
+						<p>Master functions, parameters, return values, and module imports.</p>
+						<button class="btn btn-primary watch-video-btn" data-video-id="9Os0o3wzS_I">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card" data-video-id="ZDa-Z5JzLYM">
+					<span class="video-tag">5/8</span>
+					<div class="video-thumbnail">
+						<img src="https://img.youtube.com/vi/ZDa-Z5JzLYM/maxresdefault.jpg" alt="Python OOP">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Object-Oriented Programming</h3>
+						<p>Learn classes, objects, inheritance, polymorphism, and encapsulation.</p>
+						<button class="btn btn-primary watch-video-btn" data-video-id="ZDa-Z5JzLYM">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card" data-video-id="rfscVS0vtbw">
+					<span class="video-tag">6/8</span>
+					<div class="video-thumbnail">
+						<img src="https://img.youtube.com/vi/rfscVS0vtbw/maxresdefault.jpg"
+							alt="Python Data Structures">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Data Structures</h3>
+						<p>Master lists, tuples, dictionaries, sets, and comprehensions.</p>
+						<button class="btn btn-primary watch-video-btn" data-video-id="rfscVS0vtbw">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card" data-video-id="t8pPdKYpowI">
+					<span class="video-tag">7/8</span>
+					<div class="video-thumbnail">
+						<img src="https://img.youtube.com/vi/t8pPdKYpowI/maxresdefault.jpg" alt="Python File Handling">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>File Handling & Exceptions</h3>
+						<p>Learn file operations, error handling, and exception management.</p>
+						<button class="btn btn-primary watch-video-btn" data-video-id="t8pPdKYpowI">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+
+				<div class="video-card" data-video-id="LzYNWYE1fFQ">
+					<span class="video-tag">8/8</span>
+					<div class="video-thumbnail">
+						<img src="https://img.youtube.com/vi/LzYNWYE1fFQ/maxresdefault.jpg" alt="Python Projects">
+						<div class="video-play">
+							<i class="fas fa-play"></i>
+						</div>
+					</div>
+					<div class="video-info">
+						<h3>Real-World Projects</h3>
+						<p>Build complete applications and prepare for technical interviews.</p>
+						<button class="btn btn-primary watch-video-btn" data-video-id="LzYNWYE1fFQ">
+							<i class="fas fa-play"></i> Watch Now
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="full-playlist">
+				<a href="https://www.youtube.com/watch?v=_uQrJ0TkZlc&list=PL-osiE80TeTt2d9bfVyTiXJA-UTHn6WwU"
+					target="_blank" class="btn btn-secondary">
+					<i class="fab fa-youtube"></i> Watch Full Playlist
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<div class="footer-container">
+			<div class="footer-col">
+				<div class="footer-logo">
+					<img src="../images/icon/logo.png" alt="CLIN-TECH Logo">
+				</div>
+				<p class="footer-about">
+					CLIN-TECH Code Camp is dedicated to transforming beginners into professional programmers through
+					hands-on, industry-relevant training.
+				</p>
+				<div class="social-media">
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-linkedin-in"></i></a>
+					<a href="#"><i class="fab fa-youtube"></i></a>
+				</div>
+			</div>
+
+			<div class="footer-col">
+				<h3>Contact Info</h3>
+				<div class="footer-contact">
+					<p><i class="fas fa-map-marker-alt"></i> Multimedia Lab, Rongai, Nairobi-00100</p>
+					<p><i class="fas fa-phone"></i> +254-707-326-661</p>
+					<p><i class="fas fa-envelope"></i> mjanjezclint@gmail.com</p>
+					<p><i class="far fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+				</div>
+			</div>
+
+			<div class="footer-col">
+				<div class="footer-newsletter">
+					<h3>Our Newsletter</h3>
+					<p>Get updates on new courses, coding tips, and industry insights.</p>
+					<form class="newsletter-form">
+						<input type="email" placeholder="Enter Your Email" class="txtb" required>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-paper-plane"></i> Subscribe
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<p>Copyright © 2025 CLIN-TECH Code Camp. All Rights Reserved. | Designed by clintonmogoi</p>
+		</div>
+	</footer>
+
+	<script>
+		// Generate animated background with Python code snippets
+		function generatePythonBackground() {
+			const pythonBg = document.getElementById('pythonBg');
+			const codeSnippets = [
+				'print("Hello Python")',
+				'def greet(name):',
+				'return f"Hello {name}"',
+				'class Developer:',
+				'def __init__(self, name):',
+				'self.name = name',
+				'def code(self):',
+				'print(f"{self.name} is coding")',
+				'numbers = [1, 2, 3, 4, 5]',
+				'squares = [x**2 for x in numbers]',
+				'import pandas as pd',
+				'import numpy as np',
+				'from flask import Flask',
+				'app = Flask(__name__)',
+				'@app.route("/")',
+				'def home():',
+				'return "Hello World"'
+			];
+
+			for (let i = 0; i < 15; i++) {
+				const snippet = document.createElement('div');
+				snippet.className = 'code-snippet';
+				snippet.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+				snippet.style.left = `${Math.random() * 100}%`;
+				snippet.style.top = `${Math.random() * 100}%`;
+				snippet.style.animationDelay = `${Math.random() * 10}s`;
+				snippet.style.animationDuration = `${15 + Math.random() * 20}s`;
+				snippet.style.fontSize = `${10 + Math.random() * 10}px`;
+				pythonBg.appendChild(snippet);
+			}
+		}
+
+		// Video Modal Functionality
+		const videoModal = document.getElementById('videoModal');
+		const videoPlayer = document.getElementById('videoPlayer');
+		const closeModal = document.querySelector('.close-modal');
+
+		// Function to open video modal
+		function openVideoModal(videoId) {
+			if (videoId) {
+				videoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+				videoModal.style.display = 'block';
+				document.body.style.overflow = 'hidden';
+			}
+		}
+
+		// Mobile Navigation Toggle - IMPROVED
+		document.addEventListener('DOMContentLoaded', function () {
+			const menuToggle = document.getElementById('menuToggle');
+			const navLinks = document.getElementById('navLinks');
+			const mobileSearch = document.querySelector('.mobile-search');
+			const desktopSearch = document.querySelector('.search');
+
+			// Toggle mobile menu
+			menuToggle.addEventListener('click', function () {
+				navLinks.classList.toggle('active');
+				menuToggle.classList.toggle('active');
+
+				// Show/hide mobile search
+				if (navLinks.classList.contains('active')) {
+					mobileSearch.style.display = 'block';
+					// Clone desktop search functionality
+					const desktopSearchClone = desktopSearch.cloneNode(true);
+					mobileSearch.innerHTML = '';
+					mobileSearch.appendChild(desktopSearchClone);
+				} else {
+					mobileSearch.style.display = 'none';
+				}
+			});
+
+			// Close mobile menu when clicking outside
+			document.addEventListener('click', function (event) {
+				const isClickInsideNav = navLinks.contains(event.target) || menuToggle.contains(event.target);
+				if (!isClickInsideNav && navLinks.classList.contains('active')) {
+					navLinks.classList.remove('active');
+					menuToggle.classList.remove('active');
+					mobileSearch.style.display = 'none';
+				}
+			});
+
+			// Close mobile menu when clicking a link (except search)
+			navLinks.querySelectorAll('a').forEach(link => {
+				link.addEventListener('click', function (event) {
+					if (!this.closest('.mobile-search')) {
+						navLinks.classList.remove('active');
+						menuToggle.classList.remove('active');
+						mobileSearch.style.display = 'none';
+					}
+				});
+			});
+
+			// Add click handlers to all video cards and buttons
+			document.querySelectorAll('.video-card, .watch-video-btn, .video-play').forEach(element => {
+				element.addEventListener('click', function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+
+					const videoCard = this.closest('.video-card') || this;
+					const videoId = videoCard.getAttribute('data-video-id');
+
+					if (videoId) {
+						openVideoModal(videoId);
+					}
+				});
+			});
+
+			// Close modal functionality
+			closeModal.addEventListener('click', function () {
+				videoModal.style.display = 'none';
+				videoPlayer.src = '';
+				document.body.style.overflow = 'auto';
+			});
+
+			// Close modal when clicking outside
+			window.addEventListener('click', function (e) {
+				if (e.target === videoModal) {
+					videoModal.style.display = 'none';
+					videoPlayer.src = '';
+					document.body.style.overflow = 'auto';
+				}
+			});
+
+			// Close modal with Escape key
+			document.addEventListener('keydown', function (e) {
+				if (e.key === 'Escape' && videoModal.style.display === 'block') {
+					videoModal.style.display = 'none';
+					videoPlayer.src = '';
+					document.body.style.overflow = 'auto';
+				}
+			});
+
+			// Search functionality
+			function initSearch() {
+				document.querySelectorAll('#srchbtn').forEach(button => {
+					button.addEventListener('click', function () {
+						const searchInput = this.parentElement.querySelector('.srch');
+						performSearch(searchInput.value);
+					});
+				});
+
+				document.querySelectorAll('.srch').forEach(input => {
+					input.addEventListener('keypress', function (e) {
+						if (e.key === 'Enter') {
+							performSearch(this.value);
+						}
+					});
+				});
+
+				function performSearch(query) {
+					if (query.trim() !== '') {
+						alert(`Searching for: ${query}`);
+						// In a real application, you would redirect to search results page
+						// window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+					}
+				}
+			}
+
+			// Newsletter form
+			function initNewsletter() {
+				const form = document.querySelector('.newsletter-form');
+				if (form) {
+					form.addEventListener('submit', function (e) {
+						e.preventDefault();
+						const email = form.querySelector('input[type="email"]').value;
+						if (email && validateEmail(email)) {
+							alert(`Thank you for subscribing with ${email}! You'll receive our newsletter soon.`);
+							form.reset();
+						} else {
+							alert('Please enter a valid email address.');
+						}
+					});
+				}
+
+				function validateEmail(email) {
+					const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+					return re.test(email);
+				}
+			}
+
+			// Smooth scroll for anchor links
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+					const targetId = this.getAttribute('href');
+					if (targetId === '#') return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						window.scrollTo({
+							top: targetElement.offsetTop - 80,
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+
+			// Add animation to cards on scroll
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.style.opacity = '1';
+						entry.target.style.transform = 'translateY(0)';
+					}
+				});
+			}, observerOptions);
+
+			// Observe elements for animation
+			document.querySelectorAll('.course-card, .domain-card, .video-card, .feature-item').forEach(el => {
+				el.style.opacity = '0';
+				el.style.transform = 'translateY(20px)';
+				el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+				observer.observe(el);
+			});
+
+			// Initialize all functions
+			generatePythonBackground();
+			initSearch();
+			initNewsletter();
+		});
+	</script>
+</body>
+
+</html>
