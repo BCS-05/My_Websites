@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Clinton Calcy | Professional Calculator</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+
+		body {
+			background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+			min-height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 20px;
+		}
+
+		.calculator-container {
+			width: 100%;
+			max-width: 400px;
+			background: rgba(25, 25, 35, 0.9);
+			border-radius: 20px;
+			box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+			overflow: hidden;
+			border: 1px solid rgba(80, 255, 100, 0.1);
+		}
+
+		.calculator-header {
+			background: linear-gradient(to right, #0a3d0a, #0e5a0e);
+			padding: 20px;
+			text-align: center;
+			border-bottom: 2px solid #10fd45;
+		}
+
+		.calculator-title {
+			color: #ffffff;
+			font-size: 1.8rem;
+			font-weight: 600;
+			letter-spacing: 1px;
+			margin-bottom: 5px;
+		}
+
+		.calculator-subtitle {
+			color: #a0ffb0;
+			font-size: 1rem;
+			font-weight: 300;
+		}
+
+		.display-container {
+			padding: 20px;
+			background-color: #0c1c0c;
+		}
+
+		.calculator-display {
+			width: 100%;
+			height: 100px;
+			background-color: #0a250a;
+			border: 2px solid #10fd45;
+			border-radius: 12px;
+			color: #10fd45;
+			font-size: 2.5rem;
+			font-weight: 300;
+			text-align: right;
+			padding: 0 20px;
+			overflow: hidden;
+			box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+			letter-spacing: 2px;
+		}
+
+		.calculator-display:focus {
+			outline: none;
+		}
+
+		.button-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 12px;
+			padding: 20px;
+		}
+
+		.calc-button {
+			height: 70px;
+			border: none;
+			border-radius: 10px;
+			font-size: 1.5rem;
+			font-weight: 500;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.calc-button:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+		}
+
+		.calc-button:active {
+			transform: translateY(1px);
+		}
+
+		.number-button {
+			background: linear-gradient(to bottom, #2d2d3d, #1f1f2e);
+			color: #ffffff;
+		}
+
+		.number-button:hover {
+			background: linear-gradient(to bottom, #3d3d4d, #2f2f3e);
+		}
+
+		.operator-button {
+			background: linear-gradient(to bottom, #0e5a0e, #0a3d0a);
+			color: #ffffff;
+		}
+
+		.operator-button:hover {
+			background: linear-gradient(to bottom, #1e6a1e, #1a4d1a);
+		}
+
+		.equals-button {
+			background: linear-gradient(to bottom, #10fd45, #0bc238);
+			color: #000;
+			font-weight: 700;
+		}
+
+		.equals-button:hover {
+			background: linear-gradient(to bottom, #30ff65, #2be258);
+		}
+
+		.clear-button {
+			background: linear-gradient(to bottom, #ff4757, #c44569);
+			color: #ffffff;
+		}
+
+		.clear-button:hover {
+			background: linear-gradient(to bottom, #ff6b81, #d45d7d);
+		}
+
+		.special-button {
+			background: linear-gradient(to bottom, #3742fa, #2f3542);
+			color: #ffffff;
+		}
+
+		.special-button:hover {
+			background: linear-gradient(to bottom, #5762ff, #4f5562);
+		}
+
+		.button-text {
+			font-weight: 500;
+		}
+
+		.calculator-footer {
+			text-align: center;
+			padding: 15px;
+			color: #666;
+			font-size: 0.9rem;
+			border-top: 1px solid rgba(80, 255, 100, 0.1);
+		}
+
+		.memory-indicator {
+			display: flex;
+			justify-content: space-between;
+			padding: 5px 20px 0;
+			color: #10fd45;
+			font-size: 0.9rem;
+		}
+
+		.memory-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		@media (max-width: 480px) {
+			.button-grid {
+				gap: 10px;
+				padding: 15px;
+			}
+
+			.calc-button {
+				height: 60px;
+				font-size: 1.3rem;
+			}
+
+			.calculator-display {
+				height: 80px;
+				font-size: 2rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="calculator-container">
+		<div class="calculator-header">
+			<h1 class="calculator-title">Clinton Calcy</h1>
+			<p class="calculator-subtitle">Professional Calculator</p>
+		</div>
+
+		<div class="memory-indicator">
+			<div class="memory-item" id="memory-indicator">
+				<i class="fas fa-memory"></i> <span id="memory-value">0</span>
+			</div>
+			<div class="memory-item">
+				<i class="fas fa-history"></i> <span id="history-indicator">0 ops</span>
+			</div>
+		</div>
+
+		<div class="display-container">
+			<input type="text" class="calculator-display" id="display" readonly value="0">
+		</div>
+
+		<div class="button-grid">
+			<!-- First Row -->
+			<button class="calc-button clear-button" onclick="clearAll()">
+				<span class="button-text">AC</span>
+			</button>
+			<button class="calc-button clear-button" onclick="clearEntry()">
+				<span class="button-text">CE</span>
+			</button>
+			<button class="calc-button special-button" onclick="memoryRecall()">
+				<span class="button-text">MR</span>
+			</button>
+			<button class="calc-button special-button" onclick="memoryClear()">
+				<span class="button-text">MC</span>
+			</button>
+
+			<!-- Second Row -->
+			<button class="calc-button number-button" onclick="inputDigit('7')">
+				<span class="button-text">7</span>
+			</button>
+			<button class="calc-button number-button" onclick="inputDigit('8')">
+				<span class="button-text">8</span>
+			</button>
+			<button class="calc-button number-button" onclick="inputDigit('9')">
+				<span class="button-text">9</span>
+			</button>
+			<button class="calc-button operator-button" onclick="inputOperator('/')">
+				<span class="button-text">÷</span>
+			</button>
+
+			<!-- Third Row -->
+			<button class="calc-button number-button" onclick="inputDigit('4')">
+				<span class="button-text">4</span>
+			</button>
+			<button class="calc-button number-button" onclick="inputDigit('5')">
+				<span class="button-text">5</span>
+			</button>
+			<button class="calc-button number-button" onclick="inputDigit('6')">
+				<span class="button-text">6</span>
+			</button>
+			<button class="calc-button operator-button" onclick="inputOperator('*')">
+				<span class="button-text">×</span>
+			</button>
+
+			<!-- Fourth Row -->
+			<button class="calc-button number-button" onclick="inputDigit('1')">
+				<span class="button-text">1</span>
+			</button>
+			<button class="calc-button number-button" onclick="inputDigit('2')">
+				<span class="button-text">2</span>
+			</button>
+			<button class="calc-button number-button" onclick="inputDigit('3')">
+				<span class="button-text">3</span>
+			</button>
+			<button class="calc-button operator-button" onclick="inputOperator('-')">
+				<span class="button-text">-</span>
+			</button>
+
+			<!-- Fifth Row -->
+			<button class="calc-button number-button" onclick="inputDigit('0')">
+				<span class="button-text">0</span>
+			</button>
+			<button class="calc-button number-button" onclick="inputDecimal()">
+				<span class="button-text">.</span>
+			</button>
+			<button class="calc-button equals-button" onclick="calculate()">
+				<span class="button-text">=</span>
+			</button>
+			<button class="calc-button operator-button" onclick="inputOperator('+')">
+				<span class="button-text">+</span>
+			</button>
+
+			<!-- Sixth Row -->
+			<button class="calc-button special-button" onclick="memoryAdd()">
+				<span class="button-text">M+</span>
+			</button>
+			<button class="calc-button special-button" onclick="memorySubtract()">
+				<span class="button-text">M-</span>
+			</button>
+			<button class="calc-button special-button" onclick="toggleSign()">
+				<span class="button-text">±</span>
+			</button>
+			<button class="calc-button special-button" onclick="calculatePercentage()">
+				<span class="button-text">%</span>
+			</button>
+		</div>
+
+		<div class="calculator-footer">
+			<p>Professional Calculator v2.0 | Enhanced Design</p>
+		</div>
+	</div>
+
+	<script>
+		// Calculator state variables
+		let displayValue = '0';
+		let firstOperand = null;
+		let operator = null;
+		let waitingForSecondOperand = false;
+		let memoryValue = 0;
+		let operationCount = 0;
+
+		const display = document.getElementById('display');
+		const memoryValueElement = document.getElementById('memory-value');
+		const historyIndicator = document.getElementById('history-indicator');
+
+		// Initialize display
+		updateDisplay();
+
+		// Function to update the display
+		function updateDisplay() {
+			display.value = displayValue;
+			memoryValueElement.textContent = memoryValue;
+			historyIndicator.textContent = `${operationCount} ops`;
+		}
+
+		// Function to input a digit
+		function inputDigit(digit) {
+			if (waitingForSecondOperand) {
+				displayValue = digit;
+				waitingForSecondOperand = false;
+			} else {
+				displayValue = displayValue === '0' ? digit : displayValue + digit;
+			}
+			updateDisplay();
+		}
+
+		// Function to input a decimal point
+		function inputDecimal() {
+			if (waitingForSecondOperand) {
+				displayValue = '0.';
+				waitingForSecondOperand = false;
+				updateDisplay();
+				return;
+			}
+
+			if (!displayValue.includes('.')) {
+				displayValue += '.';
+				updateDisplay();
+			}
+		}
+
+		// Function to handle operator input
+		function inputOperator(nextOperator) {
+			const inputValue = parseFloat(displayValue);
+
+			if (firstOperand === null) {
+				firstOperand = inputValue;
+			} else if (operator) {
+				const result = performCalculation();
+				displayValue = `${parseFloat(result.toFixed(7))}`;
+				firstOperand = result;
+				operationCount++;
+			}
+
+			waitingForSecondOperand = true;
+			operator = nextOperator;
+			updateDisplay();
+		}
+
+		// Function to perform calculation
+		function performCalculation() {
+			const inputValue = parseFloat(displayValue);
+
+			if (operator === '+') return firstOperand + inputValue;
+			if (operator === '-') return firstOperand - inputValue;
+			if (operator === '*') return firstOperand * inputValue;
+			if (operator === '/') return firstOperand / inputValue;
+
+			return inputValue;
+		}
+
+		// Function to calculate and display result
+		function calculate() {
+			if (operator && !waitingForSecondOperand) {
+				const result = performCalculation();
+				displayValue = `${parseFloat(result.toFixed(7))}`;
+				operationCount++;
+				firstOperand = null;
+				operator = null;
+				waitingForSecondOperand = false;
+				updateDisplay();
+			}
+		}
+
+		// Function to clear all
+		function clearAll() {
+			displayValue = '0';
+			firstOperand = null;
+			operator = null;
+			waitingForSecondOperand = false;
+			updateDisplay();
+		}
+
+		// Function to clear entry
+		function clearEntry() {
+			displayValue = '0';
+			updateDisplay();
+		}
+
+		// Function to toggle sign
+		function toggleSign() {
+			displayValue = (parseFloat(displayValue) * -1).toString();
+			updateDisplay();
+		}
+
+		// Function to calculate percentage
+		function calculatePercentage() {
+			displayValue = (parseFloat(displayValue) / 100).toString();
+			updateDisplay();
+		}
+
+		// Memory functions
+		function memoryClear() {
+			memoryValue = 0;
+			updateDisplay();
+		}
+
+		function memoryRecall() {
+			displayValue = memoryValue.toString();
+			updateDisplay();
+		}
+
+		function memoryAdd() {
+			memoryValue += parseFloat(displayValue);
+			updateDisplay();
+		}
+
+		function memorySubtract() {
+			memoryValue -= parseFloat(displayValue);
+			updateDisplay();
+		}
+
+		// Keyboard support
+		document.addEventListener('keydown', function (event) {
+			const key = event.key;
+
+			if (key >= '0' && key <= '9') {
+				inputDigit(key);
+			} else if (key === '.') {
+				inputDecimal();
+			} else if (key === '+' || key === '-' || key === '*' || key === '/') {
+				inputOperator(key);
+			} else if (key === 'Enter' || key === '=') {
+				event.preventDefault();
+				calculate();
+			} else if (key === 'Escape' || key === 'Delete') {
+				clearAll();
+			} else if (key === '%') {
+				calculatePercentage();
+			} else if (key === 'Backspace') {
+				clearEntry();
+			}
+		});
+	</script>
+</body>
+
+</html>

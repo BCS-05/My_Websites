@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JP Morgan | Professional Banking System</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+
+		body {
+			background: linear-gradient(135deg, #001233 0%, #002855 50%, #023e7d 100%);
+			min-height: 100vh;
+			padding: 20px;
+			color: #333;
+		}
+
+		.app-container {
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		/* Login/Register Screen */
+		.auth-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 90vh;
+		}
+
+		.auth-card {
+			background: white;
+			border-radius: 20px;
+			width: 100%;
+			max-width: 500px;
+			padding: 40px;
+			box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+			text-align: center;
+		}
+
+		.auth-header {
+			margin-bottom: 30px;
+		}
+
+		.bank-logo {
+			color: #0056b3;
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 15px;
+		}
+
+		.bank-logo i {
+			color: #f4b400;
+		}
+
+		.auth-subtitle {
+			color: #666;
+			font-size: 1.1rem;
+			margin-bottom: 30px;
+		}
+
+		.auth-tabs {
+			display: flex;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+		}
+
+		.auth-tab {
+			flex: 1;
+			padding: 15px;
+			background: none;
+			border: none;
+			font-size: 1.1rem;
+			font-weight: 600;
+			cursor: pointer;
+			color: #777;
+			transition: all 0.3s;
+		}
+
+		.auth-tab.active {
+			color: #0056b3;
+			border-bottom: 3px solid #0056b3;
+		}
+
+		.auth-form {
+			display: none;
+		}
+
+		.auth-form.active {
+			display: block;
+		}
+
+		.form-group {
+			margin-bottom: 25px;
+			text-align: left;
+		}
+
+		.form-group label {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: 600;
+			color: #444;
+		}
+
+		.form-control {
+			width: 100%;
+			padding: 15px;
+			border: 2px solid #ddd;
+			border-radius: 10px;
+			font-size: 1rem;
+			transition: all 0.3s;
+		}
+
+		.form-control:focus {
+			outline: none;
+			border-color: #0056b3;
+			box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+		}
+
+		.auth-button {
+			width: 100%;
+			padding: 16px;
+			background: linear-gradient(to right, #0056b3, #0077cc);
+			color: white;
+			border: none;
+			border-radius: 10px;
+			font-size: 1.1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s;
+			margin-top: 10px;
+		}
+
+		.auth-button:hover {
+			background: linear-gradient(to right, #0066cc, #0088ee);
+			transform: translateY(-2px);
+			box-shadow: 0 7px 15px rgba(0, 86, 179, 0.2);
+		}
+
+		/* ATM Interface */
+		.atm-container {
+			display: none;
+			background: white;
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+		}
+
+		.atm-header {
+			background: linear-gradient(to right, #001233, #002855);
+			padding: 25px;
+			color: white;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.atm-header-left {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+		}
+
+		.atm-logo {
+			font-size: 1.8rem;
+			font-weight: 700;
+			color: #f4b400;
+		}
+
+		.atm-title {
+			font-size: 1.5rem;
+			font-weight: 600;
+		}
+
+		.user-info {
+			text-align: right;
+		}
+
+		.user-name {
+			font-size: 1.2rem;
+			font-weight: 600;
+			margin-bottom: 5px;
+		}
+
+		.account-number {
+			font-size: 0.9rem;
+			opacity: 0.8;
+		}
+
+		.atm-body {
+			display: grid;
+			grid-template-columns: 3fr 2fr;
+			min-height: 600px;
+		}
+
+		@media (max-width: 900px) {
+			.atm-body {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		.atm-display {
+			background: #f8f9fa;
+			padding: 30px;
+			border-right: 2px solid #eee;
+		}
+
+		.display-screen {
+			background: #001233;
+			border-radius: 15px;
+			padding: 25px;
+			margin-bottom: 30px;
+			min-height: 180px;
+			color: white;
+			box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+		}
+
+		.screen-title {
+			color: #f4b400;
+			font-size: 1.2rem;
+			margin-bottom: 15px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.screen-content {
+			font-size: 1.1rem;
+			line-height: 1.6;
+		}
+
+		.balance-amount {
+			font-size: 2.5rem;
+			font-weight: 700;
+			color: #10fd45;
+			margin: 15px 0;
+			text-align: center;
+		}
+
+		.transaction-history {
+			background: white;
+			border-radius: 10px;
+			padding: 20px;
+			margin-top: 20px;
+			max-height: 300px;
+			overflow-y: auto;
+		}
+
+		.history-title {
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin-bottom: 15px;
+			color: #0056b3;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.transaction-item {
+			padding: 12px 0;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.transaction-type {
+			font-weight: 600;
+		}
+
+		.transaction-amount {
+			font-weight: 600;
+		}
+
+		.withdraw {
+			color: #e74c3c;
+		}
+
+		.deposit {
+			color: #2ecc71;
+		}
+
+		.transaction-date {
+			font-size: 0.85rem;
+			color: #777;
+		}
+
+		.atm-controls {
+			padding: 30px;
+			background: #f0f2f5;
+		}
+
+		.control-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 15px;
+			margin-bottom: 25px;
+		}
+
+		.atm-button {
+			padding: 18px;
+			background: white;
+			border: none;
+			border-radius: 10px;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s;
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+			color: #0056b3;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+		}
+
+		.atm-button:hover {
+			background: #0056b3;
+			color: white;
+			transform: translateY(-3px);
+			box-shadow: 0 8px 15px rgba(0, 86, 179, 0.2);
+		}
+
+		.atm-button i {
+			font-size: 1.3rem;
+		}
+
+		.action-button {
+			padding: 18px;
+			background: linear-gradient(to right, #0056b3, #0077cc);
+			color: white;
+			border: none;
+			border-radius: 10px;
+			font-size: 1.1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s;
+			width: 100%;
+			margin-top: 10px;
+		}
+
+		.action-button:hover {
+			background: linear-gradient(to right, #0066cc, #0088ee);
+			transform: translateY(-2px);
+			box-shadow: 0 7px 15px rgba(0, 86, 179, 0.2);
+		}
+
+		.withdraw-section {
+			background: white;
+			border-radius: 10px;
+			padding: 20px;
+			margin-top: 25px;
+		}
+
+		.deposit-section {
+			background: white;
+			border-radius: 10px;
+			padding: 20px;
+			margin-top: 25px;
+			display: none;
+		}
+
+		.deposit-section.active {
+			display: block;
+		}
+
+		.withdraw-title,
+		.deposit-title {
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin-bottom: 15px;
+			color: #0056b3;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.currency-selector {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 15px;
+		}
+
+		.currency-button {
+			flex: 1;
+			padding: 12px;
+			background: #f0f2f5;
+			border: 2px solid #ddd;
+			border-radius: 8px;
+			cursor: pointer;
+			font-weight: 600;
+			color: #0056b3;
+			transition: all 0.3s;
+		}
+
+		.currency-button.active {
+			background: #0056b3;
+			color: white;
+			border-color: #0056b3;
+		}
+
+		.currency-button:hover {
+			border-color: #0056b3;
+		}
+
+		.quick-amounts {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 15px;
+			flex-wrap: wrap;
+		}
+
+		.quick-amount {
+			padding: 10px 15px;
+			background: #f0f2f5;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: all 0.2s;
+			font-weight: 600;
+		}
+
+		.quick-amount:hover {
+			background: #0056b3;
+			color: white;
+		}
+
+		.amount-input {
+			width: 100%;
+			padding: 15px;
+			border: 2px solid #ddd;
+			border-radius: 10px;
+			font-size: 1.2rem;
+			text-align: center;
+			margin-bottom: 15px;
+		}
+
+		.logout-button {
+			background: linear-gradient(to right, #e74c3c, #c0392b);
+			color: white;
+			border: none;
+			border-radius: 10px;
+			padding: 15px;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			width: 100%;
+			margin-top: 20px;
+			transition: all 0.3s;
+		}
+
+		.logout-button:hover {
+			background: linear-gradient(to right, #ff6b6b, #ee5a52);
+			transform: translateY(-2px);
+			box-shadow: 0 7px 15px rgba(231, 76, 60, 0.2);
+		}
+
+		.success-message {
+			background: #d4edda;
+			color: #155724;
+			padding: 15px;
+			border-radius: 10px;
+			margin-bottom: 20px;
+			display: none;
+		}
+
+		.error-message {
+			background: #f8d7da;
+			color: #721c24;
+			padding: 15px;
+			border-radius: 10px;
+			margin-bottom: 20px;
+			display: none;
+		}
+
+		.form-error {
+			color: #e74c3c;
+			font-size: 0.9rem;
+			margin-top: 5px;
+			display: none;
+		}
+
+		.receipt {
+			background: white;
+			border: 2px dashed #ddd;
+			border-radius: 10px;
+			padding: 20px;
+			margin-top: 20px;
+			display: none;
+		}
+
+		.receipt-header {
+			text-align: center;
+			margin-bottom: 15px;
+			color: #0056b3;
+			font-weight: 600;
+		}
+
+		.receipt-details {
+			line-height: 1.6;
+			font-size: 0.95rem;
+		}
+
+		.receipt-line {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 8px;
+		}
+
+		.receipt-line.total {
+			font-weight: 700;
+			border-top: 1px solid #ddd;
+			padding-top: 10px;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="app-container">
+		<!-- Authentication Screen (Login/Register) -->
+		<div class="auth-container" id="authContainer">
+			<div class="auth-card">
+				<div class="auth-header">
+					<div class="bank-logo">
+						<i class="fas fa-university"></i>
+						JP MORGAN BANK
+					</div>
+					<p class="auth-subtitle">Secure Professional Banking System</p>
+				</div>
+
+				<div class="auth-tabs">
+					<button class="auth-tab active" onclick="showLoginForm()">Login</button>
+					<button class="auth-tab" onclick="showRegisterForm()">Register</button>
+				</div>
+
+				<!-- Login Form -->
+				<form class="auth-form active" id="loginForm" onsubmit="loginUser(event)">
+					<div class="form-group">
+						<label for="loginAccount">Account Number</label>
+						<input type="text" id="loginAccount" class="form-control"
+							placeholder="Enter your account number" required>
+						<div class="form-error" id="loginAccountError"></div>
+					</div>
+
+					<div class="form-group">
+						<label for="loginPin">PIN</label>
+						<input type="password" id="loginPin" class="form-control" placeholder="Enter your 4-digit PIN"
+							maxlength="4" required>
+						<div class="form-error" id="loginPinError"></div>
+					</div>
+
+					<div class="success-message" id="loginSuccess"></div>
+					<div class="error-message" id="loginError"></div>
+
+					<button type="submit" class="auth-button">
+						<i class="fas fa-sign-in-alt"></i> Login to Account
+					</button>
+				</form>
+
+				<!-- Registration Form -->
+				<form class="auth-form" id="registerForm" onsubmit="registerUser(event)">
+					<div class="form-group">
+						<label for="regName">Full Name</label>
+						<input type="text" id="regName" class="form-control" placeholder="Enter your full name"
+							required>
+						<div class="form-error" id="regNameError"></div>
+					</div>
+
+					<div class="form-group">
+						<label for="regEmail">Email Address</label>
+						<input type="email" id="regEmail" class="form-control" placeholder="Enter your email" required>
+						<div class="form-error" id="regEmailError"></div>
+					</div>
+
+					<div class="form-group">
+						<label for="regPin">Create 4-digit PIN</label>
+						<input type="password" id="regPin" class="form-control" placeholder="Create a 4-digit PIN"
+							maxlength="4" required>
+						<div class="form-error" id="regPinError"></div>
+					</div>
+
+					<div class="form-group">
+						<label for="regConfirmPin">Confirm PIN</label>
+						<input type="password" id="regConfirmPin" class="form-control" placeholder="Confirm your PIN"
+							maxlength="4" required>
+						<div class="form-error" id="regConfirmPinError"></div>
+					</div>
+
+					<div class="form-group">
+						<label for="initialDeposit">Initial Deposit ($)</label>
+						<input type="number" id="initialDeposit" class="form-control"
+							placeholder="Enter initial deposit amount" min="100" max="10000" required>
+						<div class="form-error" id="initialDepositError"></div>
+					</div>
+
+					<div class="success-message" id="regSuccess"></div>
+					<div class="error-message" id="regError"></div>
+
+					<button type="submit" class="auth-button">
+						<i class="fas fa-user-plus"></i> Create Account
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<!-- ATM Interface -->
+		<div class="atm-container" id="atmContainer">
+			<!-- ATM Header -->
+			<div class="atm-header">
+				<div class="atm-header-left">
+					<div class="atm-logo">
+						<i class="fas fa-university"></i> JP MORGAN
+					</div>
+					<div class="atm-title">Professional ATM Machine</div>
+				</div>
+
+				<div class="user-info">
+					<div class="user-name" id="userName">John Doe</div>
+					<div class="account-number" id="userAccount">Account: **** **** **** 1234</div>
+				</div>
+			</div>
+
+			<!-- ATM Body -->
+			<div class="atm-body">
+				<!-- Left Panel: Display and Transaction History -->
+				<div class="atm-display">
+					<div class="display-screen" id="displayScreen">
+						<div class="screen-title">
+							<i class="fas fa-wallet"></i> Account Overview
+						</div>
+						<div class="screen-content" id="screenContent">
+							Welcome to JP Morgan ATM. Please select an option to continue.
+						</div>
+						<div class="balance-amount" id="balanceAmount" style="display: none;">
+							$0.00
+						</div>
+					</div>
+
+					<!-- Transaction History -->
+					<div class="transaction-history">
+						<div class="history-title">
+							<i class="fas fa-history"></i> Recent Transactions
+						</div>
+						<div id="transactionList">
+							<!-- Transactions will be added here dynamically -->
+						</div>
+					</div>
+
+					<!-- Receipt -->
+					<div class="receipt" id="receipt">
+						<div class="receipt-header">
+							<i class="fas fa-receipt"></i> TRANSACTION RECEIPT
+						</div>
+						<div class="receipt-details" id="receiptDetails">
+							<!-- Receipt details will be added here -->
+						</div>
+					</div>
+				</div>
+
+				<!-- Right Panel: Controls -->
+				<div class="atm-controls">
+					<div class="control-grid">
+						<button class="atm-button" onclick="showBalance()">
+							<i class="fas fa-dollar-sign"></i>
+							Check Balance
+						</button>
+
+						<button class="atm-button" onclick="showFixedDeposit()">
+							<i class="fas fa-piggy-bank"></i>
+							Fixed Deposit
+						</button>
+
+						<button class="atm-button" onclick="showCreditLimit()">
+							<i class="fas fa-credit-card"></i>
+							Credit Card
+						</button>
+
+						<button class="atm-button" onclick="showDepositForm()">
+							<i class="fas fa-money-bill-wave"></i>
+							Deposit
+						</button>
+
+						<button class="atm-button" onclick="showTransferForm()">
+							<i class="fas fa-exchange-alt"></i>
+							Transfer
+						</button>
+
+						<button class="atm-button" onclick="showTransactionHistory()">
+							<i class="fas fa-list"></i>
+							Transactions
+						</button>
+					</div>
+
+					<!-- Deposit Section -->
+					<div class="deposit-section" id="depositSection">
+						<div class="deposit-title">
+							<i class="fas fa-money-bill-wave"></i> Cash Deposit
+						</div>
+
+						<div class="currency-selector">
+							<button class="currency-button active" data-currency="USD"
+								onclick="selectDepositCurrency('USD')">
+								💵 USD
+							</button>
+							<button class="currency-button" data-currency="KSH" onclick="selectDepositCurrency('KSH')">
+								💳 KSH
+							</button>
+						</div>
+
+						<div id="depositCurrencyInfo" style="margin-bottom: 15px; font-size: 0.9rem; color: #666;">
+							Selected Currency: USD
+						</div>
+
+						<input type="number" class="amount-input" id="depositAmount" placeholder="Enter deposit amount"
+							min="1" max="5000">
+
+						<button class="action-button" onclick="depositCash()">
+							<i class="fas fa-plus-circle"></i> Deposit Cash
+						</button>
+
+						<button class="action-button"
+							style="background: linear-gradient(to right, #95a5a6, #7f8c8d); margin-top: 10px;"
+							onclick="cancelDeposit()">
+							<i class="fas fa-times-circle"></i> Cancel
+						</button>
+					</div>
+
+					<!-- Withdrawal Section -->
+					<div class="withdraw-section">
+						<div class="withdraw-title">
+							<i class="fas fa-cash-register"></i> Cash Withdrawal
+						</div>
+
+						<div class="quick-amounts">
+							<button class="quick-amount" onclick="setWithdrawAmount(20)">$20</button>
+							<button class="quick-amount" onclick="setWithdrawAmount(50)">$50</button>
+							<button class="quick-amount" onclick="setWithdrawAmount(100)">$100</button>
+							<button class="quick-amount" onclick="setWithdrawAmount(200)">$200</button>
+							<button class="quick-amount" onclick="setWithdrawAmount(500)">$500</button>
+						</div>
+
+						<input type="number" class="amount-input" id="withdrawAmount" placeholder="Enter custom amount"
+							min="10" max="1000">
+
+						<button class="action-button" onclick="withdrawCash()">
+							<i class="fas fa-hand-holding-usd"></i> Withdraw Cash
+						</button>
+					</div>
+
+					<!-- Logout Button -->
+					<button class="logout-button" onclick="logout()">
+						<i class="fas fa-sign-out-alt"></i> Log Out
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// Banking System Data
+		let users = JSON.parse(localStorage.getItem('jpMorganUsers')) || [];
+		let transactions = JSON.parse(localStorage.getItem('jpMorganTransactions')) || [];
+		let currentUser = null;
+
+		// Generate unique account number
+		function generateAccountNumber() {
+			return 'JP' + Math.floor(10000000 + Math.random() * 90000000);
+		}
+
+		// Format currency
+		function formatCurrency(amount) {
+			return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+		}
+
+		// Show login form
+		function showLoginForm() {
+			document.querySelectorAll('.auth-tab').forEach(tab => tab.classList.remove('active'));
+			document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+			document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+			document.getElementById('loginForm').classList.add('active');
+			clearFormMessages();
+		}
+
+		// Show registration form
+		function showRegisterForm() {
+			document.querySelectorAll('.auth-tab').forEach(tab => tab.classList.remove('active'));
+			document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+			document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
+			document.getElementById('registerForm').classList.add('active');
+			clearFormMessages();
+		}
+
+		// Clear form messages
+		function clearFormMessages() {
+			document.querySelectorAll('.success-message, .error-message').forEach(el => {
+				el.style.display = 'none';
+				el.textContent = '';
+			});
+			document.querySelectorAll('.form-error').forEach(el => {
+				el.style.display = 'none';
+			});
+		}
+
+		// Register new user
+		function registerUser(event) {
+			event.preventDefault();
+
+			// Get form values
+			const name = document.getElementById('regName').value.trim();
+			const email = document.getElementById('regEmail').value.trim();
+			const pin = document.getElementById('regPin').value;
+			const confirmPin = document.getElementById('regConfirmPin').value;
+			const initialDeposit = parseFloat(document.getElementById('initialDeposit').value);
+
+			// Validation
+			let isValid = true;
+
+			// Name validation
+			if (name.length < 3) {
+				document.getElementById('regNameError').textContent = 'Name must be at least 3 characters';
+				document.getElementById('regNameError').style.display = 'block';
+				isValid = false;
+			} else {
+				document.getElementById('regNameError').style.display = 'none';
+			}
+
+			// Email validation
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				document.getElementById('regEmailError').textContent = 'Please enter a valid email address';
+				document.getElementById('regEmailError').style.display = 'block';
+				isValid = false;
+			} else {
+				document.getElementById('regEmailError').style.display = 'none';
+			}
+
+			// PIN validation
+			const pinRegex = /^\d{4}$/;
+			if (!pinRegex.test(pin)) {
+				document.getElementById('regPinError').textContent = 'PIN must be exactly 4 digits';
+				document.getElementById('regPinError').style.display = 'block';
+				isValid = false;
+			} else {
+				document.getElementById('regPinError').style.display = 'none';
+			}
+
+			// Confirm PIN validation
+			if (pin !== confirmPin) {
+				document.getElementById('regConfirmPinError').textContent = 'PINs do not match';
+				document.getElementById('regConfirmPinError').style.display = 'block';
+				isValid = false;
+			} else {
+				document.getElementById('regConfirmPinError').style.display = 'none';
+			}
+
+			// Initial deposit validation
+			if (initialDeposit < 100 || initialDeposit > 10000) {
+				document.getElementById('initialDepositError').textContent = 'Initial deposit must be between $100 and $10,000';
+				document.getElementById('initialDepositError').style.display = 'block';
+				isValid = false;
+			} else {
+				document.getElementById('initialDepositError').style.display = 'none';
+			}
+
+			if (!isValid) return;
+
+			// Check if email already exists
+			if (users.find(user => user.email === email)) {
+				document.getElementById('regError').textContent = 'Email already registered. Please use a different email or login.';
+				document.getElementById('regError').style.display = 'block';
+				return;
+			}
+
+			// Create new user
+			const newUser = {
+				id: Date.now().toString(),
+				accountNumber: generateAccountNumber(),
+				name: name,
+				email: email,
+				pin: pin,
+				balance: initialDeposit,
+				fixedDeposit: 0,
+				creditLimit: 5000,
+				creditUsed: 0,
+				createdAt: new Date().toISOString()
+			};
+
+			// Add to users array
+			users.push(newUser);
+			localStorage.setItem('jpMorganUsers', JSON.stringify(users));
+
+			// Create initial deposit transaction
+			const depositTransaction = {
+				id: Date.now().toString(),
+				userId: newUser.id,
+				type: 'Deposit',
+				amount: initialDeposit,
+				description: 'Initial account deposit',
+				date: new Date().toISOString(),
+				balanceAfter: initialDeposit
+			};
+
+			transactions.push(depositTransaction);
+			localStorage.setItem('jpMorganTransactions', JSON.stringify(transactions));
+
+			// Show success message
+			document.getElementById('regSuccess').innerHTML = `
+                <strong>Account Created Successfully!</strong><br>
+                Your account number is: <strong>${newUser.accountNumber}</strong><br>
+                Please remember this number for login.
+            `;
+			document.getElementById('regSuccess').style.display = 'block';
+
+			// Clear form
+			document.getElementById('registerForm').reset();
+
+			// Switch to login form after 3 seconds
+			setTimeout(() => {
+				showLoginForm();
+				document.getElementById('loginAccount').value = newUser.accountNumber;
+			}, 3000);
+		}
+
+		// Login user
+		function loginUser(event) {
+			event.preventDefault();
+
+			const accountNumber = document.getElementById('loginAccount').value.trim();
+			const pin = document.getElementById('loginPin').value;
+
+			// Find user
+			const user = users.find(u => u.accountNumber === accountNumber);
+
+			if (!user) {
+				document.getElementById('loginError').textContent = 'Invalid account number or PIN';
+				document.getElementById('loginError').style.display = 'block';
+				return;
+			}
+
+			if (user.pin !== pin) {
+				document.getElementById('loginError').textContent = 'Invalid account number or PIN';
+				document.getElementById('loginError').style.display = 'block';
+				return;
+			}
+
+			// Login successful
+			currentUser = user;
+
+			// Hide auth container, show ATM
+			document.getElementById('authContainer').style.display = 'none';
+			document.getElementById('atmContainer').style.display = 'block';
+
+			// Update user info
+			document.getElementById('userName').textContent = currentUser.name;
+			document.getElementById('userAccount').textContent = `Account: ${currentUser.accountNumber}`;
+
+			// Show welcome message
+			updateScreen('Welcome to JP Morgan ATM', `Welcome back, ${currentUser.name}!<br>Please select an option to continue.`);
+
+			// Load transaction history
+			loadTransactionHistory();
+		}
+
+		// Update the display screen
+		function updateScreen(title, content, showBalance = false) {
+			document.getElementById('screenContent').innerHTML = content;
+
+			const screenTitle = document.querySelector('.screen-title');
+			screenTitle.innerHTML = `<i class="fas fa-wallet"></i> ${title}`;
+
+			const balanceAmount = document.getElementById('balanceAmount');
+			if (showBalance && currentUser) {
+				balanceAmount.textContent = formatCurrency(currentUser.balance);
+				balanceAmount.style.display = 'block';
+			} else {
+				balanceAmount.style.display = 'none';
+			}
+		}
+
+		// Show balance
+		function showBalance() {
+			updateScreen(
+				'Account Balance',
+				`Current available balance for account ${currentUser.accountNumber}`,
+				true
+			);
+		}
+
+		// Show fixed deposit
+		function showFixedDeposit() {
+			updateScreen(
+				'Fixed Deposit',
+				`Fixed Deposit Balance: ${formatCurrency(currentUser.fixedDeposit)}<br><br>
+                 Fixed deposits earn 5% annual interest. Contact bank for new fixed deposit.`
+			);
+		}
+
+		// Show credit limit
+		function showCreditLimit() {
+			const availableCredit = currentUser.creditLimit - currentUser.creditUsed;
+			updateScreen(
+				'Credit Card',
+				`Credit Limit: ${formatCurrency(currentUser.creditLimit)}<br>
+                 Credit Used: ${formatCurrency(currentUser.creditUsed)}<br>
+                 Available Credit: ${formatCurrency(availableCredit)}<br><br>
+                 Credit card payments are due on the 1st of each month.`
+			);
+		}
+
+		// Current deposit currency
+		let currentDepositCurrency = 'USD';
+
+		// Show deposit form
+		function showDepositForm() {
+			document.getElementById('depositSection').classList.add('active');
+			currentDepositCurrency = 'USD';
+			selectDepositCurrency('USD');
+			updateScreen(
+				'Cash Deposit',
+				'Select your currency and enter the amount you wish to deposit.'
+			);
+		}
+
+		// Select deposit currency
+		function selectDepositCurrency(currency) {
+			currentDepositCurrency = currency;
+
+			// Update button states
+			document.querySelectorAll('.currency-button').forEach(btn => {
+				btn.classList.remove('active');
+				if (btn.getAttribute('data-currency') === currency) {
+					btn.classList.add('active');
+				}
+			});
+
+			// Update currency info
+			const currencySymbol = currency === 'USD' ? '$' : 'KSH';
+			document.getElementById('depositCurrencyInfo').textContent = `Selected Currency: ${currency} (${currencySymbol})`;
+		}
+
+		// Deposit cash
+		function depositCash() {
+			const amountInput = document.getElementById('depositAmount');
+			const amount = parseFloat(amountInput.value);
+			const currency = currentDepositCurrency;
+
+			if (!amount || amount < 1) {
+				alert(`Please enter a valid amount (minimum 1 ${currency})`);
+				return;
+			}
+
+			if (amount > 5000) {
+				alert(`Maximum deposit per transaction is 5000 ${currency}`);
+				return;
+			}
+
+			// Add to balance (in USD, if KSH use exchange rate or store separately)
+			let depositInUSD = amount;
+			if (currency === 'KSH') {
+				// Using approximate exchange rate: 1 USD = 130 KSH
+				depositInUSD = amount / 130;
+			}
+
+			// Update user balance
+			currentUser.balance += depositInUSD;
+
+			// Update users in localStorage
+			const userIndex = users.findIndex(u => u.id === currentUser.id);
+			users[userIndex] = currentUser;
+			localStorage.setItem('jpMorganUsers', JSON.stringify(users));
+
+			// Create transaction record
+			const transaction = {
+				id: Date.now().toString(),
+				userId: currentUser.id,
+				type: 'Deposit',
+				amount: amount,
+				currency: currency,
+				amountInUSD: depositInUSD,
+				description: `ATM Cash Deposit (${currency})`,
+				date: new Date().toISOString(),
+				balanceAfter: currentUser.balance
+			};
+
+			transactions.push(transaction);
+			localStorage.setItem('jpMorganTransactions', JSON.stringify(transactions));
+
+			// Show success message
+			const currencySymbol = currency === 'USD' ? '$' : 'KSH ';
+			updateScreen(
+				'Deposit Successful',
+				`Deposit of ${currencySymbol}${amount.toFixed(2)} was successful.<br><br>
+                 New Balance: ${formatCurrency(currentUser.balance)}<br>
+                 Thank you for your deposit.`,
+				true
+			);
+
+			// Generate receipt
+			generateReceipt(transaction);
+
+			// Clear input and hide deposit section
+			amountInput.value = '';
+			document.getElementById('depositSection').classList.remove('active');
+
+			// Update transaction history
+			loadTransactionHistory();
+		}
+
+		// Cancel deposit
+		function cancelDeposit() {
+			document.getElementById('depositSection').classList.remove('active');
+			document.getElementById('depositAmount').value = '';
+			updateScreen(
+				'Deposit Cancelled',
+				'Deposit transaction has been cancelled. Please select another option.'
+			);
+		}
+
+		// Show transfer form
+		function showTransferForm() {
+			updateScreen(
+				'Fund Transfer',
+				`Fund transfers can be completed through:<br><br>
+                 1. Online Banking<br>
+                 2. Mobile App<br>
+                 3. Branch Visit<br><br>
+                 <strong>Note:</strong> ATM transfers are currently unavailable.`
+			);
+		}
+
+		// Set withdrawal amount
+		function setWithdrawAmount(amount) {
+			document.getElementById('withdrawAmount').value = amount;
+		}
+
+		// Withdraw cash
+		function withdrawCash() {
+			const amountInput = document.getElementById('withdrawAmount');
+			const amount = parseFloat(amountInput.value);
+
+			if (!amount || amount < 10) {
+				alert('Please enter a valid amount (minimum $10)');
+				return;
+			}
+
+			if (amount > 1000) {
+				alert('Maximum withdrawal per transaction is $1000');
+				return;
+			}
+
+			if (amount > currentUser.balance) {
+				alert('Insufficient funds in your account');
+				return;
+			}
+
+			// Update user balance
+			currentUser.balance -= amount;
+
+			// Update users in localStorage
+			const userIndex = users.findIndex(u => u.id === currentUser.id);
+			users[userIndex] = currentUser;
+			localStorage.setItem('jpMorganUsers', JSON.stringify(users));
+
+			// Create transaction record
+			const transaction = {
+				id: Date.now().toString(),
+				userId: currentUser.id,
+				type: 'Withdrawal',
+				amount: amount,
+				description: 'ATM Cash Withdrawal',
+				date: new Date().toISOString(),
+				balanceAfter: currentUser.balance
+			};
+
+			transactions.push(transaction);
+			localStorage.setItem('jpMorganTransactions', JSON.stringify(transactions));
+
+			// Show success message
+			updateScreen(
+				'Withdrawal Successful',
+				`Withdrawal of ${formatCurrency(amount)} was successful.<br><br>
+                 New Balance: ${formatCurrency(currentUser.balance)}<br>
+                 Please take your cash.`,
+				true
+			);
+
+			// Generate receipt
+			generateReceipt(transaction);
+
+			// Clear input
+			amountInput.value = '';
+
+			// Update transaction history
+			loadTransactionHistory();
+		}
+
+		// Show transaction history
+		function showTransactionHistory() {
+			updateScreen(
+				'Transaction History',
+				`Showing last 10 transactions for account ${currentUser.accountNumber}`
+			);
+
+			// Ensure transaction list is visible
+			document.querySelector('.transaction-history').style.display = 'block';
+		}
+
+		// Load transaction history
+		function loadTransactionHistory() {
+			const userTransactions = transactions
+				.filter(t => t.userId === currentUser.id)
+				.sort((a, b) => new Date(b.date) - new Date(a.date))
+				.slice(0, 10);
+
+			const transactionList = document.getElementById('transactionList');
+			transactionList.innerHTML = '';
+
+			if (userTransactions.length === 0) {
+				transactionList.innerHTML = '<div class="transaction-item">No transactions yet</div>';
+				return;
+			}
+
+			userTransactions.forEach(transaction => {
+				const transactionItem = document.createElement('div');
+				transactionItem.className = 'transaction-item';
+
+				const date = new Date(transaction.date).toLocaleDateString();
+				const time = new Date(transaction.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+				transactionItem.innerHTML = `
+                    <div>
+                        <div class="transaction-type">${transaction.type}</div>
+                        <div class="transaction-date">${date} ${time}</div>
+                    </div>
+                    <div class="transaction-amount ${transaction.type.toLowerCase()}">
+                        ${transaction.type === 'Withdrawal' ? '-' : '+'}${formatCurrency(transaction.amount)}
+                    </div>
+                `;
+
+				transactionList.appendChild(transactionItem);
+			});
+		}
+
+		// Generate receipt
+		function generateReceipt(transaction) {
+			const receipt = document.getElementById('receipt');
+			const receiptDetails = document.getElementById('receiptDetails');
+
+			const date = new Date(transaction.date).toLocaleDateString();
+			const time = new Date(transaction.date).toLocaleTimeString();
+
+			// Format amount based on transaction type and currency
+			let amountDisplay = '';
+			if (transaction.currency === 'KSH') {
+				amountDisplay = `KSH ${transaction.amount.toFixed(2)}`;
+			} else {
+				amountDisplay = formatCurrency(transaction.amount);
+			}
+
+			receiptDetails.innerHTML = `
+                <div class="receipt-line">
+                    <span>Transaction ID:</span>
+                    <span>${transaction.id.substring(0, 8)}</span>
+                </div>
+                <div class="receipt-line">
+                    <span>Account:</span>
+                    <span>${currentUser.accountNumber}</span>
+                </div>
+                <div class="receipt-line">
+                    <span>Date/Time:</span>
+                    <span>${date} ${time}</span>
+                </div>
+                <div class="receipt-line">
+                    <span>Transaction Type:</span>
+                    <span>${transaction.type}</span>
+                </div>
+                <div class="receipt-line">
+                    <span>Amount:</span>
+                    <span>${amountDisplay}</span>
+                </div>
+                <div class="receipt-line">
+                    <span>Description:</span>
+                    <span>${transaction.description}</span>
+                </div>
+                <div class="receipt-line total">
+                    <span>New Balance:</span>
+                    <span>${formatCurrency(transaction.balanceAfter)}</span>
+                </div>
+            `;
+
+			receipt.style.display = 'block';
+
+			// Hide receipt after 10 seconds
+			setTimeout(() => {
+				receipt.style.display = 'none';
+			}, 10000);
+		}
+
+		// Logout
+		function logout() {
+			currentUser = null;
+			document.getElementById('atmContainer').style.display = 'none';
+			document.getElementById('authContainer').style.display = 'flex';
+
+			// Clear login form
+			document.getElementById('loginForm').reset();
+			clearFormMessages();
+		}
+
+		// Initialize with some sample users if none exist
+		function initializeSampleData() {
+			if (users.length === 0) {
+				const sampleUser = {
+					id: '1',
+					accountNumber: 'JP12345678',
+					name: 'John Smith',
+					email: 'john@example.com',
+					pin: '1234',
+					balance: 2500.00,
+					fixedDeposit: 5000.00,
+					creditLimit: 5000,
+					creditUsed: 1250.50,
+					createdAt: new Date().toISOString()
+				};
+
+				users.push(sampleUser);
+				localStorage.setItem('jpMorganUsers', JSON.stringify(users));
+
+				// Add sample transactions
+				const sampleTransactions = [
+					{
+						id: '1',
+						userId: '1',
+						type: 'Deposit',
+						amount: 1000,
+						description: 'Initial deposit',
+						date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+						balanceAfter: 1000
+					},
+					{
+						id: '2',
+						userId: '1',
+						type: 'Deposit',
+						amount: 1500,
+						description: 'Paycheck deposit',
+						date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+						balanceAfter: 2500
+					},
+					{
+						id: '3',
+						userId: '1',
+						type: 'Withdrawal',
+						amount: 200,
+						description: 'ATM withdrawal',
+						date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+						balanceAfter: 2300
+					},
+					{
+						id: '4',
+						userId: '1',
+						type: 'Withdrawal',
+						amount: 50,
+						description: 'Grocery store',
+						date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+						balanceAfter: 2250
+					}
+				];
+
+				transactions.push(...sampleTransactions);
+				localStorage.setItem('jpMorganTransactions', JSON.stringify(transactions));
+			}
+		}
+
+		// Initialize the application
+		window.addEventListener('DOMContentLoaded', () => {
+			initializeSampleData();
+		});
+	</script>
+</body>
+
+</html>
