@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard | CLIN-TECH Code Camp</title>
+    <link rel="shortcut icon" type="png" href="images/icon/Screenshot 2025-03-24 002902.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Modern CSS Reset & Base Styles */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #60a5fa;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --accent-light: #22d3ee;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --lighter: #f1f5f9;
+            --gray: #64748b;
+            --gray-light: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-tech: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --gradient-success: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-primary: 0 10px 30px rgba(37, 99, 235, 0.2);
+            --shadow-neon: 0 0 20px rgba(96, 165, 250, 0.3);
+
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 20px;
+            --border-radius-xl: 30px;
+
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Container System */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .container-fluid {
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        /* Background Animation */
+        .tech-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: var(--darker);
+        }
+
+        .grid-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(96, 165, 250, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(96, 165, 250, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(96, 165, 250, 0.1);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: floatShape 15s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+            background: rgba(96, 165, 250, 0.15);
+        }
+
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .binary-rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .binary {
+            position: absolute;
+            color: rgba(96, 165, 250, 0.3);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            animation: rainDown 20s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+
+            100% {
+                transform: translateY(50px) translateX(50px);
+            }
+        }
+
+        @keyframes floatShape {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        @keyframes rainDown {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-normal);
+        }
+
+        .nav-container.scrolled {
+            background: rgba(2, 6, 23, 0.98);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.5));
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 0;
+            position: relative;
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-tech);
+            transition: width var(--transition-normal);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-get-started {
+            padding: 10px 24px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-get-started:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-primary);
+        }
+
+        /* User Dropdown */
+        .user-dropdown {
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-tech);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 240px;
+            background: white;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-xl);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all var(--transition-normal);
+            z-index: 1001;
+        }
+
+        .user-dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid white;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            border-bottom: 1px solid var(--lighter);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--lighter);
+            padding-left: 25px;
+            color: var(--primary);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            color: var(--primary);
+        }
+
+        .dropdown-item.logout {
+            color: var(--danger);
+        }
+
+        .dropdown-item.logout:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .dropdown-item.logout:hover i {
+            color: white;
+        }
+
+        /* Mobile Menu Toggle - IMPROVED */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1002;
+            position: relative;
+        }
+
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all var(--transition-normal);
+            position: absolute;
+        }
+
+        .hamburger-line:nth-child(1) {
+            transform: translateY(-8px);
+        }
+
+        .hamburger-line:nth-child(2) {
+            width: 18px;
+        }
+
+        .hamburger-line:nth-child(3) {
+            transform: translateY(8px);
+        }
+
+        .mobile-menu-btn.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translateY(0);
+            width: 24px;
+        }
+
+        .mobile-menu-btn.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .mobile-menu-btn.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translateY(0);
+            width: 24px;
+        }
+
+        /* Mobile Navigation - FIXED */
+        @media (max-width: 992px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: rgba(2, 6, 23, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 998;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: var(--shadow-xl);
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: left;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+                font-size: 1.1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                width: 100%;
+            }
+
+            .nav-links a:hover {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+                padding-left: 1.5rem;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+        }
+
+        /* Hero Section */
+        .dashboard-hero {
+            padding: 160px 0 80px;
+            position: relative;
+            margin-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(2, 6, 23, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .user-greeting {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .user-avatar-large {
+            width: 140px;
+            height: 140px;
+            background: var(--gradient-tech);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            box-shadow: var(--shadow-xl);
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-avatar-large::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                    transparent 30%,
+                    rgba(255, 255, 255, 0.1) 50%,
+                    transparent 70%);
+            animation: shine 3s infinite linear;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .user-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .user-info h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #60a5fa, #c084fc, #06b6d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(96, 165, 250, 0.3);
+        }
+
+        .user-info p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 0.5rem;
+        }
+
+        .last-login {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: var(--gradient-tech);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .dashboard-content {
+            padding: 80px 0;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-feature {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .stat-feature:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .stat-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-tech);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-tech);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .stat-feature h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .stat-feature p {
+            color: var(--gray);
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        /* Courses Section */
+        .courses-section {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .courses-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-tech);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .btn-primary {
+            padding: 12px 28px;
+            background: var(--gradient-tech);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: var(--lighter);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .course-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-tech);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-normal);
+        }
+
+        .course-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .course-category {
+            background: var(--gradient-tech);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+
+        .progress-container {
+            margin: 1.5rem 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .progress-percent {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-tech);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .course-duration {
+            color: var(--gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-course {
+            padding: 10px 24px;
+            background: var(--gradient-tech);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-course:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-primary);
+        }
+
+        /* Quick Actions */
+        .quick-actions-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: var(--border-radius-xl);
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-tech);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: white;
+            transition: all var(--transition-normal);
+        }
+
+        .action-card:hover .action-icon {
+            transform: scale(1.1);
+        }
+
+        .action-card h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .action-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Recent Activity */
+        .activity-section {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .activity-list {
+            margin-top: 2rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--lighter);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 1rem;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .activity-item:hover {
+            transform: translateX(5px);
+            background: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .activity-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-tech);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .activity-time {
+            color: var(--gray-light);
+            font-size: 0.8rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--lighter);
+            border-radius: var(--border-radius-lg);
+            margin: 2rem 0;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--gray-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 80px 0 40px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .footer-col p {
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-media a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all var(--transition-normal);
+        }
+
+        .social-media a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .social-media i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Loading States */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .user-info h1 {
+                font-size: 3rem;
+            }
+
+            .courses-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-hero {
+                padding: 140px 0 60px;
+            }
+
+            .user-info h1 {
+                font-size: 2.2rem;
+            }
+
+            .user-avatar-large {
+                width: 120px;
+                height: 120px;
+                font-size: 2.8rem;
+            }
+
+            .stats-overview {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .courses-section,
+            .quick-actions-section,
+            .activity-section {
+                padding: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-hero {
+                padding: 120px 0 40px;
+            }
+
+            .user-info h1 {
+                font-size: 1.8rem;
+            }
+
+            .stat-feature {
+                padding: 2rem;
+            }
+
+            .stat-feature h3 {
+                font-size: 1.8rem;
+            }
+
+            .course-card {
+                padding: 1.5rem;
+            }
+
+            .course-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .course-category {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+
+            .course-footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .activity-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .activity-time {
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+
+            .tech-background,
+            .nav-container,
+            .btn-primary,
+            .btn-course,
+            .action-card,
+            .footer {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .dashboard-content {
+                padding: 20px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Tech Background -->
+    <div class="tech-background">
+        <div class="grid-lines"></div>
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="binary-rain" id="binaryRain"></div>
+    </div>
+
+    <!-- Header with Navigation -->
+    <nav class="nav-container" id="mainNav">
+        <div class="nav-content">
+            <a href="index.html" class="logo">
+                <img src="images/icon/Screenshot 2025-03-24 002902.png" alt="CLIN-TECH Logo" class="logo-img">
+                <div class="logo-text">CLIN-TECH</div>
+            </a>
+
+            <!-- Mobile Menu Toggle Button - FIXED -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <!-- Navigation Links with Icons -->
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Home
+                    </a></li>
+                <li><a href="courses.html" class="nav-link">
+                        <i class="fas fa-book"></i> Courses
+                    </a></li>
+                <li><a href="about.html" class="nav-link">
+                        <i class="fas fa-info-circle"></i> About
+                    </a></li>
+                <li><a href="contact_us.html" class="nav-link">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a></li>
+                <li><a href="dashboard.html" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div id="authButtons">
+                    <a href="login.html" class="btn-get-started">Get Started</a>
+                </div>
+                <div id="userProfile" style="display: none;">
+                    <div class="user-dropdown">
+                        <div class="user-avatar" id="userInitial">C</div>
+                        <div class="dropdown-content">
+                            <a href="dashboard.html" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                            <a href="profile.html" class="dropdown-item">
+                                <i class="fas fa-user"></i> My Profile
+                            </a>
+                            <a href="courses.html" class="dropdown-item">
+                                <i class="fas fa-book"></i> My Courses
+                            </a>
+                            <hr style="margin: 5px 0; border: none; border-top: 1px solid var(--lighter);">
+                            <a href="javascript:void(0)" onclick="logout()" class="dropdown-item logout">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Hero Section -->
+    <section class="dashboard-hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="user-greeting">
+                <div class="user-avatar-large" id="userAvatarLarge">U</div>
+                <div class="user-info">
+                    <h1 id="welcomeMessage">Welcome back!</h1>
+                    <p id="userEmail">Your learning journey continues here.</p>
+                    <div class="last-login" id="lastLogin">
+                        <i class="fas fa-clock"></i>
+                        <span>Last login: Today</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <span class="stat-number" id="courseCount">0</span>
+                    <span class="stat-label">Enrolled Courses</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="overallProgress">0%</span>
+                    <span class="stat-label">Overall Progress</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="learningStreak">0</span>
+                    <span class="stat-label">Learning Streak</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="certificates">0</span>
+                    <span class="stat-label">Certificates Earned</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Main Content -->
+    <div class="dashboard-content">
+        <div class="container">
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-feature">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 id="completedLessons">0</h3>
+                    <p>Lessons Completed</p>
+                </div>
+
+                <div class="stat-feature">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 id="hoursLearned">0</h3>
+                    <p>Hours of Learning</p>
+                </div>
+
+                <div class="stat-feature">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 id="achievements">0</h3>
+                    <p>Achievements Unlocked</p>
+                </div>
+
+                <div class="stat-feature">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 id="rank">#--</h3>
+                    <p>Leaderboard Position</p>
+                </div>
+            </div>
+
+            <!-- My Courses Section -->
+            <section class="courses-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fas fa-book"></i>
+                        <h2>My Learning Journey</h2>
+                    </div>
+                    <a href="courses.html" class="btn-primary">
+                        <i class="fas fa-plus"></i> Browse More Courses
+                    </a>
+                </div>
+
+                <div class="courses-grid" id="coursesGrid">
+                    <!-- Courses will be loaded here -->
+                </div>
+
+                <div class="empty-state" id="emptyCourses" style="display: none;">
+                    <i class="fas fa-book-open"></i>
+                    <h3>No Courses Enrolled Yet</h3>
+                    <p>Start your tech journey by enrolling in your first course. Explore our catalog of
+                        industry-leading programming courses.</p>
+                    <a href="courses.html" class="btn-primary">
+                        <i class="fas fa-search"></i> Browse Courses
+                    </a>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions-section">
+                <h2 style="font-size: 2rem; color: var(--dark); margin-bottom: 1.5rem;">
+                    <i class="fas fa-bolt"></i> Quick Actions
+                </h2>
+
+                <div class="actions-grid">
+                    <a href="courses.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4>Browse Courses</h4>
+                        <p>Explore new courses and expand your skills</p>
+                    </a>
+
+                    <a href="coding-practice.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4>Practice Coding</h4>
+                        <p>Jump into coding challenges and exercises</p>
+                    </a>
+
+                    <a href="profile.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <h4>Update Profile</h4>
+                        <p>Complete your profile for better recommendations</p>
+                    </a>
+
+                    <a href="community.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Join Community</h4>
+                        <p>Connect with other learners and mentors</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="activity-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fas fa-history"></i>
+                        <h2>Recent Activity</h2>
+                    </div>
+                    <a href="activity.html" class="btn-primary">
+                        <i class="fas fa-list"></i> View All
+                    </a>
+                </div>
+
+                <div class="activity-list" id="activityList">
+                    <!-- Activity items will be loaded here -->
+                </div>
+
+                <div class="empty-state" id="emptyActivity" style="display: none;">
+                    <i class="fas fa-bell"></i>
+                    <h3>No Recent Activity</h3>
+                    <p>Start learning to see your activity here. Complete lessons, earn achievements, and track your
+                        progress.</p>
+                    <a href="courses.html" class="btn-primary">
+                        <i class="fas fa-play"></i> Start Learning
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="images/icon/Screenshot 2025-03-24 002902.png" alt="CLIN-TECH Logo"
+                        style="width: 180px; margin-bottom: 1.5rem;">
+                    <p>CLIN-TECH Code Camp is dedicated to transforming beginners into professional programmers through
+                        hands-on, industry-relevant training.</p>
+                    <div class="social-media">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://maps.google.com"><i class="fas fa-map-marker-alt"></i> Multimedia Lab,
+                                Rongai, Nairobi-00100</a></li>
+                        <li><a href="tel:+254707326661"><i class="fas fa-phone"></i> +254-707326661</a></li>
+                        <li><a href="mailto:mjanjezclint@gmail.com"><i class="fas fa-envelope"></i>
+                                mjanjezclint@gmail.com</a></li>
+                        <li><a href="#"><i class="far fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="courses.html"><i class="fas fa-book"></i> All Courses</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        <li><a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Student Login</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Dashboard Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> My Dashboard</a></li>
+                        <li><a href="profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+                        <li><a href="certificates.html"><i class="fas fa-certificate"></i> My Certificates</a></li>
+                        <li><a href="progress.html"><i class="fas fa-chart-line"></i> Learning Progress</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Account Settings</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Copyright © 2025 CLIN-TECH Code Camp. All Rights Reserved. | Designed by clintonmogoi</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        // Initialize all animations and functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize binary rain
+            initBinaryRain();
+
+            // Initialize navigation
+            initNavigation();
+
+            // Initialize mobile menu - FIXED
+            initMobileMenu();
+
+            // Load dashboard data
+            loadDashboardData();
+
+            // Initialize animations
+            initAnimations();
+
+            // Add scroll listener
+            window.addEventListener('scroll', handleScroll);
+        });
+
+        // Binary rain animation
+        function initBinaryRain() {
+            const container = document.getElementById('binaryRain');
+            const binaryChars = ['0', '1'];
+
+            for (let i = 0; i < 50; i++) {
+                const binary = document.createElement('div');
+                binary.className = 'binary';
+                binary.textContent = binaryChars[Math.floor(Math.random() * binaryChars.length)];
+                binary.style.left = `${Math.random() * 100}%`;
+                binary.style.animationDelay = `${Math.random() * 20}s`;
+                binary.style.fontSize = `${Math.random() * 10 + 12}px`;
+                binary.style.opacity = Math.random() * 0.5 + 0.1;
+                container.appendChild(binary);
+            }
+        }
+
+        // Navigation scroll effect
+        function initNavigation() {
+            const nav = document.getElementById('mainNav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Mobile menu toggle - FIXED
+        function initMobileMenu() {
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                menuBtn.classList.toggle('active');
+
+                // Prevent body scrolling when menu is open
+                if (navLinks.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!menuBtn.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuBtn.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Close mobile menu when clicking a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    menuBtn.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // Close mobile menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuBtn.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Load user dashboard data
+        async function loadDashboardData() {
+            const sessionToken = localStorage.getItem('clinTechSessionToken');
+
+            if (!sessionToken) {
+                // Show login button if not logged in
+                document.getElementById('authButtons').style.display = 'block';
+                document.getElementById('userProfile').style.display = 'none';
+                showEmptyStates();
+                return;
+            }
+
+            // Show user profile if logged in
+            document.getElementById('authButtons').style.display = 'none';
+            document.getElementById('userProfile').style.display = 'block';
+
+            try {
+                // Try to get user data from localStorage first
+                let userData = JSON.parse(localStorage.getItem('clinTechUser'));
+
+                if (!userData) {
+                    // Fallback to mock data if no localStorage data
+                    userData = {
+                        fullname: 'Clinton Mogoi',
+                        email: 'clinton@example.com',
+                        courses: getSampleCourses(),
+                        activity: getSampleActivity(),
+                        stats: getSampleStats()
+                    };
+                }
+
+                displayUserInfo(userData);
+                displayCourses(userData.courses || []);
+                displayActivity(userData.activity || []);
+                updateStats(userData.stats || {});
+
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                showEmptyStates();
+            }
+        }
+
+        // Get sample courses data
+        function getSampleCourses() {
+            return [
+                {
+                    id: 1,
+                    name: 'Python Programming Masterclass',
+                    category: 'Data Science',
+                    progress: 75,
+                    duration: '8 Weeks',
+                    lastAccessed: '2 days ago',
+                    link: 'course-python.html'
+                },
+                {
+                    id: 2,
+                    name: 'Full Stack Web Development',
+                    category: 'Web Dev',
+                    progress: 45,
+                    duration: '12 Weeks',
+                    lastAccessed: 'Yesterday',
+                    link: 'course-webdev.html'
+                },
+                {
+                    id: 3,
+                    name: 'Data Structures & Algorithms',
+                    category: 'Algorithms',
+                    progress: 20,
+                    duration: '8 Weeks',
+                    lastAccessed: '1 week ago',
+                    link: 'course-dsa.html'
+                },
+                {
+                    id: 4,
+                    name: 'Machine Learning Fundamentals',
+                    category: 'AI/ML',
+                    progress: 10,
+                    duration: '10 Weeks',
+                    lastAccessed: '3 days ago',
+                    link: 'course-ml.html'
+                }
+            ];
+        }
+
+        // Get sample activity data
+        function getSampleActivity() {
+            return [
+                {
+                    type: 'lesson',
+                    title: 'Completed Python Functions Module',
+                    course: 'Python Programming',
+                    time: '2 hours ago'
+                },
+                {
+                    type: 'achievement',
+                    title: 'Earned Code Warrior Badge',
+                    course: 'Web Development',
+                    time: '1 day ago'
+                },
+                {
+                    type: 'progress',
+                    title: 'Reached 75% in Python Course',
+                    course: 'Python Programming',
+                    time: '2 days ago'
+                },
+                {
+                    type: 'enrollment',
+                    title: 'Started Machine Learning Course',
+                    course: 'Machine Learning',
+                    time: '3 days ago'
+                },
+                {
+                    type: 'quiz',
+                    title: 'Passed Data Structures Quiz',
+                    course: 'Data Structures',
+                    time: '4 days ago'
+                }
+            ];
+        }
+
+        // Get sample stats
+        function getSampleStats() {
+            return {
+                enrolledCourses: 4,
+                overallProgress: 38,
+                learningStreak: 12,
+                certificates: 2,
+                completedLessons: 28,
+                hoursLearned: 42,
+                achievements: 9,
+                rank: 45
+            };
+        }
+
+        // Display user information
+        function displayUserInfo(user) {
+            document.getElementById('welcomeMessage').textContent = `Welcome back, ${user.fullname}!`;
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('userAvatarLarge').textContent = user.fullname.charAt(0).toUpperCase();
+            document.getElementById('userInitial').textContent = user.fullname.charAt(0).toUpperCase();
+
+            // Update last login time
+            const lastLogin = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('lastLogin').innerHTML =
+                `<i class="fas fa-clock"></i> Last login: ${lastLogin.toLocaleDateString('en-US', options)}`;
+        }
+
+        // Display courses with clickable links
+        function displayCourses(courses) {
+            const coursesGrid = document.getElementById('coursesGrid');
+            const emptyCourses = document.getElementById('emptyCourses');
+
+            if (courses.length === 0) {
+                coursesGrid.style.display = 'none';
+                emptyCourses.style.display = 'block';
+                return;
+            }
+
+            coursesGrid.style.display = 'grid';
+            emptyCourses.style.display = 'none';
+
+            coursesGrid.innerHTML = courses.map(course => `
+                <a href="${course.link || '#'}" class="course-card">
+                    <div class="course-header">
+                        <h3 class="course-title">${course.name}</h3>
+                        <span class="course-category">${course.category}</span>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span class="progress-label">Progress</span>
+                            <span class="progress-percent">${course.progress}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${course.progress}%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-footer">
+                        <div class="course-duration">
+                            <i class="far fa-clock"></i>
+                            <span>${course.duration}</span>
+                        </div>
+                        <div class="btn-course">
+                            ${course.progress > 0 ? 'Continue' : 'Start'}
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // Display activity
+        function displayActivity(activities) {
+            const activityList = document.getElementById('activityList');
+            const emptyActivity = document.getElementById('emptyActivity');
+
+            if (activities.length === 0) {
+                activityList.style.display = 'none';
+                emptyActivity.style.display = 'block';
+                return;
+            }
+
+            activityList.style.display = 'block';
+            emptyActivity.style.display = 'none';
+
+            activityList.innerHTML = activities.map(activity => {
+                let icon = 'fas fa-check-circle';
+                let color = 'var(--success)';
+
+                switch (activity.type) {
+                    case 'achievement':
+                        icon = 'fas fa-trophy';
+                        color = 'var(--warning)';
+                        break;
+                    case 'progress':
+                        icon = 'fas fa-chart-line';
+                        color = 'var(--primary)';
+                        break;
+                    case 'enrollment':
+                        icon = 'fas fa-book';
+                        color = 'var(--secondary)';
+                        break;
+                    case 'quiz':
+                        icon = 'fas fa-question-circle';
+                        color = 'var(--accent)';
+                        break;
+                }
+
+                return `
+                    <div class="activity-item" onclick="viewActivityDetail('${activity.type}')">
+                        <div class="activity-icon" style="background: ${color};">
+                            <i class="${icon}"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>${activity.title}</h4>
+                            <p>${activity.course}</p>
+                        </div>
+                        <div class="activity-time">${activity.time}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Update stats
+        function updateStats(stats) {
+            document.getElementById('courseCount').textContent = stats.enrolledCourses || 0;
+            document.getElementById('overallProgress').textContent = (stats.overallProgress || 0) + '%';
+            document.getElementById('learningStreak').textContent = stats.learningStreak || 0;
+            document.getElementById('certificates').textContent = stats.certificates || 0;
+            document.getElementById('completedLessons').textContent = stats.completedLessons || 0;
+            document.getElementById('hoursLearned').textContent = stats.hoursLearned || 0;
+            document.getElementById('achievements').textContent = stats.achievements || 0;
+            document.getElementById('rank').textContent = '#' + (stats.rank || '--');
+        }
+
+        // Show empty states
+        function showEmptyStates() {
+            document.getElementById('emptyCourses').style.display = 'block';
+            document.getElementById('emptyActivity').style.display = 'block';
+            document.getElementById('coursesGrid').style.display = 'none';
+            document.getElementById('activityList').style.display = 'none';
+        }
+
+        // View activity detail
+        function viewActivityDetail(type) {
+            // Implement activity detail view
+            console.log('Viewing activity:', type);
+        }
+
+        // Initialize animations
+        function initAnimations() {
+            // Add intersection observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements for animation
+            document.querySelectorAll('.stat-feature, .course-card, .action-card').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Handle scroll
+        function handleScroll() {
+            // Add any scroll-based effects here
+        }
+
+        // Logout function
+        async function logout() {
+            const sessionToken = localStorage.getItem('clinTechSessionToken');
+
+            if (sessionToken) {
+                try {
+                    await fetch(`${API_BASE_URL}/logout`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ session_token: sessionToken })
+                    });
+                } catch (error) {
+                    console.error('Logout error:', error);
+                }
+            }
+
+            // Clear local data
+            localStorage.removeItem('clinTechSessionToken');
+            localStorage.removeItem('clinTechUser');
+            sessionStorage.removeItem('clinTechUser');
+
+            // Redirect to login
+            window.location.href = 'login.html';
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const navLinks = document.getElementById('navLinks');
+            const mobileToggle = document.getElementById('mobileMenuBtn');
+
+            // If window is resized to desktop size and mobile menu is open, close it
+            if (window.innerWidth > 992 && navLinks && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                if (mobileToggle) mobileToggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        $('a[href^="#"]').on('click', function (e) {
+            e.preventDefault();
+            const target = $(this.getAttribute('href'));
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 80
+                }, 1000);
+            }
+        });
+
+        // Add CSS for animated class
+        const style = document.createElement('style');
+        style.textContent = `
+            .animated {
+                animation: fadeInUp 0.6s ease forwards;
+                opacity: 0;
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .course-card:nth-child(1) { animation-delay: 0.1s; }
+            .course-card:nth-child(2) { animation-delay: 0.2s; }
+            .course-card:nth-child(3) { animation-delay: 0.3s; }
+            .course-card:nth-child(4) { animation-delay: 0.4s; }
+            .stat-feature:nth-child(1) { animation-delay: 0.1s; }
+            .stat-feature:nth-child(2) { animation-delay: 0.2s; }
+            .stat-feature:nth-child(3) { animation-delay: 0.3s; }
+            .stat-feature:nth-child(4) { animation-delay: 0.4s; }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

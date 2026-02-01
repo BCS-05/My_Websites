@@ -1,0 +1,2911 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>CLIN-TECH Code Camp | Become a Professional Developer</title>
+	<meta name="description"
+		content="Master programming from scratch with CLIN-TECH Code Camp. Gain in-demand skills in Python, Web Development, Java, C++, Data Structures, and JavaScript.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="png" href="images/icon/Screenshot 2025-03-24 002902.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		/* Modern CSS Reset & Base Styles */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+		}
+
+		:root {
+			--primary: #2563eb;
+			--primary-dark: #1d4ed8;
+			--secondary: #7c3aed;
+			--accent: #06b6d4;
+			--accent-light: #22d3ee;
+			--dark: #0f172a;
+			--darker: #020617;
+			--light: #f8fafc;
+			--lighter: #f1f5f9;
+			--gray: #64748b;
+			--gray-light: #94a3b8;
+			--success: #10b981;
+			--warning: #f59e0b;
+			--danger: #ef4444;
+			--gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			--gradient-tech: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+			--gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+			--gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+			--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+			--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			--shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+			--shadow-xl: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+			--shadow-primary: 0 10px 30px rgba(37, 99, 235, 0.2);
+			--shadow-accent: 0 10px 30px rgba(6, 182, 212, 0.2);
+		}
+
+		html {
+			scroll-behavior: smooth;
+			scroll-padding-top: 80px;
+		}
+
+		body {
+			background-color: var(--light);
+			color: var(--dark);
+			line-height: 1.6;
+			overflow-x: hidden;
+			transition: margin-left 0.3s ease;
+		}
+
+		body.menu-open {
+			overflow: hidden;
+		}
+
+		.container {
+			max-width: 1280px;
+			margin: 0 auto;
+			padding: 0 20px;
+			width: 100%;
+		}
+
+		.section {
+			padding: 80px 0;
+		}
+
+		.section-title {
+			text-align: center;
+			font-size: clamp(2rem, 5vw, 3.5rem);
+			font-weight: 800;
+			color: var(--dark);
+			margin-bottom: 1rem;
+			line-height: 1.1;
+		}
+
+		.section-subtitle {
+			text-align: center;
+			color: var(--gray);
+			font-size: clamp(1rem, 2vw, 1.25rem);
+			max-width: 700px;
+			margin: 0 auto 3rem;
+			padding: 0 1rem;
+		}
+
+		.gradient-text {
+			background: var(--gradient-primary);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			display: inline-block;
+		}
+
+		.btn {
+			padding: 0.875rem 1.75rem;
+			border-radius: 50px;
+			font-weight: 600;
+			font-size: 1rem;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			position: relative;
+			overflow: hidden;
+			cursor: pointer;
+			border: none;
+			white-space: nowrap;
+		}
+
+		.btn-primary {
+			background: var(--gradient-primary);
+			color: white;
+			box-shadow: var(--shadow-primary);
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.btn-secondary {
+			background: white;
+			color: var(--primary);
+			border: 2px solid var(--primary);
+		}
+
+		.btn-secondary:hover {
+			background: var(--primary);
+			color: white;
+			transform: translateY(-3px);
+		}
+
+		.btn-accent {
+			background: var(--gradient-accent);
+			color: white;
+			box-shadow: var(--shadow-accent);
+		}
+
+		.btn-accent:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 15px 40px rgba(6, 182, 212, 0.3);
+		}
+
+		/* Header & Navigation */
+		header {
+			background: linear-gradient(rgba(2, 6, 23, 0.95), rgba(2, 6, 23, 0.98)),
+				url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80');
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+			color: white;
+			min-height: 100vh;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.tech-bg-elements {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			z-index: 0;
+		}
+
+		.code-line,
+		.binary-dots {
+			position: absolute;
+			font-family: 'Courier New', monospace;
+			font-size: clamp(12px, 1.5vw, 14px);
+			opacity: 0.1;
+			pointer-events: none;
+		}
+
+		.code-line {
+			color: #60a5fa;
+			animation: floatCode 20s linear infinite;
+		}
+
+		.binary-dots {
+			color: #06b6d4;
+			font-size: clamp(14px, 2vw, 18px);
+			animation: floatBinary 25s linear infinite;
+		}
+
+		@keyframes floatCode {
+			0% {
+				transform: translateY(100vh) translateX(-100px);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 0.3;
+			}
+
+			90% {
+				opacity: 0.3;
+			}
+
+			100% {
+				transform: translateY(-100px) translateX(100px);
+				opacity: 0;
+			}
+		}
+
+		@keyframes floatBinary {
+			0% {
+				transform: translateX(100vw) translateY(-100px);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 0.2;
+			}
+
+			90% {
+				opacity: 0.2;
+			}
+
+			100% {
+				transform: translateX(-100px) translateY(100px);
+				opacity: 0;
+			}
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 5%;
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 1000;
+			transition: all 0.3s ease;
+			background: rgba(2, 6, 23, 0.95);
+			backdrop-filter: blur(10px);
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.nav-container.scrolled {
+			background: rgba(2, 6, 23, 0.98);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.logo img {
+			height: clamp(35px, 5vw, 50px);
+			width: auto;
+			filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.5));
+		}
+
+		.logo-text {
+			font-size: clamp(1.1rem, 2vw, 1.5rem);
+			font-weight: 700;
+			background: linear-gradient(to right, #60a5fa, #c084fc);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			letter-spacing: 0.5px;
+		}
+
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: clamp(1rem, 2vw, 2rem);
+		}
+
+		.nav-links a {
+			color: white;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: clamp(0.9rem, 1.2vw, 1rem);
+			transition: all 0.3s ease;
+			position: relative;
+			padding: 5px 0;
+		}
+
+		.nav-links a:hover {
+			color: var(--accent);
+		}
+
+		.nav-links a::after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 2px;
+			bottom: 0;
+			left: 0;
+			background: var(--gradient-primary);
+			transition: width 0.3s ease;
+		}
+
+		.nav-links a:hover::after {
+			width: 100%;
+		}
+
+		.nav-actions {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+		}
+
+		.nav-search {
+			display: flex;
+			align-items: center;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50px;
+			padding: 0.4rem 0.8rem;
+			transition: all 0.3s ease;
+		}
+
+		.nav-search:focus-within {
+			background: rgba(255, 255, 255, 0.15);
+			box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3);
+		}
+
+		.nav-search input {
+			border: none;
+			background: transparent;
+			color: white;
+			width: clamp(120px, 15vw, 180px);
+			padding: 0.4rem;
+			outline: none;
+			font-size: 0.9rem;
+		}
+
+		.nav-search input::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		.nav-search i {
+			color: rgba(255, 255, 255, 0.8);
+			cursor: pointer;
+			font-size: 0.9rem;
+		}
+
+		/* Hero Section */
+		.hero-section {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			min-height: 100vh;
+			padding: 120px 5% 60px;
+			position: relative;
+			z-index: 1;
+			gap: 40px;
+		}
+
+		.hero-content {
+			flex: 1;
+			max-width: 55%;
+			text-align: left;
+			margin-bottom: 0;
+			padding-right: 40px;
+		}
+
+		.hero-title {
+			font-size: clamp(2.5rem, 6vw, 4.5rem);
+			font-weight: 900;
+			line-height: 1.1;
+			margin-bottom: 1.5rem;
+			letter-spacing: -0.5px;
+		}
+
+		.hero-title .highlight {
+			font-size: clamp(2.8rem, 6.5vw, 4.8rem);
+			background: linear-gradient(135deg, #fbbf24, #f97316, #dc2626);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			display: block;
+			margin-top: 0.5rem;
+			animation: glow 2s ease-in-out infinite alternate;
+			text-shadow: 0 5px 15px rgba(251, 191, 36, 0.3);
+		}
+
+		.hero-description {
+			font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+			color: #e2e8f0;
+			margin-bottom: 2.5rem;
+			line-height: 1.7;
+			max-width: 90%;
+			font-weight: 400;
+		}
+
+		.tech-features {
+			display: flex;
+			gap: 1rem;
+			margin: 2.5rem 0;
+			flex-wrap: wrap;
+			justify-content: flex-start;
+		}
+
+		.tech-feature {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+			backdrop-filter: blur(15px);
+			padding: 1rem 1.5rem;
+			border-radius: 50px;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			transition: all 0.3s ease;
+			font-size: clamp(0.9rem, 1.1vw, 1rem);
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+		}
+
+		.tech-feature:hover {
+			transform: translateY(-5px);
+			background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+			border-color: rgba(255, 255, 255, 0.3);
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+		}
+
+		.tech-feature i {
+			color: var(--accent);
+			font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+			filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.5));
+		}
+
+		.tech-feature span {
+			color: white;
+			font-weight: 600;
+			letter-spacing: 0.3px;
+		}
+
+		.hero-cta {
+			display: flex;
+			gap: 1.5rem;
+			margin-top: 3rem;
+			flex-wrap: wrap;
+		}
+
+		.hero-image {
+			flex: 1;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			width: 45%;
+			max-width: 600px;
+		}
+
+		.tech-hero-container {
+			position: relative;
+			width: 100%;
+			height: auto;
+			aspect-ratio: 1/1;
+			max-width: 550px;
+			margin: 0;
+		}
+
+		.tech-hero-main {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.4));
+			animation: float 6s ease-in-out infinite;
+			border-radius: 20px;
+			background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+			backdrop-filter: blur(20px);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			padding: 25px;
+		}
+
+		@keyframes float {
+
+			0%,
+			100% {
+				transform: translateY(0) rotate(0deg);
+			}
+
+			33% {
+				transform: translateY(-20px) rotate(1deg);
+			}
+
+			66% {
+				transform: translateY(10px) rotate(-1deg);
+			}
+		}
+
+		.tech-orbits {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 100%;
+			height: 100%;
+		}
+
+		/* Main center icon (like the sun) */
+		.central-icon {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 80px;
+			height: 80px;
+			background: linear-gradient(145deg, #fbbf24, #f97316);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 2rem;
+			box-shadow: 0 0 60px rgba(251, 191, 36, 0.7),
+				0 0 100px rgba(251, 191, 36, 0.3);
+			z-index: 5;
+			animation: sunGlow 3s ease-in-out infinite;
+		}
+
+		@keyframes sunGlow {
+
+			0%,
+			100% {
+				box-shadow: 0 0 60px rgba(251, 191, 36, 0.7),
+					0 0 100px rgba(251, 191, 36, 0.3);
+				transform: translate(-50%, -50%) scale(1);
+			}
+
+			50% {
+				box-shadow: 0 0 80px rgba(251, 191, 36, 0.8),
+					0 0 120px rgba(251, 191, 36, 0.4);
+				transform: translate(-50%, -50%) scale(1.05);
+			}
+		}
+
+		.orbit-path {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border-radius: 50%;
+			animation: rotateOrbit linear infinite;
+		}
+
+		/* Main orbit circles */
+		.orbit-path:nth-child(1) {
+			width: 220px;
+			height: 220px;
+			animation-duration: 20s;
+			border: 1px solid rgba(96, 165, 250, 0.6);
+			box-shadow:
+				0 0 10px rgba(96, 165, 250, 0.3),
+				inset 0 0 10px rgba(96, 165, 250, 0.1);
+		}
+
+		.orbit-path:nth-child(2) {
+			width: 320px;
+			height: 320px;
+			animation-duration: 25s;
+			animation-direction: reverse;
+			border: 1px solid rgba(124, 58, 237, 0.6);
+			box-shadow:
+				0 0 10px rgba(124, 58, 237, 0.3),
+				inset 0 0 10px rgba(124, 58, 237, 0.1);
+		}
+
+		.orbit-path:nth-child(3) {
+			width: 420px;
+			height: 420px;
+			animation-duration: 30s;
+			border: 1px solid rgba(6, 182, 212, 0.6);
+			box-shadow:
+				0 0 10px rgba(6, 182, 212, 0.3),
+				inset 0 0 10px rgba(6, 182, 212, 0.1);
+		}
+
+		.orbit-path:nth-child(4) {
+			width: 520px;
+			height: 520px;
+			animation-duration: 35s;
+			animation-direction: reverse;
+			border: 1px solid rgba(255, 107, 107, 0.6);
+			box-shadow:
+				0 0 10px rgba(255, 107, 107, 0.3),
+				inset 0 0 10px rgba(255, 107, 107, 0.1);
+		}
+
+		/* Subtle gradient overlay for orbits */
+		.orbit-path::before {
+			content: '';
+			position: absolute;
+			top: -2px;
+			left: -2px;
+			right: -2px;
+			bottom: -2px;
+			border-radius: 50%;
+			background: linear-gradient(45deg,
+					transparent 0%,
+					rgba(255, 255, 255, 0.1) 50%,
+					transparent 100%);
+			opacity: 0.5;
+			pointer-events: none;
+		}
+
+		@keyframes rotateOrbit {
+			0% {
+				transform: translate(-50%, -50%) rotate(0deg);
+			}
+
+			100% {
+				transform: translate(-50%, -50%) rotate(360deg);
+			}
+		}
+
+		.tech-icon {
+			position: absolute;
+			width: 55px;
+			height: 55px;
+			background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+			backdrop-filter: blur(15px);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 1.5rem;
+			box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2),
+				inset 0 4px 0 rgba(255, 255, 255, 0.2),
+				inset 0 -4px 0 rgba(0, 0, 0, 0.1);
+			border: 2px solid rgba(255, 255, 255, 0.2);
+			animation: planetOrbit linear infinite;
+			transform-origin: center;
+			z-index: 10;
+			transition: all 0.3s ease;
+		}
+
+		.tech-icon:hover {
+			transform: scale(1.2);
+			box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3),
+				inset 0 6px 0 rgba(255, 255, 255, 0.3),
+				0 0 25px currentColor;
+		}
+
+		/* Individual planet positioning and animation */
+
+		/* Inner orbit - fastest */
+		.tech-icon.python {
+			animation-duration: 12s;
+			background: linear-gradient(145deg, #306998, #FFD43B);
+			top: 0;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			animation-name: orbit1;
+		}
+
+		.tech-icon.js {
+			animation-duration: 14s;
+			animation-delay: -3s;
+			background: linear-gradient(145deg, #F7DF1E, #000000);
+			top: 50%;
+			right: 0;
+			transform: translate(50%, -50%);
+			animation-name: orbit1;
+		}
+
+		/* Second orbit */
+		.tech-icon.java {
+			animation-duration: 18s;
+			background: linear-gradient(145deg, #007396, #ED8B00);
+			top: 100%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			animation-name: orbit2;
+		}
+
+		.tech-icon.database {
+			animation-duration: 20s;
+			animation-delay: -5s;
+			background: linear-gradient(145deg, #06b6d4, #0891b2);
+			top: 50%;
+			left: 0;
+			transform: translate(-50%, -50%);
+			animation-name: orbit2;
+		}
+
+		/* Third orbit */
+		.tech-icon.html {
+			animation-duration: 24s;
+			background: linear-gradient(145deg, #E34F26, #F06529);
+			top: 25%;
+			right: 10%;
+			transform: translate(50%, -50%);
+			animation-name: orbit3;
+		}
+
+		.tech-icon.css {
+			animation-duration: 26s;
+			animation-delay: -4s;
+			background: linear-gradient(145deg, #1572B6, #33A9DC);
+			top: 75%;
+			left: 10%;
+			transform: translate(-50%, -50%);
+			animation-name: orbit3;
+		}
+
+		/* Fourth orbit */
+		.tech-icon.react {
+			animation-duration: 30s;
+			background: linear-gradient(145deg, #61DAFB, #087EA4);
+			top: 10%;
+			left: 20%;
+			transform: translate(-50%, -50%);
+			animation-name: orbit4;
+		}
+
+		.tech-icon.node {
+			animation-duration: 32s;
+			animation-delay: -6s;
+			background: linear-gradient(145deg, #339933, #66CC33);
+			top: 90%;
+			right: 20%;
+			transform: translate(50%, -50%);
+			animation-name: orbit4;
+		}
+
+		/* Orbit animations */
+		@keyframes orbit1 {
+			0% {
+				transform: rotate(0deg) translateX(110px) rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg) translateX(110px) rotate(-360deg);
+			}
+		}
+
+		@keyframes orbit2 {
+			0% {
+				transform: rotate(0deg) translateX(160px) rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg) translateX(160px) rotate(-360deg);
+			}
+		}
+
+		@keyframes orbit3 {
+			0% {
+				transform: rotate(0deg) translateX(210px) rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg) translateX(210px) rotate(-360deg);
+			}
+		}
+
+		@keyframes orbit4 {
+			0% {
+				transform: rotate(0deg) translateX(260px) rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg) translateX(260px) rotate(-360deg);
+			}
+		}
+
+		/* Floating animation for all icons */
+		@keyframes floatIcon {
+
+			0%,
+			100% {
+				transform: translateY(0) rotate(0deg);
+			}
+
+			50% {
+				transform: translateY(-10px) rotate(5deg);
+			}
+		}
+
+		.tech-icon {
+			animation: floatIcon 4s ease-in-out infinite;
+		}
+
+		/* Specific float delays */
+		.tech-icon.python {
+			animation-delay: 0s;
+		}
+
+		.tech-icon.js {
+			animation-delay: 0.5s;
+		}
+
+		.tech-icon.java {
+			animation-delay: 1s;
+		}
+
+		.tech-icon.database {
+			animation-delay: 1.5s;
+		}
+
+		.tech-icon.html {
+			animation-delay: 2s;
+		}
+
+		.tech-icon.css {
+			animation-delay: 2.5s;
+		}
+
+		.tech-icon.react {
+			animation-delay: 3s;
+		}
+
+		.tech-icon.node {
+			animation-delay: 3.5s;
+		}
+
+		.enroll-counter {
+			position: absolute;
+			bottom: -30px;
+			right: -20px;
+			background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(124, 58, 237, 0.95));
+			backdrop-filter: blur(25px);
+			border-radius: 20px;
+			padding: 25px 30px;
+			border: 2px solid rgba(255, 255, 255, 0.4);
+			z-index: 20;
+			animation: slideUp 1s ease-out 0.5s both;
+			text-align: center;
+			min-width: 200px;
+			box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4),
+				inset 0 1px 0 rgba(255, 255, 255, 0.3);
+			transform-style: preserve-3d;
+		}
+
+		.enroll-counter::before {
+			content: '';
+			position: absolute;
+			top: -10px;
+			right: 30px;
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-bottom: 10px solid rgba(37, 99, 235, 0.95);
+			filter: drop-shadow(0 -5px 10px rgba(0, 0, 0, 0.2));
+		}
+
+		.counter-number {
+			font-size: clamp(2.5rem, 5vw, 3.5rem);
+			font-weight: 900;
+			background: linear-gradient(135deg, #ffffff, #e2e8f0);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			display: block;
+			line-height: 1;
+			text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+		}
+
+		.enroll-counter div:last-child {
+			color: #e2e8f0;
+			font-size: 1.1rem;
+			font-weight: 500;
+			margin-top: 8px;
+			letter-spacing: 0.5px;
+		}
+
+		/* Responsive Design for Hero Section */
+		@media (max-width: 1200px) {
+			.hero-section {
+				padding: 120px 4% 60px;
+			}
+
+			.hero-content {
+				padding-right: 30px;
+			}
+
+			.tech-hero-container {
+				max-width: 500px;
+			}
+		}
+
+		@media (max-width: 992px) {
+			.hero-section {
+				flex-direction: column;
+				text-align: center;
+				padding-top: 140px;
+				gap: 60px;
+			}
+
+			.hero-content {
+				max-width: 100%;
+				text-align: center;
+				padding-right: 0;
+			}
+
+			.hero-description {
+				max-width: 100%;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.tech-features {
+				justify-content: center;
+			}
+
+			.hero-cta {
+				justify-content: center;
+			}
+
+			.hero-image {
+				width: 100%;
+				max-width: 500px;
+				justify-content: center;
+				margin: 0 auto;
+			}
+
+			.tech-hero-container {
+				max-width: 450px;
+			}
+
+			.enroll-counter {
+				position: relative;
+				bottom: auto;
+				right: auto;
+				margin: 40px auto 0;
+				width: fit-content;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.hero-section {
+				padding: 120px 20px 40px;
+				gap: 50px;
+			}
+
+			.hero-title {
+				font-size: clamp(2.2rem, 7vw, 3.5rem);
+			}
+
+			.hero-title .highlight {
+				font-size: clamp(2.5rem, 7.5vw, 3.8rem);
+			}
+
+			.tech-hero-container {
+				max-width: 350px;
+			}
+
+			.tech-feature {
+				width: 100%;
+				max-width: 280px;
+				margin: 0 auto;
+			}
+
+			.hero-cta {
+				flex-direction: column;
+				width: 100%;
+				max-width: 300px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.hero-cta .btn {
+				width: 100%;
+				justify-content: center;
+			}
+
+			@keyframes orbitRevolutionOuter {
+				0% {
+					transform: rotate(0deg) translateX(140px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(140px) rotate(-360deg);
+				}
+			}
+
+			@keyframes orbitRevolutionMiddle {
+				0% {
+					transform: rotate(0deg) translateX(105px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(105px) rotate(-360deg);
+				}
+			}
+
+			@keyframes orbitRevolutionInner {
+				0% {
+					transform: rotate(0deg) translateX(70px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(70px) rotate(-360deg);
+				}
+			}
+		}
+
+		@media (max-width: 480px) {
+			.hero-section {
+				padding: 100px 15px 30px;
+			}
+
+			.tech-hero-container {
+				max-width: 280px;
+			}
+
+			.tech-icon {
+				width: 45px;
+				height: 45px;
+				font-size: 1.3rem;
+			}
+
+			.tech-feature {
+				padding: 0.8rem 1.2rem;
+			}
+
+			@keyframes orbitRevolutionOuter {
+				0% {
+					transform: rotate(0deg) translateX(110px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(110px) rotate(-360deg);
+				}
+			}
+
+			@keyframes orbitRevolutionMiddle {
+				0% {
+					transform: rotate(0deg) translateX(82px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(82px) rotate(-360deg);
+				}
+			}
+
+			@keyframes orbitRevolutionInner {
+				0% {
+					transform: rotate(0deg) translateX(55px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(55px) rotate(-360deg);
+				}
+			}
+		}
+
+		/* Stats Section */
+		.stats-section {
+			background: var(--darker);
+			color: white;
+			padding: 60px 0;
+		}
+
+		.stats-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+			gap: 1.5rem;
+			text-align: center;
+		}
+
+		.stat-card {
+			padding: 1.5rem;
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 15px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			transition: all 0.3s ease;
+		}
+
+		.stat-card:hover {
+			transform: translateY(-10px);
+			background: rgba(255, 255, 255, 0.1);
+			border-color: var(--primary);
+		}
+
+		.stat-number {
+			font-size: clamp(2rem, 4vw, 3.5rem);
+			font-weight: 800;
+			background: var(--gradient-primary);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			display: block;
+			line-height: 1;
+			margin-bottom: 0.5rem;
+		}
+
+		.stat-label {
+			color: var(--gray-light);
+			font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+			font-weight: 500;
+		}
+
+		/* Programmes Section */
+		.programmes-section {
+			background: var(--light);
+		}
+
+		.programmes-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+			gap: 1.5rem;
+		}
+
+		.programme-card {
+			background: white;
+			border-radius: 15px;
+			overflow: hidden;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.3s ease;
+			cursor: pointer;
+			position: relative;
+			height: 100%;
+		}
+
+		.programme-card:hover {
+			transform: translateY(-10px);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.programme-badge {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			background: var(--gradient-primary);
+			color: white;
+			padding: 0.4rem 0.8rem;
+			border-radius: 50px;
+			font-size: 0.75rem;
+			font-weight: 600;
+			z-index: 2;
+		}
+
+		.programme-img {
+			height: 180px;
+			width: 100%;
+			object-fit: cover;
+		}
+
+		.programme-content {
+			padding: 1.5rem;
+		}
+
+		.programme-content h3 {
+			color: var(--dark);
+			margin-bottom: 0.75rem;
+			font-size: 1.25rem;
+			font-weight: 700;
+		}
+
+		.programme-content p {
+			color: var(--gray);
+			margin-bottom: 1rem;
+			line-height: 1.5;
+			font-size: 0.95rem;
+		}
+
+		.programme-meta {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			color: var(--gray);
+			font-size: 0.85rem;
+			padding-top: 1rem;
+			border-top: 1px solid var(--lighter);
+		}
+
+		.programme-duration,
+		.programme-level {
+			display: flex;
+			align-items: center;
+			gap: 0.4rem;
+		}
+
+		/* Features Section */
+		.features-section {
+			background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+		}
+
+		.features-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+			gap: 1.5rem;
+		}
+
+		.feature-card {
+			background: white;
+			border-radius: 15px;
+			padding: 2rem;
+			text-align: center;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.3s ease;
+			border: 1px solid transparent;
+			height: 100%;
+		}
+
+		.feature-card:hover {
+			transform: translateY(-10px);
+			box-shadow: var(--shadow-xl);
+			border-color: var(--primary);
+		}
+
+		.feature-icon {
+			width: 70px;
+			height: 70px;
+			background: var(--gradient-primary);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 1.5rem;
+			font-size: 1.75rem;
+			color: white;
+		}
+
+		.feature-card h3 {
+			color: var(--dark);
+			margin-bottom: 0.75rem;
+			font-size: 1.25rem;
+			font-weight: 700;
+		}
+
+		.feature-card p {
+			color: var(--gray);
+			line-height: 1.5;
+			font-size: 0.95rem;
+		}
+
+		/* Community Section */
+		.community-section {
+			background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+			color: white;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.community-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80');
+			background-size: cover;
+			background-position: center;
+			opacity: 0.1;
+		}
+
+		.community-content {
+			position: relative;
+			z-index: 1;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		.community-content h2 {
+			font-size: clamp(2rem, 4vw, 3rem);
+			margin-bottom: 1rem;
+		}
+
+		.community-content p {
+			font-size: clamp(1rem, 1.5vw, 1.25rem);
+			color: #cbd5e1;
+			margin-bottom: 2rem;
+			line-height: 1.6;
+		}
+
+		/* Testimonials Section */
+		.testimonials-section {
+			background: var(--light);
+		}
+
+		.testimonials-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+			gap: 1.5rem;
+		}
+
+		.testimonial-card {
+			background: white;
+			border-radius: 15px;
+			padding: 2rem;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.3s ease;
+		}
+
+		.testimonial-card:hover {
+			transform: translateY(-5px);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.testimonial-header {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			margin-bottom: 1rem;
+		}
+
+		.testimonial-avatar {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			object-fit: cover;
+			border: 3px solid var(--primary);
+		}
+
+		.testimonial-info h4 {
+			color: var(--dark);
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin-bottom: 0.25rem;
+		}
+
+		.testimonial-info p {
+			color: var(--primary);
+			font-size: 0.85rem;
+			font-weight: 500;
+		}
+
+		.testimonial-rating {
+			color: #fbbf24;
+			margin-top: 0.25rem;
+			font-size: 0.9rem;
+		}
+
+		.testimonial-content {
+			color: var(--gray);
+			font-style: italic;
+			line-height: 1.6;
+			position: relative;
+			padding-left: 1.5rem;
+			font-size: 0.95rem;
+		}
+
+		.testimonial-content::before {
+			content: '"';
+			position: absolute;
+			left: 0;
+			top: -10px;
+			font-size: 2.5rem;
+			color: var(--primary);
+			opacity: 0.3;
+			font-family: serif;
+		}
+
+		/* Clients Section */
+		.clients-section {
+			background: white;
+		}
+
+		.clients-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			gap: 1rem;
+			align-items: center;
+		}
+
+		.client-logo {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 80px;
+			background: white;
+			border-radius: 10px;
+			padding: 1rem;
+			box-shadow: var(--shadow-md);
+			transition: all 0.3s ease;
+			border: 1px solid var(--lighter);
+		}
+
+		.client-logo:hover {
+			transform: scale(1.05);
+			box-shadow: var(--shadow-lg);
+			border-color: var(--primary);
+		}
+
+		.client-logo img {
+			max-width: 100%;
+			max-height: 40px;
+			filter: grayscale(100%);
+			opacity: 0.7;
+			transition: all 0.3s ease;
+		}
+
+		.client-logo:hover img {
+			filter: grayscale(0%);
+			opacity: 1;
+		}
+
+		/* CTA Section */
+		.cta-section {
+			background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+			color: white;
+			text-align: center;
+			border-radius: 20px;
+			margin: 60px auto;
+			padding: 60px 20px;
+			max-width: 100%;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.cta-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+			background-size: cover;
+			background-position: center;
+			opacity: 0.1;
+		}
+
+		.cta-content {
+			position: relative;
+			z-index: 1;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 0 10px;
+		}
+
+		.cta-content h2 {
+			font-size: clamp(2rem, 4vw, 3rem);
+			margin-bottom: 1rem;
+		}
+
+		.cta-content p {
+			font-size: clamp(1rem, 1.5vw, 1.25rem);
+			color: rgba(255, 255, 255, 0.9);
+			margin-bottom: 2rem;
+			line-height: 1.6;
+		}
+
+		.cta-buttons {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		/* Footer */
+		footer {
+			background: var(--darker);
+			color: white;
+			padding: 60px 0 30px;
+		}
+
+		.footer-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+			gap: 2rem;
+			margin-bottom: 2rem;
+		}
+
+		.footer-col h3 {
+			font-size: 1.25rem;
+			margin-bottom: 1.25rem;
+			color: white;
+			font-weight: 600;
+		}
+
+		.footer-col p {
+			color: #94a3b8;
+			margin-bottom: 1rem;
+			line-height: 1.6;
+			font-size: 0.95rem;
+		}
+
+		.footer-links {
+			list-style: none;
+		}
+
+		.footer-links li {
+			margin-bottom: 0.5rem;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a {
+			color: #94a3b8;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.footer-links a:hover {
+			color: var(--accent);
+			padding-left: 5px;
+		}
+
+		.social-media {
+			display: flex;
+			gap: 0.75rem;
+			margin-top: 1.25rem;
+		}
+
+		.social-media a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 36px;
+			height: 36px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50%;
+			transition: all 0.3s ease;
+		}
+
+		.social-media a:hover {
+			background: var(--primary);
+			transform: translateY(-3px);
+		}
+
+		.social-media i {
+			color: white;
+			font-size: 1rem;
+		}
+
+		.newsletter-form {
+			display: flex;
+			flex-direction: column;
+			gap: 0.75rem;
+			margin-top: 1.25rem;
+		}
+
+		.newsletter-form input {
+			padding: 0.75rem 1rem;
+			border: none;
+			border-radius: 50px;
+			outline: none;
+			font-size: 0.95rem;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			width: 100%;
+		}
+
+		.newsletter-form input::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		.newsletter-form button {
+			align-self: flex-start;
+			padding: 0.75rem 1.5rem;
+		}
+
+		.footer-bottom {
+			text-align: center;
+			padding-top: 2rem;
+			margin-top: 2rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			color: #64748b;
+			font-size: 0.85rem;
+			line-height: 1.5;
+		}
+
+		/* User Navigation */
+		.user-nav {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+		}
+
+		.user-avatar {
+			width: 36px;
+			height: 36px;
+			background: var(--gradient-primary);
+			color: white;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			font-size: 0.9rem;
+		}
+
+		.user-avatar:hover {
+			transform: scale(1.1);
+			box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+		}
+
+		/* User Dropdown */
+		.user-dropdown {
+			position: relative;
+			display: inline-block;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			right: 0;
+			background: white;
+			min-width: 200px;
+			box-shadow: var(--shadow-xl);
+			border-radius: 10px;
+			z-index: 1000;
+			padding: 10px 0;
+			margin-top: 10px;
+			animation: fadeIn 0.3s ease;
+			opacity: 0;
+			transform: translateY(-10px);
+			transition: opacity 0.3s ease, transform 0.3s ease;
+			pointer-events: none;
+		}
+
+		.dropdown-content.show {
+			display: block;
+			opacity: 1;
+			transform: translateY(0);
+			pointer-events: auto;
+		}
+
+		.user-dropdown:hover .dropdown-content,
+		.dropdown-content:hover {
+			display: block;
+			opacity: 1;
+			transform: translateY(0);
+			pointer-events: auto;
+		}
+
+		.dropdown-content::before {
+			content: '';
+			position: absolute;
+			top: -8px;
+			right: 20px;
+			width: 0;
+			height: 0;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+			border-bottom: 8px solid white;
+		}
+
+		.dropdown-content a {
+			color: var(--dark);
+			padding: 10px 20px;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			transition: all 0.3s ease;
+			border-radius: 5px;
+			margin: 0 10px;
+			font-size: 0.9rem;
+		}
+
+		.dropdown-content a:hover {
+			background: var(--lighter);
+			color: var(--primary);
+			padding-left: 25px;
+		}
+
+		.dropdown-content i {
+			margin-right: 10px;
+			width: 20px;
+			text-align: center;
+			color: var(--primary);
+		}
+
+		.dropdown-content hr {
+			margin: 10px 0;
+			border: none;
+			border-top: 1px solid var(--lighter);
+		}
+
+		.dropdown-content a:last-child {
+			color: var(--danger);
+			border-top: 1px solid var(--lighter);
+			margin-top: 5px;
+			padding-top: 12px;
+		}
+
+		.dropdown-content a:last-child:hover {
+			color: white;
+			background: var(--danger);
+		}
+
+		.dropdown-content a:last-child i {
+			color: var(--danger);
+		}
+
+		.dropdown-content a:last-child:hover i {
+			color: white;
+		}
+
+		/* Mobile Navigation Toggle */
+		.mobile-toggle {
+			display: none;
+			background: none;
+			border: none;
+			color: white;
+			font-size: 1.5rem;
+			cursor: pointer;
+			padding: 5px;
+			z-index: 1001;
+		}
+
+		/* Mobile Navigation Overlay */
+		.nav-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			z-index: 998;
+			opacity: 0;
+			visibility: hidden;
+			transition: all 0.3s ease;
+		}
+
+		.nav-overlay.active {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		/* Responsive Design */
+		@media (max-width: 992px) {
+			.hero-section {
+				flex-direction: column;
+				text-align: center;
+				padding-top: 120px;
+				gap: 40px;
+			}
+
+			.hero-content {
+				max-width: 100%;
+				text-align: center;
+			}
+
+			.hero-image {
+				width: 100%;
+				max-width: 500px;
+				justify-content: center;
+				margin: 20px auto 0;
+			}
+
+			.tech-hero-container {
+				max-width: 400px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.hero-section {
+				padding: 100px 20px 40px;
+			}
+
+			.tech-hero-container {
+				max-width: 300px;
+			}
+
+			/* Mobile Navigation */
+			.mobile-toggle {
+				display: block;
+			}
+
+			.nav-links {
+				position: fixed;
+				top: 0;
+				left: -100%;
+				width: 280px;
+				height: 100vh;
+				background: var(--darker);
+				flex-direction: column;
+				padding: 100px 30px 30px;
+				gap: 0;
+				transition: all 0.3s ease;
+				z-index: 999;
+				overflow-y: auto;
+				box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+			}
+
+			.nav-links.active {
+				left: 0;
+			}
+
+			.nav-links li {
+				width: 100%;
+				margin-bottom: 10px;
+			}
+
+			.nav-links a {
+				display: flex;
+				align-items: center;
+				padding: 15px 20px;
+				border-radius: 10px;
+				background: rgba(255, 255, 255, 0.05);
+				margin-bottom: 5px;
+				font-size: 1.1rem;
+				transition: all 0.3s ease;
+			}
+
+			.nav-links a:hover {
+				background: rgba(255, 255, 255, 0.1);
+				transform: translateX(5px);
+			}
+
+			.nav-links a::after {
+				display: none;
+			}
+
+			.nav-search {
+				display: none;
+			}
+
+			.nav-actions {
+				gap: 10px;
+			}
+
+			.hero-cta {
+				flex-direction: column;
+				width: 100%;
+				max-width: 300px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.hero-cta .btn {
+				width: 100%;
+				justify-content: center;
+			}
+
+			.tech-features {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.tech-feature {
+				width: 100%;
+				max-width: 300px;
+			}
+
+			@keyframes orbitRevolutionOuter {
+				0% {
+					transform: rotate(0deg) translateX(120px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(120px) rotate(-360deg);
+				}
+			}
+
+			@keyframes orbitRevolutionMiddle {
+				0% {
+					transform: rotate(0deg) translateX(90px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(90px) rotate(-360deg);
+				}
+			}
+
+			@keyframes orbitRevolutionInner {
+				0% {
+					transform: rotate(0deg) translateX(60px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(60px) rotate(-360deg);
+				}
+			}
+		}
+
+		@media (max-width: 1024px) {
+			.nav-container {
+				padding: 1rem 20px;
+			}
+
+			.hero-section {
+				padding: 100px 20px 40px;
+			}
+
+			.cta-section {
+				margin: 40px 20px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.section {
+				padding: 50px 0;
+			}
+
+			.stats-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.client-logo {
+				height: 70px;
+				padding: 0.75rem;
+			}
+
+			.footer-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.tech-icon {
+				width: 35px;
+				height: 35px;
+				font-size: 1rem;
+			}
+
+			.nav-links {
+				width: 250px;
+			}
+
+			@keyframes orbitRevolutionOuter {
+				0% {
+					transform: rotate(0deg) translateX(100px) rotate(0deg);
+				}
+
+				100% {
+					transform: rotate(360deg) translateX(100px) rotate(-360deg);
+				}
+			}
+		}
+
+		/* Mobile User Section */
+		.mobile-user-section {
+			margin-top: 20px;
+			padding-top: 20px;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			display: none;
+		}
+
+		@media (max-width: 768px) {
+			.mobile-user-section {
+				display: block;
+			}
+
+			.nav-actions .user-nav {
+				display: none;
+			}
+		}
+
+		.mobile-auth-buttons {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.mobile-user-profile {
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 10px;
+			padding: 15px;
+			margin-top: 10px;
+		}
+
+		.mobile-user-header {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-bottom: 15px;
+		}
+
+		.mobile-user-avatar {
+			width: 50px;
+			height: 50px;
+			background: var(--gradient-primary);
+			color: white;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
+
+		.mobile-user-info h4 {
+			color: white;
+			font-size: 1.1rem;
+			margin-bottom: 5px;
+		}
+
+		.mobile-user-info p {
+			color: var(--gray-light);
+			font-size: 0.9rem;
+		}
+
+		.mobile-user-menu {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		.mobile-user-menu a {
+			display: flex;
+			align-items: center;
+			padding: 10px 15px;
+			color: white;
+			text-decoration: none;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+			background: rgba(255, 255, 255, 0.05);
+		}
+
+		.mobile-user-menu a:hover {
+			background: rgba(255, 255, 255, 0.1);
+			transform: translateX(5px);
+		}
+
+		.mobile-user-menu a i {
+			margin-right: 10px;
+			width: 20px;
+			color: var(--accent);
+		}
+
+		.mobile-user-menu a.logout {
+			color: var(--danger);
+			margin-top: 10px;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			padding-top: 12px;
+		}
+
+		.mobile-user-menu a.logout:hover {
+			background: var(--danger);
+			color: white;
+		}
+
+		.mobile-user-menu a.logout:hover i {
+			color: white;
+		}
+
+		/* Improved touch targets for mobile */
+		.btn,
+		.programme-card,
+		.feature-card,
+		.client-logo,
+		.tech-feature {
+			touch-action: manipulation;
+		}
+
+		/* Prevent text size adjustment on mobile */
+		html {
+			-webkit-text-size-adjust: 100%;
+		}
+
+		/* Improved image loading */
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Header with Navigation -->
+	<header>
+		<div class="tech-bg-elements" id="techBg"></div>
+
+		<nav class="nav-container">
+			<div class="logo">
+				<img src="images/icon/Screenshot 2025-03-24 002902.png" alt="CLIN-TECH Code Camp Logo">
+				<div class="logo-text">CLIN-TECH</div>
+			</div>
+
+			<button class="mobile-toggle" id="mobileToggle">
+				<i class="fas fa-bars"></i>
+			</button>
+
+			<ul class="nav-links" id="navLinks">
+				<li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+				<li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+				<li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+				<li><a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a></li>
+				<li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+
+				<!-- Mobile User Section -->
+				<div class="mobile-user-section" id="mobileUserSection">
+					<!-- Content will be populated by JavaScript -->
+				</div>
+			</ul>
+
+			<div class="nav-actions">
+				<div class="nav-search">
+					<input type="text" placeholder="Search courses...">
+					<i class="fas fa-search"></i>
+				</div>
+
+				<div class="user-nav">
+					<div id="authButtons">
+						<a href="login.html" class="btn btn-primary">Get Started</a>
+					</div>
+					<div id="userProfile" style="display: none;">
+						<div class="user-dropdown">
+							<div class="user-avatar" id="userInitial">C</div>
+							<div class="dropdown-content">
+								<a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+								<a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+								<a href="courses.html"><i class="fas fa-book"></i> My Courses</a>
+								<hr>
+								<a href="javascript:void(0)" onclick="logout()"><i class="fas fa-sign-out-alt"></i>
+									Logout</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Navigation Overlay -->
+		<div class="nav-overlay" id="navOverlay"></div>
+
+		<!-- Hero Section -->
+		<section class="hero-section">
+			<div class="hero-content">
+				<h1 class="hero-title">
+					Become a
+					<span class="highlight">PROFESSIONAL DEVELOPER</span>
+				</h1>
+				<p class="hero-description">
+					Master <strong>cutting-edge programming skills</strong> with industry experts. Get hired in top tech
+					companies or launch your own startup in just 6 months.
+				</p>
+
+				<div class="tech-features">
+					<div class="tech-feature">
+						<i class="fas fa-rocket"></i>
+						<span>Job-Ready in 6 Months</span>
+					</div>
+					<div class="tech-feature">
+						<i class="fas fa-code"></i>
+						<span>Real-World Projects</span>
+					</div>
+					<div class="tech-feature">
+						<i class="fas fa-chart-line"></i>
+						<span>95% Placement Rate</span>
+					</div>
+				</div>
+
+				<div class="hero-cta">
+					<a href="courses.html" class="btn btn-primary">
+						<i class="fas fa-play-circle"></i> Start Learning Free
+					</a>
+					<a href="#programmes" class="btn btn-secondary">
+						<i class="fas fa-video"></i> Watch Demo
+					</a>
+				</div>
+			</div>
+
+			<div class="hero-image">
+				<div class="tech-hero-container">
+					<img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+						alt="Modern Programming" class="tech-hero-main">
+					<div class="tech-orbits">
+						<!-- Central icon (sun) -->
+						<div class="central-icon">
+							<i class="fas fa-code"></i>
+						</div>
+
+						<!-- Orbit paths -->
+						<div class="orbit-path"></div>
+						<div class="orbit-path"></div>
+						<div class="orbit-path"></div>
+						<div class="orbit-path"></div>
+
+						<!-- Planet icons -->
+						<div class="tech-icon python">
+							<i class="fab fa-python"></i>
+						</div>
+						<div class="tech-icon js">
+							<i class="fab fa-js"></i>
+						</div>
+						<div class="tech-icon java">
+							<i class="fab fa-java"></i>
+						</div>
+						<div class="tech-icon database">
+							<i class="fas fa-database"></i>
+						</div>
+						<div class="tech-icon html">
+							<i class="fab fa-html5"></i>
+						</div>
+						<div class="tech-icon css">
+							<i class="fab fa-css3-alt"></i>
+						</div>
+						<div class="tech-icon react">
+							<i class="fab fa-react"></i>
+						</div>
+						<div class="tech-icon node">
+							<i class="fab fa-node-js"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="enroll-counter">
+				<div class="counter-number">2,847+</div>
+				<div style="color: #cbd5e1; font-size: 1rem;">Students Enrolled</div>
+			</div>
+			</div>
+		</section>
+	</header>
+
+	<!-- Stats Section -->
+	<section class="stats-section">
+		<div class="container">
+			<div class="stats-grid">
+				<div class="stat-card">
+					<span class="stat-number">500+</span>
+					<span class="stat-label">Professionals Trained</span>
+				</div>
+				<div class="stat-card">
+					<span class="stat-number">50+</span>
+					<span class="stat-label">Industry Experts</span>
+				</div>
+				<div class="stat-card">
+					<span class="stat-number">98%</span>
+					<span class="stat-label">Job Placement Rate</span>
+				</div>
+				<div class="stat-card">
+					<span class="stat-number">24/7</span>
+					<span class="stat-label">Mentor Support</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Programmes Section -->
+	<section class="section programmes-section" id="programmes">
+		<div class="container">
+			<h2 class="section-title">Our <span class="gradient-text">Programmes</span></h2>
+			<p class="section-subtitle">Comprehensive, industry-relevant courses designed to launch your programming
+				career</p>
+
+			<div class="programmes-grid">
+				<!-- Programme cards remain the same -->
+				<div class="programme-card" onclick="window.location.href='courses.html#python'">
+					<span class="programme-badge">Most Popular</span>
+					<img class="programme-img" src="images/extra/woman1.jpg" alt="Python Programming">
+					<div class="programme-content">
+						<h3>Python Programming</h3>
+						<p>Master Python from basics to advanced concepts including data analysis, automation, and web
+							development.</p>
+						<div class="programme-meta">
+							<div class="programme-duration">
+								<i class="far fa-clock"></i>
+								<span>8 Weeks</span>
+							</div>
+							<div class="programme-level">
+								<i class="fas fa-signal"></i>
+								<span>Beginner</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="programme-card" onclick="window.location.href='courses.html#webdev'">
+					<img class="programme-img"
+						src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+						alt="Web Development">
+					<div class="programme-content">
+						<h3>Full Stack Web Development</h3>
+						<p>Learn HTML, CSS, JavaScript, React, Node.js and build modern, responsive web applications.
+						</p>
+						<div class="programme-meta">
+							<div class="programme-duration">
+								<i class="far fa-clock"></i>
+								<span>12 Weeks</span>
+							</div>
+							<div class="programme-level">
+								<i class="fas fa-signal"></i>
+								<span>Intermediate</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="programme-card" onclick="window.location.href='courses.html#cpp'">
+					<img class="programme-img"
+						src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+						alt="C++ Programming">
+					<div class="programme-content">
+						<h3>C++ & System Programming</h3>
+						<p>Deep dive into C++, memory management, algorithms, and system-level programming concepts.</p>
+						<div class="programme-meta">
+							<div class="programme-duration">
+								<i class="far fa-clock"></i>
+								<span>10 Weeks</span>
+							</div>
+							<div class="programme-level">
+								<i class="fas fa-signal"></i>
+								<span>Intermediate</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="programme-card" onclick="window.location.href='courses.html#java'">
+					<span class="programme-badge" style="background: var(--gradient-accent);">In Demand</span>
+					<img class="programme-img"
+						src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+						alt="Java Programming">
+					<div class="programme-content">
+						<h3>Java & Spring Boot</h3>
+						<p>Learn Java fundamentals, object-oriented programming, and enterprise development with Spring
+							Boot.</p>
+						<div class="programme-meta">
+							<div class="programme-duration">
+								<i class="far fa-clock"></i>
+								<span>10 Weeks</span>
+							</div>
+							<div class="programme-level">
+								<i class="fas fa-signal"></i>
+								<span>Beginner</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="programme-card" onclick="window.location.href='courses.html#dsa'">
+					<img class="programme-img"
+						src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+						alt="Data Structures">
+					<div class="programme-content">
+						<h3>Data Structures & Algorithms</h3>
+						<p>Master fundamental algorithms and data structures essential for coding interviews and
+							efficient programming.</p>
+						<div class="programme-meta">
+							<div class="programme-duration">
+								<i class="far fa-clock"></i>
+								<span>8 Weeks</span>
+							</div>
+							<div class="programme-level">
+								<i class="fas fa-signal"></i>
+								<span>Advanced</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="programme-card" onclick="window.location.href='courses.html#javascript'">
+					<img class="programme-img"
+						src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+						alt="JavaScript">
+					<div class="programme-content">
+						<h3>AI & Machine Learning</h3>
+						<p>Master AI and Machine Learning concepts including neural networks, deep learning,
+							natural language processing, and computer vision. Build real-world AI applications.</p>
+						<div class="programme-meta">
+							<div class="programme-duration">
+								<i class="far fa-clock"></i>
+								<span>9 Weeks</span>
+							</div>
+							<div class="programme-level">
+								<i class="fas fa-signal"></i>
+								<span>Intermediate</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Features Section -->
+	<section class="section features-section">
+		<div class="container">
+			<h2 class="section-title">Why Choose <span class="gradient-text">CLIN-TECH</span>?</h2>
+			<p class="section-subtitle">Our unique approach to programming education sets us apart</p>
+
+			<div class="features-grid">
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class="fas fa-laptop-code"></i>
+					</div>
+					<h3>Project-Based Learning</h3>
+					<p>Learn by building real-world projects that you can showcase in your portfolio and impress
+						employers.</p>
+				</div>
+
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class="fas fa-users"></i>
+					</div>
+					<h3>1-on-1 Mentorship</h3>
+					<p>Get personalized guidance from industry professionals with years of real-world experience.</p>
+				</div>
+
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class="fas fa-briefcase"></i>
+					</div>
+					<h3>Career Support</h3>
+					<p>Resume reviews, interview preparation, and direct connections to our hiring partners.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Community Section -->
+	<section class="section community-section">
+		<div class="container">
+			<div class="community-content">
+				<h2>Join Our Growing Community</h2>
+				<p>Be part of 500+ professionals working at leading companies like IBM, Microsoft, Toptal, Absa Bank,
+					and Safaricom. Network, collaborate, and grow with like-minded developers.</p>
+				<a href="login.html" class="btn btn-accent">Join Community</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Testimonials Section -->
+	<section class="section testimonials-section">
+		<div class="container">
+			<h2 class="section-title">Alumni <span class="gradient-text">Success Stories</span></h2>
+			<p class="section-subtitle">Hear from our graduates about their transformative learning experiences</p>
+
+			<div class="testimonials-grid">
+				<div class="testimonial-card">
+					<div class="testimonial-header">
+						<img src="images/creator/Screenshot 2025-03-20 052653.png" alt="Ida Anyango"
+							class="testimonial-avatar">
+						<div class="testimonial-info">
+							<h4>Ida Anyango</h4>
+							<p>Java Developer at Safaricom</p>
+							<div class="testimonial-rating">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+						</div>
+					</div>
+					<div class="testimonial-content">
+						I did the Java Fundamental course at CLIN-TECH and it transformed my career. The brain teasers
+						and assignments were challenging yet rewarding. The instructors explained complex concepts
+						clearly and provided excellent support whenever I got stuck. Today, I'm working as a Java
+						Developer at Safaricom!
+					</div>
+				</div>
+
+				<div class="testimonial-card">
+					<div class="testimonial-header">
+						<img src="images/creator/Screenshot 2025-03-23 022049.png" alt="Nemwel Onyancha"
+							class="testimonial-avatar">
+						<div class="testimonial-info">
+							<h4>Nemwel Onyancha</h4>
+							<p>Full Stack Developer at IBM</p>
+							<div class="testimonial-rating">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+						</div>
+					</div>
+					<div class="testimonial-content">
+						The web development instructors at CLIN-TECH are superb! They are patient, knowledgeable, and
+						always ready to help with any questions. Thanks to their guidance, I landed a full-stack
+						developer position at IBM just 3 months after completing the course.
+					</div>
+				</div>
+
+				<div class="testimonial-card">
+					<div class="testimonial-header">
+						<img src="images/creator/Screenshot 2025-03-20 055336.png" alt="Clinton Mjanja"
+							class="testimonial-avatar">
+						<div class="testimonial-info">
+							<h4>Clinton Mjanja</h4>
+							<p>Data Engineer at Microsoft</p>
+							<div class="testimonial-rating">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+						</div>
+					</div>
+					<div class="testimonial-content">
+						CLIN-TECH was an amazing experience. As an electronics graduate, I had little coding experience,
+						but the Data Structures course helped me think analytically. The systematic approach to
+						problem-solving I learned here was instrumental in my Microsoft interview and current role.
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Clients Section -->
+	<section class="section clients-section">
+		<div class="container">
+			<h2 class="section-title">Our <span class="gradient-text">Hiring Partners</span></h2>
+			<p class="section-subtitle">Leading companies trust CLIN-TECH graduates with their development needs</p>
+
+			<div class="clients-grid">
+				<div class="client-logo"><img src="images/extra/safaricom.png" alt="Safaricom"></div>
+				<div class="client-logo"><img src="images/extra/Airtel.png" alt="Airtel"></div>
+				<div class="client-logo"><img src="images/extra/Naivas.png" alt="Naivas"></div>
+				<div class="client-logo"><img src="images/extra/ncba.png" alt="NCBA"></div>
+				<div class="client-logo"><img src="images/extra/microsoft.png" alt="Microsoft"></div>
+				<div class="client-logo"><img src="images/extra/Britam.png" alt="Britam"></div>
+				<div class="client-logo"><img src="images/extra/absa.png" alt="Absa Bank"></div>
+				<div class="client-logo"><img src="images/extra/Optica.png" alt="Google"></div>
+				<div class="client-logo"><img src="images/extra/celullant.png" alt="Amazon"></div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="container">
+		<div class="cta-section">
+			<div class="cta-content">
+				<h2>Start Your Coding Journey Today</h2>
+				<p>Don't wait for the perfect moment. Start learning now and transform your career in the next 6 months.
+					Join thousands of successful graduates who changed their lives with CLIN-TECH.</p>
+				<div class="cta-buttons">
+					<a href="courses.html" class="btn btn-primary">
+						<i class="fas fa-play-circle"></i> Explore All Courses
+					</a>
+					<a href="login.html" class="btn" style="background: white; color: var(--primary);">
+						<i class="fas fa-calendar-alt"></i> Book Free Consultation
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-col">
+					<img src="images/icon/Screenshot 2025-03-24 002902.png" alt="CLIN-TECH Logo"
+						style="width: 150px; margin-bottom: 1.5rem;">
+					<p>CLIN-TECH Code Camp is dedicated to transforming beginners into professional programmers through
+						hands-on, industry-relevant training.</p>
+					<div class="social-media">
+						<a href="#"><i class="fab fa-facebook-f"></i></a>
+						<a href="#"><i class="fab fa-twitter"></i></a>
+						<a href="#"><i class="fab fa-instagram"></i></a>
+						<a href="#"><i class="fab fa-linkedin-in"></i></a>
+						<a href="#"><i class="fab fa-youtube"></i></a>
+					</div>
+				</div>
+
+				<div class="footer-col">
+					<h3>Contact Info</h3>
+					<ul class="footer-links">
+						<li><i class="fas fa-map-marker-alt"></i> Multimedia Lab, Rongai, Nairobi-00100</li>
+						<li><i class="fas fa-phone"></i> +254-707326661</li>
+						<li><i class="fas fa-envelope"></i> mjanjezclint@gmail.com</li>
+						<li><i class="far fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</li>
+					</ul>
+				</div>
+
+				<div class="footer-col">
+					<h3>Quick Links</h3>
+					<ul class="footer-links">
+						<li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+						<li><a href="courses.html"><i class="fas fa-book"></i> All Courses</a></li>
+						<li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+						<li><a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a></li>
+						<li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Student Login</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-col">
+					<h3>Our Newsletter</h3>
+					<p>Get updates on new courses, coding tips, and industry insights directly to your inbox.</p>
+					<form class="newsletter-form" id="newsletterForm">
+						<input type="email" placeholder="Enter Your Email" required>
+						<button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">
+							<i class="fas fa-paper-plane"></i> Subscribe
+						</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<p>Copyright © 2025 CLIN-TECH Code Camp. All Rights Reserved. | Designed by clintonmogoi</p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		// Generate animated background elements
+		function generateTechBackground() {
+			const techBg = document.getElementById('techBg');
+			const codeLines = [
+				'function learnToCode() {',
+				'const success = dedication + practice;',
+				'return success;',
+				'}',
+				'class FutureDeveloper {',
+				'constructor(student) {',
+				'this.skills = [];',
+				'}',
+				'addSkill(skill) {',
+				'this.skills.push(skill);',
+				'}',
+				'}',
+				'if (motivated === true) {',
+				'enrollAtClinTech();',
+				'}',
+				'// Your coding journey starts here',
+				'const career = await clinTech.transform();',
+				'console.log("Success!");'
+			];
+
+			// Add code lines
+			for (let i = 0; i < 12; i++) {
+				const line = document.createElement('div');
+				line.className = 'code-line';
+				line.textContent = codeLines[Math.floor(Math.random() * codeLines.length)];
+				line.style.left = `${Math.random() * 100}%`;
+				line.style.animationDelay = `${Math.random() * 5}s`;
+				techBg.appendChild(line);
+			}
+
+			// Add binary dots
+			for (let i = 0; i < 15; i++) {
+				const dot = document.createElement('div');
+				dot.className = 'binary-dots';
+				dot.textContent = Math.random() > 0.5 ? '1' : '0';
+				dot.style.top = `${Math.random() * 100}%`;
+				dot.style.animationDelay = `${Math.random() * 10}s`;
+				techBg.appendChild(dot);
+			}
+		}
+
+		// Animated counter
+		function animateCounter() {
+			const counter = document.querySelector('.counter-number');
+			const target = 2847;
+			let current = 0;
+			const increment = target / 50;
+			const timer = setInterval(() => {
+				current += increment;
+				if (current >= target) {
+					current = target;
+					clearInterval(timer);
+				}
+				counter.textContent = Math.floor(current) + '+';
+			}, 30);
+		}
+
+		// Navigation scroll effect
+		function initNavigation() {
+			const nav = document.querySelector('.nav-container');
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 100) {
+					nav.classList.add('scrolled');
+				} else {
+					nav.classList.remove('scrolled');
+				}
+			});
+		}
+
+		// Mobile navigation toggle - SIMPLIFIED VERSION
+		function initMobileNavigation() {
+			const mobileToggle = document.getElementById('mobileToggle');
+			const navLinks = document.getElementById('navLinks');
+			const navOverlay = document.getElementById('navOverlay');
+			const body = document.body;
+
+			if (mobileToggle && navLinks) {
+				// Toggle mobile menu
+				const toggleMenu = () => {
+					navLinks.classList.toggle('active');
+					navOverlay.classList.toggle('active');
+					body.classList.toggle('menu-open');
+
+					// Change icon
+					const icon = mobileToggle.querySelector('i');
+					if (navLinks.classList.contains('active')) {
+						icon.className = 'fas fa-times';
+					} else {
+						icon.className = 'fas fa-bars';
+					}
+				};
+
+				// Add click event to toggle button
+				mobileToggle.addEventListener('click', toggleMenu);
+
+				// Add click event to overlay to close menu
+				navOverlay.addEventListener('click', toggleMenu);
+
+				// Close menu when clicking links
+				navLinks.querySelectorAll('a').forEach(link => {
+					link.addEventListener('click', () => {
+						if (window.innerWidth <= 768) {
+							toggleMenu();
+						}
+					});
+				});
+
+				// Close menu on escape key
+				document.addEventListener('keydown', (e) => {
+					if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+						toggleMenu();
+					}
+				});
+			}
+		}
+
+		// Newsletter form submission
+		function initNewsletter() {
+			const form = document.getElementById('newsletterForm');
+			if (form) {
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+					const email = form.querySelector('input[type="email"]').value;
+					alert(`Thank you for subscribing with ${email}! You'll receive our next newsletter soon.`);
+					form.reset();
+				});
+			}
+		}
+
+		// Course card animations
+		function initCourseCards() {
+			const cards = document.querySelectorAll('.programme-card');
+			cards.forEach(card => {
+				card.addEventListener('mouseenter', () => {
+					card.style.transform = 'translateY(-15px) scale(1.02)';
+				});
+				card.addEventListener('mouseleave', () => {
+					card.style.transform = 'translateY(0) scale(1)';
+				});
+			});
+		}
+
+		// Smooth scrolling for anchor links
+		function initSmoothScroll() {
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+					const targetId = this.getAttribute('href');
+					if (targetId === '#') return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						window.scrollTo({
+							top: targetElement.offsetTop - 80,
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+		}
+
+		// Authentication check
+		function checkAuth() {
+			const user = JSON.parse(localStorage.getItem('clinTechUser') || 'null');
+			if (user) {
+				document.getElementById('authButtons').style.display = 'none';
+				document.getElementById('userProfile').style.display = 'block';
+				document.getElementById('userInitial').textContent = user.fullname?.charAt(0).toUpperCase() || 'U';
+
+				// Update mobile user section
+				updateMobileUserSection(user);
+			} else {
+				// Update mobile user section for non-logged in users
+				updateMobileUserSection(null);
+			}
+		}
+
+		// Update mobile user section
+		function updateMobileUserSection(user) {
+			const mobileUserSection = document.getElementById('mobileUserSection');
+			if (!mobileUserSection) return;
+
+			if (user) {
+				// User is logged in
+				mobileUserSection.innerHTML = `
+					<div class="mobile-user-profile">
+						<div class="mobile-user-header">
+							<div class="mobile-user-avatar">${user.fullname?.charAt(0).toUpperCase() || 'U'}</div>
+							<div class="mobile-user-info">
+								<h4>${user.fullname || 'User'}</h4>
+								<p>${user.email || ''}</p>
+							</div>
+						</div>
+						<div class="mobile-user-menu">
+							<a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+							<a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+							<a href="courses.html"><i class="fas fa-book"></i> My Courses</a>
+							<a href="javascript:void(0)" onclick="logout()" class="logout">
+								<i class="fas fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
+					</div>
+				`;
+			} else {
+				// User is not logged in
+				mobileUserSection.innerHTML = `
+					<div class="mobile-auth-buttons">
+						<a href="login.html" class="btn btn-primary" style="width: 100%; text-align: center;">
+							<i class="fas fa-sign-in-alt"></i> Login
+						</a>
+						<a href="login.html" class="btn" style="width: 100%; text-align: center; background: white; color: var(--primary);">
+							<i class="fas fa-user-plus"></i> Register
+						</a>
+					</div>
+				`;
+			}
+		}
+
+		// Logout function
+		function logout() {
+			localStorage.removeItem('clinTechUser');
+			localStorage.removeItem('clinTechSessionToken');
+			sessionStorage.removeItem('clinTechUser');
+
+			// Update desktop view
+			document.getElementById('authButtons').style.display = 'block';
+			document.getElementById('userProfile').style.display = 'none';
+
+			// Update mobile view
+			updateMobileUserSection(null);
+
+			// Close mobile menu if open
+			const navLinks = document.getElementById('navLinks');
+			const navOverlay = document.getElementById('navOverlay');
+			const mobileToggle = document.getElementById('mobileToggle');
+
+			if (navLinks.classList.contains('active')) {
+				navLinks.classList.remove('active');
+				navOverlay.classList.remove('active');
+				document.body.classList.remove('menu-open');
+				mobileToggle.querySelector('i').className = 'fas fa-bars';
+			}
+
+			// Show notification
+			showNotification('Logged out successfully!', 'success');
+
+			// Redirect after a short delay
+			setTimeout(() => {
+				window.location.href = 'index.html';
+			}, 1500);
+		}
+
+		// Show notification function
+		function showNotification(message, type = 'info') {
+			// Create notification element
+			const notification = document.createElement('div');
+			notification.className = 'notification';
+			notification.innerHTML = `
+				<div style="position: fixed; top: 20px; right: 20px; background: ${type === 'success' ? '#10b981' : '#3b82f6'}; color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 9999; display: flex; align-items: center; gap: 10px; font-weight: 500;">
+					<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+					<span>${message}</span>
+				</div>
+			`;
+
+			document.body.appendChild(notification);
+
+			// Remove notification after 3 seconds
+			setTimeout(() => {
+				notification.remove();
+			}, 3000);
+		}
+
+		// Initialize everything when DOM is loaded
+		document.addEventListener('DOMContentLoaded', () => {
+			generateTechBackground();
+			animateCounter();
+			initNavigation();
+			initMobileNavigation();
+			initNewsletter();
+			initCourseCards();
+			initSmoothScroll();
+			checkAuth();
+
+			// Add scroll animations
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.style.opacity = '1';
+						entry.target.style.transform = 'translateY(0)';
+					}
+				});
+			}, observerOptions);
+
+			// Observe all sections for animation
+			document.querySelectorAll('.section').forEach(section => {
+				section.style.opacity = '0';
+				section.style.transform = 'translateY(20px)';
+				section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+				observer.observe(section);
+			});
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Login | CLIN-TECH Code Camp</title>
+	<meta name="description"
+		content="Secure login for CLIN-TECH Code Camp. Access your courses and continue your tech journey.">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+	<link rel="shortcut icon" type="png" href="images/icon/Screenshot 2025-03-24 002902.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap"
+		rel="stylesheet">
+	<style>
+		:root {
+			--primary: #0f172a;
+			--primary-dark: #020617;
+			--primary-light: #1e293b;
+			--secondary: #3b82f6;
+			--secondary-dark: #1d4ed8;
+			--accent: #06b6d4;
+			--accent-dark: #0891b2;
+			--gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+			--dark: #1e293b;
+			--darker: #0f172a;
+			--light: #f1f5f9;
+			--lighter: #ffffff;
+			--gray: #64748b;
+			--gray-light: #e2e8f0;
+			--gray-dark: #475569;
+
+			--border: rgba(255, 255, 255, 0.1);
+			--border-light: rgba(255, 255, 255, 0.05);
+			--border-dark: rgba(255, 255, 255, 0.2);
+
+			--success: #10b981;
+			--warning: #f59e0b;
+			--danger: #ef4444;
+			--info: #3b82f6;
+
+			--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+			--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+			--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+			--shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
+			--shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.7);
+
+			--border-radius: 12px;
+			--border-radius-md: 16px;
+			--border-radius-lg: 24px;
+
+			--transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			--transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+			background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+			color: var(--light);
+			line-height: 1.6;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			position: relative;
+			overflow-x: hidden;
+		}
+
+		/* Enhanced Coding Background */
+		.background-container {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background: linear-gradient(135deg,
+					rgba(15, 23, 42, 0.95) 0%,
+					rgba(30, 41, 59, 0.95) 50%,
+					rgba(15, 23, 42, 0.95) 100%);
+			overflow: hidden;
+		}
+
+		.code-background {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background:
+				radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+				radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+				radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+				linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.02) 50%, transparent 55%),
+				linear-gradient(-45deg, transparent 45%, rgba(255, 255, 255, 0.02) 50%, transparent 55%);
+			background-size: 200% 200%, 200% 200%, 200% 200%, 100px 100px, 100px 100px;
+			animation: gradientShift 20s ease infinite;
+		}
+
+		@keyframes gradientShift {
+
+			0%,
+			100% {
+				background-position: 0% 0%, 100% 100%, 50% 50%, 0 0, 0 0;
+			}
+
+			50% {
+				background-position: 100% 0%, 0% 100%, 50% 50%, 50px 50px, 50px 50px;
+			}
+		}
+
+		.code-lines-container {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			perspective: 1000px;
+			overflow: hidden;
+		}
+
+		.code-line {
+			position: absolute;
+			font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+			font-size: 14px;
+			white-space: nowrap;
+			color: rgba(6, 182, 212, 0.4);
+			text-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+			opacity: 0;
+			animation: floatCode 25s linear infinite;
+		}
+
+		.code-line:nth-child(2n) {
+			color: rgba(59, 130, 246, 0.4);
+			text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+		}
+
+		.code-line:nth-child(3n) {
+			color: rgba(139, 92, 246, 0.4);
+			text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+		}
+
+		@keyframes floatCode {
+			0% {
+				transform: translateX(-120%) translateY(-50%) rotateY(20deg) rotateX(10deg);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 0.6;
+			}
+
+			90% {
+				opacity: 0.6;
+			}
+
+			100% {
+				transform: translateX(120vw) translateY(50vh) rotateY(-20deg) rotateX(-10deg);
+				opacity: 0;
+			}
+		}
+
+		/* Main Container */
+		.login-container {
+			width: 100%;
+			max-width: 480px;
+			background: rgba(15, 23, 42, 0.7);
+			backdrop-filter: blur(20px);
+			border-radius: var(--border-radius-lg);
+			overflow: hidden;
+			box-shadow:
+				var(--shadow-2xl),
+				inset 0 1px 0 rgba(255, 255, 255, 0.1),
+				inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+			border: 1px solid var(--border);
+			position: relative;
+			z-index: 10;
+		}
+
+		.login-container::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 4px;
+			background: linear-gradient(90deg,
+					var(--secondary) 0%,
+					var(--accent) 50%,
+					var(--secondary) 100%);
+			animation: borderGlow 3s ease-in-out infinite;
+		}
+
+		@keyframes borderGlow {
+
+			0%,
+			100% {
+				opacity: 0.8;
+			}
+
+			50% {
+				opacity: 1;
+			}
+		}
+
+		/* Header Section */
+		.header-section {
+			padding: 40px 40px 20px;
+			text-align: center;
+			position: relative;
+			background: linear-gradient(180deg,
+					rgba(255, 255, 255, 0.05) 0%,
+					transparent 100%);
+		}
+
+		.logo-container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 15px;
+			margin-bottom: 20px;
+		}
+
+		.logo {
+			width: 60px;
+			height: 60px;
+			background: var(--gradient);
+			border-radius: 16px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: var(--shadow-lg);
+			transition: var(--transition);
+		}
+
+		.logo:hover {
+			transform: scale(1.1) rotate(5deg);
+			box-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
+		}
+
+		.logo i {
+			font-size: 28px;
+			color: white;
+		}
+
+		.brand-name {
+			font-size: 2.5rem;
+			font-weight: 700;
+			background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			letter-spacing: 1px;
+			margin-bottom: 10px;
+		}
+
+		.tagline {
+			font-size: 1.1rem;
+			color: var(--gray-light);
+			margin-bottom: 30px;
+			line-height: 1.6;
+			opacity: 0.9;
+		}
+
+		/* Form Container */
+		.form-container {
+			padding: 0 40px 40px;
+		}
+
+		/* Form Tabs */
+		.form-tabs {
+			display: flex;
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: var(--border-radius);
+			padding: 4px;
+			margin-bottom: 30px;
+			position: relative;
+			border: 1px solid var(--border);
+		}
+
+		.form-tabs::before {
+			content: '';
+			position: absolute;
+			top: 4px;
+			left: 4px;
+			width: calc(50% - 4px);
+			height: calc(100% - 8px);
+			background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+			border-radius: calc(var(--border-radius) - 4px);
+			transition: var(--transition);
+			z-index: 1;
+			box-shadow: var(--shadow-sm);
+		}
+
+		.form-tabs.register-active::before {
+			transform: translateX(100%);
+		}
+
+		.form-tab {
+			flex: 1;
+			padding: 16px;
+			background: transparent;
+			border: none;
+			font-size: 1rem;
+			font-weight: 600;
+			color: var(--gray-light);
+			cursor: pointer;
+			position: relative;
+			z-index: 2;
+			transition: var(--transition);
+			border-radius: calc(var(--border-radius) - 4px);
+		}
+
+		.form-tab:hover {
+			color: white;
+		}
+
+		.form-tab.active {
+			color: white;
+		}
+
+		/* Forms */
+		.auth-form {
+			display: none;
+			opacity: 0;
+			transform: translateY(10px);
+			transition: var(--transition-slow);
+		}
+
+		.auth-form.active {
+			display: block;
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.form-group {
+			margin-bottom: 24px;
+			position: relative;
+		}
+
+		.form-label {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: 500;
+			color: var(--light);
+			font-size: 0.9rem;
+			letter-spacing: 0.5px;
+			text-transform: uppercase;
+			opacity: 0.8;
+		}
+
+		.input-container {
+			position: relative;
+		}
+
+		.form-input {
+			width: 100%;
+			padding: 16px 20px 16px 50px;
+			background: rgba(255, 255, 255, 0.05);
+			border: 2px solid var(--border);
+			border-radius: var(--border-radius);
+			font-size: 1rem;
+			color: var(--light);
+			transition: var(--transition);
+			font-family: inherit;
+			letter-spacing: 0.3px;
+		}
+
+		.form-input:focus {
+			outline: none;
+			border-color: var(--secondary);
+			background: rgba(255, 255, 255, 0.08);
+			box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+		}
+
+		.form-input::placeholder {
+			color: var(--gray);
+			opacity: 0.6;
+		}
+
+		.input-icon {
+			position: absolute;
+			left: 18px;
+			top: 50%;
+			transform: translateY(-50%);
+			color: var(--gray);
+			font-size: 1.1rem;
+			pointer-events: none;
+			transition: var(--transition);
+			width: 20px;
+			text-align: center;
+		}
+
+		.form-input:focus+.input-icon {
+			color: var(--secondary);
+		}
+
+		.password-toggle {
+			position: absolute;
+			right: 16px;
+			top: 50%;
+			transform: translateY(-50%);
+			background: transparent;
+			border: none;
+			color: var(--gray);
+			cursor: pointer;
+			font-size: 1.1rem;
+			padding: 5px;
+			border-radius: 4px;
+			transition: var(--transition);
+			width: 32px;
+			height: 32px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.password-toggle:hover {
+			color: var(--secondary);
+			background: rgba(255, 255, 255, 0.1);
+		}
+
+		/* Checkbox */
+		.form-checkbox {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 30px;
+			cursor: pointer;
+		}
+
+		.form-checkbox input {
+			width: 20px;
+			height: 20px;
+			background: rgba(255, 255, 255, 0.05);
+			border: 2px solid var(--border);
+			border-radius: 6px;
+			cursor: pointer;
+			transition: var(--transition);
+			flex-shrink: 0;
+			position: relative;
+			appearance: none;
+		}
+
+		.form-checkbox input:checked {
+			background: var(--secondary);
+			border-color: var(--secondary);
+		}
+
+		.form-checkbox input:checked::after {
+			content: '✓';
+			position: absolute;
+			color: white;
+			font-size: 14px;
+			font-weight: bold;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.form-checkbox label {
+			color: var(--gray-light);
+			font-size: 0.9rem;
+			cursor: pointer;
+			user-select: none;
+			line-height: 1.5;
+		}
+
+		.terms-link {
+			color: var(--secondary);
+			text-decoration: none;
+			font-weight: 500;
+			transition: var(--transition);
+			position: relative;
+		}
+
+		.terms-link:hover {
+			color: var(--accent);
+		}
+
+		/* Submit Button */
+		.submit-btn {
+			width: 100%;
+			padding: 18px;
+			background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+			color: white;
+			border: none;
+			border-radius: var(--border-radius);
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: var(--transition);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 12px;
+			font-family: inherit;
+			letter-spacing: 0.5px;
+			position: relative;
+			overflow: hidden;
+			box-shadow: var(--shadow-md);
+		}
+
+		.submit-btn::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+			transition: var(--transition-slow);
+		}
+
+		.submit-btn:hover::before {
+			left: 100%;
+		}
+
+		.submit-btn:hover {
+			transform: translateY(-2px);
+			box-shadow: var(--shadow-lg);
+		}
+
+		.submit-btn:active {
+			transform: translateY(0);
+		}
+
+		.submit-btn:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+			transform: none !important;
+			box-shadow: none !important;
+		}
+
+		.submit-btn .loading {
+			width: 20px;
+			height: 20px;
+			border: 2px solid rgba(255, 255, 255, 0.3);
+			border-radius: 50%;
+			border-top-color: white;
+			animation: spin 0.8s linear infinite;
+		}
+
+		@keyframes spin {
+			to {
+				transform: rotate(360deg);
+			}
+		}
+
+		/* Form Links */
+		.form-links {
+			text-align: center;
+			margin-top: 30px;
+			padding-top: 25px;
+			border-top: 1px solid var(--border);
+		}
+
+		.form-link {
+			color: var(--secondary);
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 0.95rem;
+			transition: var(--transition);
+			position: relative;
+			padding-bottom: 2px;
+		}
+
+		.form-link::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 0;
+			height: 1px;
+			background: var(--secondary);
+			transition: var(--transition);
+		}
+
+		.form-link:hover::after {
+			width: 100%;
+		}
+
+		.back-home {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			color: var(--gray);
+			text-decoration: none;
+			font-weight: 500;
+			margin-top: 25px;
+			transition: var(--transition);
+			font-size: 0.95rem;
+			padding: 8px 16px;
+			border-radius: var(--border-radius);
+		}
+
+		.back-home:hover {
+			color: var(--light);
+			background: rgba(255, 255, 255, 0.1);
+			gap: 15px;
+		}
+
+		/* Messages */
+		.message {
+			padding: 18px 22px;
+			border-radius: var(--border-radius);
+			margin-bottom: 30px;
+			font-weight: 500;
+			display: none;
+			animation: slideDown 0.3s ease;
+			font-size: 0.95rem;
+			border-left: 4px solid;
+			box-shadow: var(--shadow-sm);
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid var(--border);
+		}
+
+		@keyframes slideDown {
+			from {
+				opacity: 0;
+				transform: translateY(-10px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.message.success {
+			background: rgba(16, 185, 129, 0.1);
+			color: #10b981;
+			border-color: #10b981;
+		}
+
+		.message.error {
+			background: rgba(239, 68, 68, 0.1);
+			color: #ef4444;
+			border-color: #ef4444;
+		}
+
+		.message.info {
+			background: rgba(59, 130, 246, 0.1);
+			color: #3b82f6;
+			border-color: var(--info);
+		}
+
+		/* Success Message */
+		.success-message {
+			background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
+			color: white;
+			padding: 40px;
+			border-radius: var(--border-radius);
+			text-align: center;
+			margin-bottom: 30px;
+			display: none;
+			animation: fadeIn 0.5s ease;
+			box-shadow: var(--shadow-lg);
+		}
+
+		.success-message h3 {
+			font-size: 1.6rem;
+			margin-bottom: 15px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 12px;
+		}
+
+		.success-message p {
+			margin-bottom: 20px;
+			opacity: 0.9;
+			font-size: 1.05rem;
+			line-height: 1.6;
+		}
+
+		/* Quick Stats */
+		.stats {
+			display: flex;
+			justify-content: space-around;
+			margin-top: 30px;
+			padding: 20px;
+			background: rgba(255, 255, 255, 0.03);
+			border-radius: var(--border-radius);
+			border: 1px solid var(--border);
+		}
+
+		.stat {
+			text-align: center;
+		}
+
+		.stat-number {
+			font-size: 2rem;
+			font-weight: 700;
+			background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			margin-bottom: 5px;
+		}
+
+		.stat-label {
+			font-size: 0.8rem;
+			color: var(--gray);
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		/* Responsive Design */
+		@media (max-width: 768px) {
+			.login-container {
+				max-width: 100%;
+				margin: 10px;
+			}
+
+			.header-section,
+			.form-container {
+				padding: 30px 25px;
+			}
+
+			.brand-name {
+				font-size: 2rem;
+			}
+
+			.tagline {
+				font-size: 1rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+
+			.header-section,
+			.form-container {
+				padding: 25px 20px;
+			}
+
+			.brand-name {
+				font-size: 1.8rem;
+			}
+
+			.form-tab {
+				padding: 14px;
+				font-size: 0.9rem;
+			}
+
+			.form-input {
+				padding-left: 46px;
+			}
+
+			.input-icon {
+				left: 16px;
+			}
+
+			.stats {
+				flex-direction: column;
+				gap: 20px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Enhanced Animated Background -->
+	<div class="background-container">
+		<div class="code-background"></div>
+		<div class="code-lines-container" id="codeLines"></div>
+	</div>
+
+	<!-- Main Login Container -->
+	<div class="login-container">
+		<!-- Header Section -->
+		<div class="header-section">
+			<div class="logo-container">
+				<a href="index.html" class="logo">
+					<i class="fas fa-code"></i>
+				</a>
+			</div>
+
+			<h1 class="brand-name">CLIN-TECH</h1>
+			<p class="tagline">Master programming through immersive, hands-on learning</p>
+		</div>
+
+		<!-- Form Container -->
+		<div class="form-container">
+			<!-- Stats -->
+			<div class="stats">
+				<div class="stat">
+					<div class="stat-number">5000+</div>
+					<div class="stat-label">Students</div>
+				</div>
+				<div class="stat">
+					<div class="stat-number">98%</div>
+					<div class="stat-label">Success Rate</div>
+				</div>
+				<div class="stat">
+					<div class="stat-number">50+</div>
+					<div class="stat-label">Courses</div>
+				</div>
+			</div>
+
+			<!-- Success Message -->
+			<div class="success-message" id="successMessage">
+				<h3><i class="fas fa-check-circle"></i> Account Created Successfully</h3>
+				<p>Your CLIN-TECH account has been created. Redirecting to dashboard...</p>
+			</div>
+
+			<!-- Messages -->
+			<div class="message" id="message"></div>
+
+			<!-- Form Tabs -->
+			<div class="form-tabs" id="formTabs">
+				<button class="form-tab active" onclick="showLoginForm()">Sign In</button>
+				<button class="form-tab" onclick="showRegisterForm()">Create Account</button>
+			</div>
+
+			<!-- Login Form -->
+			<form id="loginForm" class="auth-form active">
+				<div class="form-group">
+					<label class="form-label">Email Address</label>
+					<div class="input-container">
+						<i class="fas fa-envelope input-icon"></i>
+						<input type="email" id="loginEmail" class="form-input" placeholder="you@example.com" required>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="form-label">Password</label>
+					<div class="input-container">
+						<i class="fas fa-lock input-icon"></i>
+						<input type="password" id="loginPassword" class="form-input" placeholder="Enter your password"
+							required>
+						<button type="button" class="password-toggle" onclick="togglePassword('loginPassword', this)">
+							<i class="fas fa-eye"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="form-checkbox">
+					<input type="checkbox" id="rememberMe">
+					<label for="rememberMe">Keep me signed in</label>
+				</div>
+
+				<button type="submit" class="submit-btn" id="loginBtn">
+					<span id="loginText">Sign In</span>
+					<span id="loginSpinner" style="display:none;" class="loading"></span>
+				</button>
+
+				<div class="form-links">
+					<a href="forgot-password.html" class="form-link">Forgot your password?</a>
+
+					<div style="margin-top: 20px;">
+						<a href="index.html" class="back-home">
+							<i class="fas fa-arrow-left"></i> Back to Home
+						</a>
+					</div>
+				</div>
+			</form>
+
+			<!-- Register Form -->
+			<form id="registerForm" class="auth-form">
+				<div class="form-group">
+					<label class="form-label">Full Name</label>
+					<div class="input-container">
+						<i class="fas fa-user input-icon"></i>
+						<input type="text" id="fullName" class="form-input" placeholder="Enter your full name" required>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="form-label">Email Address</label>
+					<div class="input-container">
+						<i class="fas fa-envelope input-icon"></i>
+						<input type="email" id="registerEmail" class="form-input" placeholder="you@example.com"
+							required>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="form-label">Password</label>
+					<div class="input-container">
+						<i class="fas fa-lock input-icon"></i>
+						<input type="password" id="registerPassword" class="form-input"
+							placeholder="Minimum 6 characters" required minlength="6">
+						<button type="button" class="password-toggle"
+							onclick="togglePassword('registerPassword', this)">
+							<i class="fas fa-eye"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="form-label">Confirm Password</label>
+					<div class="input-container">
+						<i class="fas fa-lock input-icon"></i>
+						<input type="password" id="confirmPassword" class="form-input"
+							placeholder="Confirm your password" required>
+						<button type="button" class="password-toggle" onclick="togglePassword('confirmPassword', this)">
+							<i class="fas fa-eye"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="form-checkbox">
+					<input type="checkbox" id="agreeTerms" onclick="toggleRegisterBtn()">
+					<label for="agreeTerms">
+						I agree to the <a href="terms.html" class="terms-link">Terms of Service</a> and
+						<a href="privacy.html" class="terms-link">Privacy Policy</a>
+					</label>
+				</div>
+
+				<button type="submit" class="submit-btn" id="registerBtn" disabled>
+					<span id="registerText">Create Account</span>
+					<span id="registerSpinner" style="display:none;" class="loading"></span>
+				</button>
+
+				<div class="form-links">
+					<p style="color: var(--gray); font-size: 0.95rem; margin-top: 20px;">
+						Already have an account?
+						<a href="#" onclick="showLoginForm()" class="form-link">Sign In</a>
+					</p>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		// API Base URL
+		const API_BASE_URL = 'http://127.0.0.1:5000/api';
+
+		// Initialize when DOM is loaded
+		$(document).ready(function () {
+			createEnhancedCodeBackground();
+			checkExistingSession();
+			initFormValidation();
+
+			// Form submissions
+			$('#loginForm').submit(async function (e) {
+				e.preventDefault();
+				await handleLogin();
+			});
+
+			$('#registerForm').submit(async function (e) {
+				e.preventDefault();
+				await handleRegister();
+			});
+		});
+
+		// Create enhanced animated code background
+		function createEnhancedCodeBackground() {
+			const codeLines = $('#codeLines');
+			const lines = [
+				'function welcome() {',
+				'  console.log("Welcome to CLIN-TECH");',
+				'}',
+				'const learning = "interactive";',
+				'let skills = ["JavaScript", "Python", "React"];',
+				'class Developer {',
+				'  constructor(name) {',
+				'    this.name = name;',
+				'  }',
+				'}',
+				'// Code your future with us',
+				'export default function innovate() {',
+				'  return create();',
+				'}',
+				'<div className="code-example">',
+				'  <Code />',
+				'</div>',
+				'const api = await fetch("knowledge");',
+				'async function learn() {',
+				'  return await master();',
+				'}',
+				'const isOpen = true;',
+				'if (isOpen) {',
+				'  register();',
+				'}',
+				'console.log("Start Coding");',
+				'const result = await learn().then(code);',
+				'function createFuture() {',
+				'  return build();',
+				'}',
+				'let projects = ["Web App", "Mobile App", "AI Model"];',
+				'for (let project of projects) {',
+				'  complete(project);',
+				'}',
+				'const mentor = new Expert();',
+				'mentor.guide();',
+				'// Transform your career',
+				'export { skills, projects };',
+				'const certification = await completeCourse();'
+			];
+
+			lines.forEach((line, index) => {
+				const codeLine = $('<div>').addClass('code-line').text(line);
+				const left = Math.random() * 15;
+				const top = Math.random() * 100;
+				const delay = Math.random() * 20;
+				const duration = 25 + Math.random() * 15;
+				const scale = 0.8 + Math.random() * 0.4;
+
+				codeLine.css({
+					left: `${left}%`,
+					top: `${top}%`,
+					animationDelay: `${delay}s`,
+					animationDuration: `${duration}s`,
+					fontSize: `${13 + Math.random() * 5}px`,
+					transform: `scale(${scale})`
+				});
+
+				codeLines.append(codeLine);
+			});
+		}
+
+		// Form switching
+		function showLoginForm() {
+			$('.form-tab').removeClass('active');
+			$('.form-tab:first').addClass('active');
+			$('.auth-form').removeClass('active');
+			$('#loginForm').addClass('active');
+			$('#formTabs').removeClass('register-active');
+			clearMessages();
+		}
+
+		function showRegisterForm() {
+			$('.form-tab').removeClass('active');
+			$('.form-tab:last').addClass('active');
+			$('.auth-form').removeClass('active');
+			$('#registerForm').addClass('active');
+			$('#formTabs').addClass('register-active');
+			clearMessages();
+		}
+
+		// Password toggle
+		function togglePassword(inputId, button) {
+			const input = document.getElementById(inputId);
+			const icon = button.querySelector('i');
+
+			if (input.type === 'password') {
+				input.type = 'text';
+				icon.classList.remove('fa-eye');
+				icon.classList.add('fa-eye-slash');
+			} else {
+				input.type = 'password';
+				icon.classList.remove('fa-eye-slash');
+				icon.classList.add('fa-eye');
+			}
+		}
+
+		// Toggle register button
+		function toggleRegisterBtn() {
+			const isChecked = $('#agreeTerms').is(':checked');
+			$('#registerBtn').prop('disabled', !isChecked);
+		}
+
+		// Show message
+		function showMessage(text, type) {
+			const messageDiv = $('#message');
+			messageDiv.text(text);
+			messageDiv.removeClass('success error info').addClass(type);
+			messageDiv.fadeIn(300);
+
+			setTimeout(() => {
+				messageDiv.fadeOut(300);
+			}, 5000);
+		}
+
+		// Clear messages
+		function clearMessages() {
+			$('#message').hide().removeClass('success error info');
+			$('#successMessage').hide();
+		}
+
+		// Initialize form validation
+		function initFormValidation() {
+			// Email validation
+			$('input[type="email"]').on('blur', function () {
+				const email = $(this).val();
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+				if (email && !emailRegex.test(email)) {
+					$(this).css('border-color', 'var(--danger)');
+					$(this).next('.input-icon').css('color', 'var(--danger)');
+				} else if (email) {
+					$(this).css('border-color', 'var(--success)');
+					$(this).next('.input-icon').css('color', 'var(--success)');
+				} else {
+					$(this).css('border-color', 'var(--border)');
+					$(this).next('.input-icon').css('color', 'var(--gray)');
+				}
+			});
+
+			// Password match validation
+			$('#confirmPassword').on('input', function () {
+				const password = $('#registerPassword').val();
+				const confirmPassword = $(this).val();
+
+				if (confirmPassword && password !== confirmPassword) {
+					$(this).css('border-color', 'var(--danger)');
+					$(this).next('.input-icon').css('color', 'var(--danger)');
+				} else if (confirmPassword && password === confirmPassword) {
+					$(this).css('border-color', 'var(--success)');
+					$(this).next('.input-icon').css('color', 'var(--success)');
+				} else {
+					$(this).css('border-color', 'var(--border)');
+					$(this).next('.input-icon').css('color', 'var(--gray)');
+				}
+			});
+		}
+
+		// Check existing session from localStorage
+		function checkExistingSession() {
+			const sessionToken = localStorage.getItem('clinTechSessionToken');
+
+			if (sessionToken) {
+				// Verify session with backend
+				$.ajax({
+					url: `${API_BASE_URL}/check-auth?session_token=${sessionToken}`,
+					method: 'GET',
+					success: function (response) {
+						if (response.authenticated) {
+							// User is authenticated, redirect to dashboard
+							showMessage('Welcome back! Redirecting to dashboard...', 'success');
+							setTimeout(() => {
+								window.location.href = 'dashboard.html';
+							}, 1000);
+						} else {
+							// Clear invalid session
+							localStorage.removeItem('clinTechSessionToken');
+							localStorage.removeItem('clinTechUser');
+						}
+					},
+					error: function () {
+						// Clear session on error
+						localStorage.removeItem('clinTechSessionToken');
+						localStorage.removeItem('clinTechUser');
+					}
+				});
+			}
+		}
+
+		// Handle login with backend API
+		async function handleLogin() {
+			const email = $('#loginEmail').val().trim();
+			const password = $('#loginPassword').val();
+			const rememberMe = $('#rememberMe').is(':checked');
+
+			// Validation
+			if (!email || !password) {
+				showMessage('Please fill in all fields', 'error');
+				return;
+			}
+
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				showMessage('Please enter a valid email address', 'error');
+				return;
+			}
+
+			// Show loading
+			$('#loginText').hide();
+			$('#loginSpinner').show();
+			$('#loginBtn').prop('disabled', true);
+
+			try {
+				// Call backend login API
+				const response = await $.ajax({
+					url: `${API_BASE_URL}/login`,
+					method: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify({
+						email: email,
+						password: password,
+						remember_me: rememberMe
+					})
+				});
+
+				if (response.success) {
+					// Store session token and user data
+					localStorage.setItem('clinTechSessionToken', response.user.session_token);
+					localStorage.setItem('clinTechUser', JSON.stringify(response.user));
+
+					if (rememberMe) {
+						localStorage.setItem('rememberMe', 'true');
+					}
+
+					showMessage(response.message, 'success');
+
+					// Redirect to dashboard
+					setTimeout(() => {
+						window.location.href = 'dashboard.html';
+					}, 1000);
+				} else {
+					showMessage(response.message, 'error');
+				}
+			} catch (error) {
+				console.error('Login error:', error);
+				if (error.responseJSON && error.responseJSON.message) {
+					showMessage(error.responseJSON.message, 'error');
+				} else {
+					showMessage('Network error. Please check if backend server is running.', 'error');
+				}
+			} finally {
+				$('#loginText').show();
+				$('#loginSpinner').hide();
+				$('#loginBtn').prop('disabled', false);
+			}
+		}
+
+		// Handle registration with backend API
+		async function handleRegister() {
+			const fullName = $('#fullName').val().trim();
+			const email = $('#registerEmail').val().trim();
+			const password = $('#registerPassword').val();
+			const confirmPassword = $('#confirmPassword').val();
+
+			// Validation
+			if (!fullName || !email || !password || !confirmPassword) {
+				showMessage('Please fill in all fields', 'error');
+				return;
+			}
+
+			if (password !== confirmPassword) {
+				showMessage('Passwords do not match', 'error');
+				return;
+			}
+
+			if (password.length < 6) {
+				showMessage('Password must be at least 6 characters', 'error');
+				return;
+			}
+
+			if (!$('#agreeTerms').is(':checked')) {
+				showMessage('Please agree to the Terms & Conditions', 'error');
+				return;
+			}
+
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				showMessage('Please enter a valid email address', 'error');
+				return;
+			}
+
+			// Show loading
+			$('#registerText').hide();
+			$('#registerSpinner').show();
+			$('#registerBtn').prop('disabled', true);
+
+			try {
+				// Call backend registration API
+				const response = await $.ajax({
+					url: `${API_BASE_URL}/register`,
+					method: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify({
+						fullname: fullName,
+						email: email,
+						password: password
+					})
+				});
+
+				if (response.success) {
+					// Store session token and user data
+					localStorage.setItem('clinTechSessionToken', response.user.session_token);
+					localStorage.setItem('clinTechUser', JSON.stringify(response.user));
+
+					// Show success message
+					$('#loginForm, #registerForm, .form-tabs, .form-header, .stats').hide();
+					$('#successMessage').show();
+					$('#successMessage h3').html('<i class="fas fa-check-circle"></i> ' + response.message);
+					$('#successMessage p').text('Your CLIN-TECH account has been created. Redirecting to dashboard...');
+
+					// Redirect to dashboard after 3 seconds
+					setTimeout(() => {
+						window.location.href = 'dashboard.html';
+					}, 3000);
+
+				} else {
+					showMessage(response.message, 'error');
+				}
+			} catch (error) {
+				console.error('Registration error:', error);
+				if (error.responseJSON && error.responseJSON.message) {
+					showMessage(error.responseJSON.message, 'error');
+				} else {
+					showMessage('Registration failed. Please try again.', 'error');
+				}
+			} finally {
+				$('#registerText').show();
+				$('#registerSpinner').hide();
+				$('#registerBtn').prop('disabled', !$('#agreeTerms').is(':checked'));
+			}
+		}
+
+		// Keyboard shortcuts
+		$(document).keydown(function (e) {
+			// Ctrl + Enter to submit form
+			if (e.ctrlKey && e.key === 'Enter') {
+				if ($('#loginForm').hasClass('active')) {
+					$('#loginForm').submit();
+				} else if ($('#registerForm').hasClass('active')) {
+					$('#registerForm').submit();
+				}
+			}
+
+			// Tab switching with left/right arrows
+			if (e.key === 'ArrowLeft') {
+				showLoginForm();
+			} else if (e.key === 'ArrowRight') {
+				showRegisterForm();
+			}
+		});
+
+		// Test backend connection on load
+		$(document).ready(function () {
+			// Test if backend is running
+			$.ajax({
+				url: `${API_BASE_URL}/health`,
+				method: 'GET',
+				timeout: 3000,
+				success: function (response) {
+					console.log('Backend connection successful:', response);
+				},
+				error: function () {
+					console.warn('Backend server not running. Please start the Flask server.');
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

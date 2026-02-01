@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>About CLIN-TECH | Transform Your Future with Tech Education</title>
+	<meta name="description"
+		content="Discover CLIN-TECH Code Camp - Your gateway to professional programming education. Learn about our vision, team, and success stories.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="png" href="images/icon/Screenshot 2025-03-24 002902.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		/* Modern CSS Reset & Base Styles */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+		}
+
+		:root {
+			--primary: #2563eb;
+			--primary-dark: #1d4ed8;
+			--secondary: #7c3aed;
+			--accent: #06b6d4;
+			--accent-light: #22d3ee;
+			--dark: #0f172a;
+			--darker: #020617;
+			--light: #f8fafc;
+			--lighter: #f1f5f9;
+			--gray: #64748b;
+			--gray-light: #94a3b8;
+			--success: #10b981;
+			--warning: #f59e0b;
+			--danger: #ef4444;
+			--gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			--gradient-tech: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+			--gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+			--gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+			--gradient-success: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+			--gradient-warning: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+			--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+			--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			--shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+			--shadow-xl: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+			--shadow-primary: 0 10px 30px rgba(37, 99, 235, 0.2);
+			--shadow-accent: 0 10px 30px rgba(6, 182, 212, 0.2);
+		}
+
+		html {
+			scroll-behavior: smooth;
+			scroll-padding-top: 80px;
+		}
+
+		body {
+			background-color: var(--light);
+			color: var(--dark);
+			line-height: 1.6;
+			overflow-x: hidden;
+		}
+
+		.container {
+			max-width: 1280px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		.section {
+			padding: clamp(60px, 8vw, 100px) 0;
+		}
+
+		.section-title {
+			text-align: center;
+			font-size: clamp(2rem, 5vw, 3.5rem);
+			font-weight: 800;
+			color: var(--dark);
+			margin-bottom: 1rem;
+			line-height: 1.1;
+		}
+
+		.section-subtitle {
+			text-align: center;
+			color: var(--gray);
+			font-size: clamp(1rem, 2vw, 1.25rem);
+			max-width: 700px;
+			margin: 0 auto clamp(2rem, 4vw, 4rem);
+			padding: 0 1rem;
+		}
+
+		.gradient-text {
+			background: var(--gradient-primary);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			display: inline-block;
+		}
+
+		.btn {
+			padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+			border-radius: 50px;
+			font-weight: 600;
+			font-size: clamp(0.9rem, 1.2vw, 1rem);
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			position: relative;
+			overflow: hidden;
+			cursor: pointer;
+			border: none;
+		}
+
+		.btn-primary {
+			background: var(--gradient-primary);
+			color: white;
+			box-shadow: var(--shadow-primary);
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.btn-secondary {
+			background: white;
+			color: var(--primary);
+			border: 2px solid var(--primary);
+		}
+
+		.btn-secondary:hover {
+			background: var(--primary);
+			color: white;
+			transform: translateY(-3px);
+		}
+
+		.btn-accent {
+			background: var(--gradient-accent);
+			color: white;
+			box-shadow: var(--shadow-accent);
+		}
+
+		.btn-accent:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 15px 40px rgba(6, 182, 212, 0.3);
+		}
+
+		/* Header & Navigation */
+		.tech-bg-elements {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			z-index: 0;
+		}
+
+		.code-line,
+		.binary-dots,
+		.floating-shape {
+			position: absolute;
+			pointer-events: none;
+		}
+
+		.code-line {
+			font-family: 'Courier New', monospace;
+			font-size: 14px;
+			color: #60a5fa;
+			animation: floatCode 20s linear infinite;
+			opacity: 0.3;
+			text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+		}
+
+		.binary-dots {
+			font-family: 'Courier New', monospace;
+			font-size: 18px;
+			color: #06b6d4;
+			animation: floatBinary 25s linear infinite;
+			opacity: 0.2;
+			text-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+		}
+
+		.floating-shape {
+			width: 50px;
+			height: 50px;
+			border: 2px solid rgba(124, 58, 237, 0.3);
+			border-radius: 10px;
+			animation: floatShape 30s linear infinite;
+			box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+		}
+
+		@keyframes floatCode {
+			0% {
+				transform: translateY(100vh) translateX(-100px) rotate(0deg);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 0.4;
+			}
+
+			90% {
+				opacity: 0.4;
+			}
+
+			100% {
+				transform: translateY(-100px) translateX(100px) rotate(360deg);
+				opacity: 0;
+			}
+		}
+
+		@keyframes floatBinary {
+			0% {
+				transform: translateX(100vw) translateY(-100px) scale(1);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 0.3;
+			}
+
+			90% {
+				opacity: 0.3;
+			}
+
+			100% {
+				transform: translateX(-100px) translateY(100px) scale(1.5);
+				opacity: 0;
+			}
+		}
+
+		@keyframes floatShape {
+			0% {
+				transform: translateY(100vh) translateX(0) rotate(0deg);
+				opacity: 0;
+			}
+
+			20% {
+				opacity: 0.3;
+			}
+
+			80% {
+				opacity: 0.3;
+			}
+
+			100% {
+				transform: translateY(-100px) translateX(100vw) rotate(720deg);
+				opacity: 0;
+			}
+		}
+
+		/* Navigation */
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: clamp(1rem, 2vw, 1.5rem) 5%;
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 1000;
+			transition: all 0.3s ease;
+			background: rgba(2, 6, 23, 0.95);
+			backdrop-filter: blur(10px);
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.nav-container.scrolled {
+			background: rgba(2, 6, 23, 0.98);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+		}
+
+		.logo img {
+			height: 50px;
+			width: auto;
+			filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.5));
+		}
+
+		.logo-text {
+			font-size: clamp(1.1rem, 2vw, 1.5rem);
+			font-weight: 700;
+			background: linear-gradient(to right, #60a5fa, #c084fc);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			letter-spacing: 0.5px;
+		}
+
+		/* Desktop Navigation with Icons */
+		.nav-links {
+			display: flex;
+			list-style: none;
+			gap: clamp(1rem, 2vw, 2rem);
+			align-items: center;
+		}
+
+		.nav-links a {
+			color: white;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: clamp(0.9rem, 1.2vw, 1rem);
+			transition: all 0.3s ease;
+			position: relative;
+			padding: 5px 0;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.nav-links a i {
+			font-size: 1rem;
+			width: 20px;
+			text-align: center;
+		}
+
+		.nav-links a:hover {
+			color: var(--accent);
+		}
+
+		.nav-links a::after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 2px;
+			bottom: 0;
+			left: 0;
+			background: var(--gradient-primary);
+			transition: width 0.3s ease;
+		}
+
+		.nav-links a:hover::after {
+			width: 100%;
+		}
+
+		.nav-actions {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+		}
+
+		/* Mobile Navigation Toggle */
+		.mobile-toggle {
+			display: none;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 44px;
+			height: 44px;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			padding: 0;
+			z-index: 1002;
+			position: relative;
+		}
+
+		.hamburger-line {
+			width: 24px;
+			height: 2px;
+			background-color: white;
+			border-radius: 2px;
+			transition: all 0.3s ease;
+			position: absolute;
+		}
+
+		.hamburger-line:nth-child(1) {
+			transform: translateY(-8px);
+		}
+
+		.hamburger-line:nth-child(2) {
+			width: 18px;
+		}
+
+		.hamburger-line:nth-child(3) {
+			transform: translateY(8px);
+		}
+
+		.mobile-toggle.active .hamburger-line:nth-child(1) {
+			transform: rotate(45deg) translateY(0);
+			width: 24px;
+		}
+
+		.mobile-toggle.active .hamburger-line:nth-child(2) {
+			opacity: 0;
+			transform: translateX(-20px);
+		}
+
+		.mobile-toggle.active .hamburger-line:nth-child(3) {
+			transform: rotate(-45deg) translateY(0);
+			width: 24px;
+		}
+
+		/* Mobile Navigation with Icons */
+		@media (max-width: 992px) {
+			.mobile-toggle {
+				display: flex;
+			}
+
+			.nav-links {
+				position: fixed;
+				top: 80px;
+				left: 0;
+				right: 0;
+				background: rgba(2, 6, 23, 0.98);
+				backdrop-filter: blur(20px);
+				flex-direction: column;
+				padding: 2rem;
+				gap: 1.5rem;
+				transform: translateY(-100%);
+				opacity: 0;
+				visibility: hidden;
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				z-index: 998;
+				border-top: 1px solid rgba(255, 255, 255, 0.1);
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+				max-height: calc(100vh - 80px);
+				overflow-y: auto;
+			}
+
+			.nav-links.active {
+				transform: translateY(0);
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.nav-links li {
+				width: 100%;
+				text-align: left;
+			}
+
+			.nav-links a {
+				display: flex;
+				align-items: center;
+				padding: 1rem;
+				font-size: 1.1rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+				gap: 15px;
+				border-radius: 8px;
+				transition: all 0.3s ease;
+			}
+
+			.nav-links a i {
+				font-size: 1.2rem;
+				width: 24px;
+			}
+
+			.nav-links a:hover {
+				background: rgba(255, 255, 255, 0.1);
+				transform: translateX(10px);
+			}
+
+			.nav-links a::after {
+				display: none;
+			}
+		}
+
+		/* ENHANCED About Hero Section - Professional & Technological */
+		.about-hero {
+			background:
+				linear-gradient(135deg,
+					rgba(2, 6, 23, 0.98) 0%,
+					rgba(15, 23, 42, 0.95) 100%),
+				url('https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+			color: white;
+			padding: clamp(160px, 20vw, 220px) 0 clamp(80px, 10vw, 120px);
+			position: relative;
+			overflow: hidden;
+			min-height: 90vh;
+			display: flex;
+			align-items: center;
+			isolation: isolate;
+		}
+
+		.about-hero::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background:
+				radial-gradient(circle at 20% 50%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+				radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+				radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+			z-index: 1;
+			animation: pulseBackground 8s ease-in-out infinite alternate;
+		}
+
+		@keyframes pulseBackground {
+			0% {
+				opacity: 0.5;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		.about-hero .tech-bg-elements {
+			z-index: 2;
+		}
+
+		.about-hero-content {
+			position: relative;
+			z-index: 3;
+			max-width: 1200px;
+			margin: 0 auto;
+			text-align: center;
+			padding: 0 20px;
+		}
+
+		.about-hero-title {
+			font-size: clamp(2.5rem, 6vw, 4.5rem);
+			font-weight: 900;
+			line-height: 1.1;
+			margin-bottom: clamp(1.5rem, 3vw, 2rem);
+			background: linear-gradient(to right, #60a5fa, #c084fc, #06b6d4, #60a5fa);
+			background-size: 300% 100%;
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			animation: gradientFlow 8s ease infinite;
+			text-shadow:
+				0 5px 25px rgba(0, 0, 0, 0.3),
+				0 0 50px rgba(96, 165, 250, 0.1);
+			position: relative;
+		}
+
+		@keyframes gradientFlow {
+
+			0%,
+			100% {
+				background-position: 0% 50%;
+			}
+
+			50% {
+				background-position: 100% 50%;
+			}
+		}
+
+		.about-hero-title::after {
+			content: '';
+			position: absolute;
+			bottom: -15px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 150px;
+			height: 4px;
+			background: var(--gradient-primary);
+			border-radius: 2px;
+			box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+		}
+
+		.about-hero-subtitle {
+			font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+			color: #e2e8f0;
+			margin-bottom: clamp(2rem, 4vw, 3rem);
+			line-height: 1.7;
+			max-width: 800px;
+			margin-left: auto;
+			margin-right: auto;
+			text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+			font-weight: 300;
+			letter-spacing: 0.5px;
+		}
+
+		/* Hero Stats Grid with Icons */
+		.hero-stats {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: clamp(1.5rem, 3vw, 2rem);
+			margin-top: clamp(3rem, 6vw, 5rem);
+			max-width: 1000px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.hero-stat {
+			background: rgba(255, 255, 255, 0.05);
+			backdrop-filter: blur(15px);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 20px;
+			padding: clamp(1.5rem, 3vw, 2rem);
+			transition: all 0.4s ease;
+			position: relative;
+			overflow: hidden;
+			z-index: 2;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+
+		.hero-stat::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: var(--gradient-primary);
+			opacity: 0;
+			transition: opacity 0.4s ease;
+			z-index: -1;
+		}
+
+		.hero-stat:hover {
+			transform: translateY(-10px) scale(1.05);
+			border-color: var(--primary);
+			box-shadow:
+				0 20px 40px rgba(0, 0, 0, 0.3),
+				0 0 30px rgba(37, 99, 235, 0.2);
+		}
+
+		.hero-stat:hover::before {
+			opacity: 0.1;
+		}
+
+		.hero-stat-icon {
+			font-size: 2.5rem;
+			color: var(--accent);
+			margin-bottom: 1rem;
+			filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.3));
+		}
+
+		.hero-stat-number {
+			font-size: clamp(2rem, 4vw, 3rem);
+			font-weight: 800;
+			background: var(--gradient-primary);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			display: block;
+			line-height: 1;
+			margin-bottom: 0.5rem;
+			position: relative;
+		}
+
+		.hero-stat-number::after {
+			content: '+';
+			position: absolute;
+			color: var(--accent);
+			font-size: 1.5rem;
+		}
+
+		.hero-stat-label {
+			color: #94a3b8;
+			font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+			font-weight: 500;
+			letter-spacing: 0.5px;
+		}
+
+		/* Tech Grid Below Hero with Icons */
+		.tech-icons-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			gap: clamp(1rem, 2vw, 1.5rem);
+			margin-top: clamp(3rem, 6vw, 5rem);
+			max-width: 900px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.tech-icon-item {
+			background: rgba(255, 255, 255, 0.05);
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 15px;
+			padding: clamp(1rem, 2vw, 1.2rem);
+			text-align: center;
+			transition: all 0.3s ease;
+			cursor: pointer;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.tech-icon-item:hover {
+			transform: translateY(-5px) scale(1.1);
+			background: rgba(255, 255, 255, 0.1);
+			border-color: var(--accent);
+			box-shadow:
+				0 10px 25px rgba(0, 0, 0, 0.2),
+				0 0 20px rgba(6, 182, 212, 0.2);
+		}
+
+		.tech-icon-item i {
+			font-size: clamp(2rem, 4vw, 2.5rem);
+			color: var(--accent);
+			margin-bottom: 0.75rem;
+			filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.3));
+		}
+
+		.tech-icon-item span {
+			font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+			color: white;
+			font-weight: 500;
+			display: block;
+		}
+
+		/* Hero CTA Buttons */
+		.hero-cta-buttons {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin-top: clamp(2rem, 4vw, 3rem);
+		}
+
+		.hero-cta-buttons .btn {
+			min-width: 180px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.hero-cta-buttons .btn::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+			transition: left 0.7s ease;
+		}
+
+		.hero-cta-buttons .btn:hover::before {
+			left: 100%;
+		}
+
+		/* Vision Section with Icons */
+		.vision-section {
+			background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.vision-content {
+			position: relative;
+			z-index: 2;
+			max-width: 900px;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		.vision-icon {
+			font-size: 4rem;
+			color: var(--primary);
+			margin-bottom: 2rem;
+			opacity: 0.8;
+		}
+
+		.vision-quote {
+			font-size: clamp(1.8rem, 4vw, 2.5rem);
+			font-weight: 700;
+			line-height: 1.4;
+			color: var(--dark);
+			margin-bottom: 2rem;
+			position: relative;
+			padding: 0 2rem;
+		}
+
+		.vision-quote::before,
+		.vision-quote::after {
+			content: '"';
+			font-size: clamp(3rem, 6vw, 4rem);
+			color: var(--primary);
+			opacity: 0.3;
+			position: absolute;
+			font-family: serif;
+		}
+
+		.vision-quote::before {
+			top: -20px;
+			left: 0;
+		}
+
+		.vision-quote::after {
+			bottom: -40px;
+			right: 0;
+		}
+
+		.vision-author {
+			font-size: clamp(1rem, 1.5vw, 1.2rem);
+			color: var(--gray);
+			font-style: italic;
+			margin-top: 3rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+		}
+
+		.vision-author i {
+			color: var(--accent);
+		}
+
+		/* Stats Section with Icons */
+		.stats-section {
+			background: var(--darker);
+			color: white;
+			padding: 80px 0;
+		}
+
+		.stats-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 2rem;
+			text-align: center;
+		}
+
+		.stat-card {
+			padding: 2rem;
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 20px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			transition: all 0.3s ease;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.stat-card:hover {
+			transform: translateY(-10px);
+			background: rgba(255, 255, 255, 0.1);
+			border-color: var(--primary);
+		}
+
+		.stat-icon {
+			font-size: 2.5rem;
+			color: var(--accent);
+			margin-bottom: 1rem;
+			filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.3));
+		}
+
+		.stat-number {
+			font-size: clamp(2.5rem, 5vw, 3.5rem);
+			font-weight: 800;
+			background: var(--gradient-primary);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			display: block;
+			line-height: 1;
+			margin-bottom: 0.5rem;
+		}
+
+		.stat-label {
+			color: var(--gray-light);
+			font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+			font-weight: 500;
+		}
+
+		/* About Content Section */
+		.about-content-section {
+			background: white;
+		}
+
+		.about-content-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: clamp(2rem, 4vw, 4rem);
+			align-items: center;
+		}
+
+		.about-image-container {
+			position: relative;
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: var(--shadow-xl);
+			transform: perspective(1000px) rotateY(-5deg);
+			transition: transform 0.5s ease;
+		}
+
+		.about-image-container:hover {
+			transform: perspective(1000px) rotateY(0deg);
+		}
+
+		.about-image {
+			width: 100%;
+			height: 500px;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+
+		.about-image:hover {
+			transform: scale(1.05);
+		}
+
+		.about-image-overlay {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+			padding: 2rem;
+			color: white;
+		}
+
+		.about-text-content h2 {
+			font-size: clamp(2rem, 4vw, 2.5rem);
+			font-weight: 800;
+			color: var(--dark);
+			margin-bottom: 1.5rem;
+			line-height: 1.2;
+			display: flex;
+			align-items: center;
+			gap: 15px;
+		}
+
+		.about-text-content h2 i {
+			color: var(--primary);
+			font-size: 2.5rem;
+		}
+
+		.about-text-content p {
+			color: var(--gray);
+			line-height: 1.8;
+			margin-bottom: 1.5rem;
+			font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+		}
+
+		.about-features {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1.5rem;
+			margin-top: 2rem;
+		}
+
+		.about-feature {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			padding: 1rem;
+			background: var(--lighter);
+			border-radius: 12px;
+			transition: all 0.3s ease;
+		}
+
+		.about-feature:hover {
+			transform: translateY(-5px);
+			background: white;
+			box-shadow: var(--shadow-md);
+		}
+
+		.about-feature i {
+			color: var(--primary);
+			font-size: 1.5rem;
+			background: white;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: var(--shadow-sm);
+		}
+
+		.about-feature h4 {
+			color: var(--dark);
+			font-size: 1.1rem;
+			margin-bottom: 0.25rem;
+		}
+
+		.about-feature p {
+			color: var(--gray);
+			font-size: 0.9rem;
+			margin-bottom: 0;
+		}
+
+		/* Team Section with Icons */
+		.team-section {
+			background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+		}
+
+		.team-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+			gap: clamp(1.5rem, 3vw, 3rem);
+		}
+
+		.team-card {
+			background: white;
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: var(--shadow-lg);
+			transition: all 0.4s ease;
+			position: relative;
+		}
+
+		.team-card:hover {
+			transform: translateY(-15px);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.team-card-header {
+			position: relative;
+			height: 300px;
+			overflow: hidden;
+		}
+
+		.team-image {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+
+		.team-card:hover .team-image {
+			transform: scale(1.1);
+		}
+
+		.team-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: linear-gradient(to top, rgba(37, 99, 235, 0.9), transparent);
+			display: flex;
+			align-items: flex-end;
+			padding: 2rem;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+
+		.team-card:hover .team-overlay {
+			opacity: 1;
+		}
+
+		.team-social {
+			display: flex;
+			gap: 1rem;
+		}
+
+		.team-social a {
+			width: 40px;
+			height: 40px;
+			background: white;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--primary);
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+
+		.team-social a:hover {
+			background: var(--primary);
+			color: white;
+			transform: translateY(-3px);
+		}
+
+		.team-card-content {
+			padding: 2rem;
+			text-align: center;
+		}
+
+		.team-name {
+			font-size: clamp(1.3rem, 2vw, 1.5rem);
+			font-weight: 700;
+			color: var(--dark);
+			margin-bottom: 0.5rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+		}
+
+		.team-name i {
+			color: var(--primary);
+			font-size: 1.2rem;
+		}
+
+		.team-role {
+			color: var(--primary);
+			font-weight: 600;
+			margin-bottom: 1rem;
+			font-size: 1.1rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+		}
+
+		.team-role i {
+			font-size: 1rem;
+		}
+
+		.team-description {
+			color: var(--gray);
+			line-height: 1.6;
+			margin-bottom: 1.5rem;
+			font-style: italic;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+		}
+
+		.team-description i {
+			color: var(--accent);
+			font-size: 1.2rem;
+			opacity: 0.7;
+		}
+
+		.team-expertise {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			justify-content: center;
+		}
+
+		.expertise-tag {
+			background: var(--lighter);
+			color: var(--dark);
+			padding: 0.4rem 1rem;
+			border-radius: 50px;
+			font-size: 0.85rem;
+			font-weight: 500;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		.expertise-tag i {
+			font-size: 0.8rem;
+			color: var(--primary);
+		}
+
+		/* Values Section with Icons */
+		.values-section {
+			background: white;
+		}
+
+		.values-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+			gap: clamp(1.5rem, 3vw, 2rem);
+		}
+
+		.value-card {
+			background: var(--lighter);
+			border-radius: 20px;
+			padding: clamp(2rem, 3vw, 3rem) clamp(1.5rem, 2vw, 2rem);
+			text-align: center;
+			transition: all 0.3s ease;
+			border: 2px solid transparent;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.value-card:hover {
+			transform: translateY(-10px);
+			background: white;
+			border-color: var(--primary);
+			box-shadow: var(--shadow-xl);
+		}
+
+		.value-icon {
+			width: 80px;
+			height: 80px;
+			background: var(--gradient-primary);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 1.5rem;
+			font-size: 2rem;
+			color: white;
+			transition: all 0.3s ease;
+		}
+
+		.value-card:hover .value-icon {
+			transform: scale(1.1) rotate(5deg);
+			box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+		}
+
+		.value-card h3 {
+			font-size: clamp(1.3rem, 2vw, 1.5rem);
+			font-weight: 700;
+			color: var(--dark);
+			margin-bottom: 1rem;
+		}
+
+		.value-card p {
+			color: var(--gray);
+			line-height: 1.6;
+			font-size: clamp(0.9rem, 1.2vw, 1rem);
+		}
+
+		/* CTA Section with Icons */
+		.cta-section {
+			background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+			color: white;
+			text-align: center;
+			border-radius: 30px;
+			margin: clamp(40px, 6vw, 100px) auto;
+			padding: clamp(60px, 8vw, 80px) clamp(20px, 4vw, 40px);
+			position: relative;
+			overflow: hidden;
+			width: calc(100% - 40px);
+		}
+
+		.cta-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+			background-size: cover;
+			background-position: center;
+			opacity: 0.1;
+		}
+
+		.cta-content {
+			position: relative;
+			z-index: 1;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.cta-icon {
+			font-size: 4rem;
+			color: white;
+			margin-bottom: 2rem;
+			opacity: 0.9;
+			filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+		}
+
+		.cta-content h2 {
+			font-size: clamp(2rem, 4vw, 3rem);
+			margin-bottom: 1.5rem;
+		}
+
+		.cta-content p {
+			font-size: clamp(1rem, 1.5vw, 1.25rem);
+			color: rgba(255, 255, 255, 0.9);
+			margin-bottom: 3rem;
+			line-height: 1.8;
+		}
+
+		.cta-buttons {
+			display: flex;
+			gap: 1.5rem;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		/* Footer with Icons */
+		footer {
+			background: var(--darker);
+			color: white;
+			padding: clamp(60px, 8vw, 80px) 0 clamp(30px, 4vw, 40px);
+		}
+
+		.footer-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+			gap: clamp(1.5rem, 3vw, 3rem);
+			margin-bottom: clamp(2rem, 4vw, 3rem);
+		}
+
+		.footer-col h3 {
+			font-size: clamp(1.2rem, 2vw, 1.5rem);
+			margin-bottom: 1.5rem;
+			color: white;
+			font-weight: 600;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.footer-col h3 i {
+			color: var(--accent);
+		}
+
+		.footer-col p {
+			color: #94a3b8;
+			margin-bottom: 1rem;
+			line-height: 1.7;
+			font-size: clamp(0.9rem, 1.2vw, 1rem);
+		}
+
+		.footer-links {
+			list-style: none;
+		}
+
+		.footer-links li {
+			margin-bottom: 0.75rem;
+			font-size: clamp(0.9rem, 1.2vw, 1rem);
+		}
+
+		.footer-links a {
+			color: #94a3b8;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.footer-links a i {
+			width: 20px;
+			text-align: center;
+		}
+
+		.footer-links a:hover {
+			color: var(--accent);
+			padding-left: 5px;
+		}
+
+		.social-media {
+			display: flex;
+			gap: 1rem;
+			margin-top: 1.5rem;
+		}
+
+		.social-media a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50%;
+			transition: all 0.3s ease;
+		}
+
+		.social-media a:hover {
+			background: var(--primary);
+			transform: translateY(-3px);
+		}
+
+		.social-media i {
+			color: white;
+			font-size: 1.2rem;
+		}
+
+		.newsletter-form {
+			display: flex;
+			margin-top: 1.5rem;
+			gap: 0.5rem;
+		}
+
+		.newsletter-form input {
+			flex: 1;
+			padding: 0.8rem 1.2rem;
+			border: none;
+			border-radius: 50px;
+			outline: none;
+			font-size: clamp(0.9rem, 1.2vw, 1rem);
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+		}
+
+		.newsletter-form input::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		.footer-bottom {
+			text-align: center;
+			padding-top: 2rem;
+			margin-top: 2rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			color: #64748b;
+			font-size: clamp(0.8rem, 1vw, 0.9rem);
+			line-height: 1.5;
+		}
+
+		/* User Dropdown */
+		.user-dropdown {
+			position: relative;
+			display: inline-block;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			right: 0;
+			background: white;
+			min-width: 200px;
+			box-shadow: var(--shadow-xl);
+			border-radius: 10px;
+			z-index: 1000;
+			padding: 10px 0;
+			margin-top: 10px;
+			opacity: 0;
+			transform: translateY(-10px);
+			transition: opacity 0.3s ease, transform 0.3s ease;
+			pointer-events: none;
+		}
+
+		.user-dropdown:hover .dropdown-content,
+		.dropdown-content:hover {
+			display: block;
+			opacity: 1;
+			transform: translateY(0);
+			pointer-events: auto;
+		}
+
+		.dropdown-content::before {
+			content: '';
+			position: absolute;
+			top: -8px;
+			right: 20px;
+			width: 0;
+			height: 0;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+			border-bottom: 8px solid white;
+		}
+
+		.dropdown-content a {
+			color: var(--dark);
+			padding: 10px 20px;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			transition: all 0.3s ease;
+			border-radius: 5px;
+			margin: 0 10px;
+			font-size: 0.9rem;
+			gap: 10px;
+		}
+
+		.dropdown-content a:hover {
+			background: var(--lighter);
+			color: var(--primary);
+			padding-left: 25px;
+		}
+
+		.dropdown-content i {
+			width: 20px;
+			text-align: center;
+			color: var(--primary);
+		}
+
+		.dropdown-content hr {
+			margin: 10px 0;
+			border: none;
+			border-top: 1px solid var(--lighter);
+		}
+
+		.dropdown-content a:last-child {
+			color: var(--danger);
+			margin-top: 5px;
+			padding-top: 12px;
+		}
+
+		.dropdown-content a:last-child:hover {
+			color: white;
+			background: var(--danger);
+		}
+
+		.dropdown-content a:last-child i {
+			color: var(--danger);
+		}
+
+		.dropdown-content a:last-child:hover i {
+			color: white;
+		}
+
+		.user-avatar {
+			width: 36px;
+			height: 36px;
+			background: var(--gradient-primary);
+			color: white;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			border: 2px solid transparent;
+			position: relative;
+			z-index: 1001;
+		}
+
+		.user-avatar:hover {
+			transform: scale(1.1);
+			box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+			border-color: rgba(255, 255, 255, 0.5);
+		}
+
+		/* Responsive Design */
+		@media (max-width: 1200px) {
+			.about-content-grid {
+				grid-template-columns: 1fr;
+				gap: 3rem;
+			}
+
+			.about-image-container {
+				max-width: 600px;
+				margin: 0 auto;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.about-hero {
+				padding: 140px 0 60px;
+			}
+
+			.about-hero-title::after {
+				width: 100px;
+			}
+
+			.tech-icons-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.hero-stats {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.about-features {
+				grid-template-columns: 1fr;
+			}
+
+			.cta-buttons {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cta-buttons .btn {
+				width: 100%;
+				max-width: 300px;
+			}
+
+			.newsletter-form {
+				flex-direction: column;
+			}
+
+			.newsletter-form button {
+				width: 100%;
+			}
+
+			.hero-cta-buttons {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.hero-cta-buttons .btn {
+				width: 100%;
+				max-width: 300px;
+			}
+
+			.footer-links a {
+				gap: 8px;
+			}
+
+			.footer-links a i {
+				width: 18px;
+			}
+		}
+
+		@media (max-width: 576px) {
+			.about-hero-title {
+				font-size: 2.2rem;
+			}
+
+			.hero-stats {
+				grid-template-columns: 1fr;
+			}
+
+			.tech-icons-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.team-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.values-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.about-features {
+				grid-template-columns: 1fr;
+			}
+
+			.nav-links a {
+				font-size: 1rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.about-hero {
+				padding: 120px 0 40px;
+			}
+
+			.tech-icons-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.container {
+				padding: 0 15px;
+			}
+
+			.nav-links a {
+				padding: 0.8rem;
+				font-size: 0.95rem;
+			}
+
+			.nav-links a i {
+				font-size: 1.1rem;
+			}
+		}
+
+		/* Animation Classes */
+		.fade-in {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: all 0.6s ease;
+		}
+
+		.fade-in.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		/* Loading Animation */
+		.loading {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			border: 3px solid rgba(37, 99, 235, 0.3);
+			border-radius: 50%;
+			border-top-color: var(--primary);
+			animation: spin 1s ease-in-out infinite;
+		}
+
+		@keyframes spin {
+			to {
+				transform: rotate(360deg);
+			}
+		}
+
+		/* Touch-friendly improvements */
+		.btn,
+		.tech-icon-item,
+		.team-card,
+		.value-card,
+		.stat-card {
+			touch-action: manipulation;
+		}
+
+		/* Prevent text size adjustment on mobile */
+		html {
+			-webkit-text-size-adjust: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Animated Background Elements -->
+	<div class="tech-bg-elements" id="techBg"></div>
+
+	<!-- Header with Navigation -->
+	<nav class="nav-container">
+		<div class="logo">
+			<img src="images/icon/Screenshot 2025-03-24 002902.png" alt="CLIN-TECH Code Camp Logo">
+			<div class="logo-text">CLIN-TECH</div>
+		</div>
+
+		<!-- Mobile Toggle Button -->
+		<button class="mobile-toggle" id="mobileToggle">
+			<span class="hamburger-line"></span>
+			<span class="hamburger-line"></span>
+			<span class="hamburger-line"></span>
+		</button>
+
+		<!-- Navigation Links with Icons -->
+		<ul class="nav-links" id="navLinks">
+			<li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+			<li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+			<li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+			<li><a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a></li>
+			<li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+		</ul>
+
+		<div class="nav-actions">
+			<div class="user-nav">
+				<div id="authButtons">
+					<a href="login.html" class="btn btn-primary">
+						<i class="fas fa-rocket"></i> Get Started
+					</a>
+				</div>
+				<div id="userProfile" style="display: none;">
+					<div class="user-dropdown">
+						<div class="user-avatar" id="userInitial">C</div>
+						<div class="dropdown-content">
+							<a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+							<a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+							<a href="courses.html"><i class="fas fa-book"></i> My Courses</a>
+							<hr>
+							<a href="javascript:void(0)" onclick="logout()"><i class="fas fa-sign-out-alt"></i>
+								Logout</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<!-- ENHANCED About Hero Section -->
+	<section class="about-hero">
+		<div class="tech-bg-elements" id="aboutTechBg"></div>
+		<div class="container">
+			<div class="about-hero-content">
+				<h1 class="about-hero-title">Redefining Tech <span class="gradient-text">Education</span> For The
+					Digital Era</h1>
+				<p class="about-hero-subtitle">
+					At CLIN-TECH Code Camp, we're pioneering a new approach to programming education.
+					Our immersive learning experience combines cutting-edge technology with industry mentorship
+					to transform beginners into professional developers in record time.
+				</p>
+
+				<!-- Hero CTA Buttons -->
+				<div class="hero-cta-buttons">
+					<a href="courses.html" class="btn btn-primary">
+						<i class="fas fa-play-circle"></i> Explore Our Courses
+					</a>
+					<a href="#vision" class="btn btn-secondary">
+						<i class="fas fa-eye"></i> Our Vision
+					</a>
+				</div>
+
+				<!-- Technology Icons Grid -->
+				<div class="tech-icons-grid">
+					<div class="tech-icon-item">
+						<i class="fab fa-python"></i>
+						<span>Python</span>
+					</div>
+					<div class="tech-icon-item">
+						<i class="fab fa-js"></i>
+						<span>JavaScript</span>
+					</div>
+					<div class="tech-icon-item">
+						<i class="fab fa-react"></i>
+						<span>React</span>
+					</div>
+					<div class="tech-icon-item">
+						<i class="fas fa-database"></i>
+						<span>Data Science</span>
+					</div>
+					<div class="tech-icon-item">
+						<i class="fab fa-java"></i>
+						<span>Java</span>
+					</div>
+					<div class="tech-icon-item">
+						<i class="fas fa-brain"></i>
+						<span>AI/ML</span>
+					</div>
+				</div>
+
+				<!-- Hero Stats with Icons -->
+				<div class="hero-stats">
+					<div class="hero-stat">
+						<div class="hero-stat-icon">
+							<i class="fas fa-graduation-cap"></i>
+						</div>
+						<span class="hero-stat-number">500</span>
+						<span class="hero-stat-label">Professionals Trained</span>
+					</div>
+					<div class="hero-stat">
+						<div class="hero-stat-icon">
+							<i class="fas fa-briefcase"></i>
+						</div>
+						<span class="hero-stat-number">98</span>
+						<span class="hero-stat-label">Placement Rate</span>
+					</div>
+					<div class="hero-stat">
+						<div class="hero-stat-icon">
+							<i class="fas fa-users"></i>
+						</div>
+						<span class="hero-stat-number">50</span>
+						<span class="hero-stat-label">Industry Experts</span>
+					</div>
+					<div class="hero-stat">
+						<div class="hero-stat-icon">
+							<i class="fas fa-headset"></i>
+						</div>
+						<span class="hero-stat-number">24/7</span>
+						<span class="hero-stat-label">Mentor Support</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Vision Section -->
+	<section class="section vision-section" id="vision">
+		<div class="container">
+			<div class="vision-content">
+				<h2 class="section-title">Our <span class="gradient-text">Vision</span></h2>
+				<p class="section-subtitle">Driving innovation through accessible, high-quality programming education
+				</p>
+
+				<div class="vision-icon">
+					<i class="fas fa-bullseye"></i>
+				</div>
+
+				<div class="vision-quote">
+					Education is the passport to the future, for tomorrow belongs to those who prepare for it today.
+					Your attitude, not your aptitude, will determine your altitude.
+				</div>
+
+				<p class="vision-author">
+					<i class="fas fa-quote-right"></i> CLIN-TECH Code Camp Philosophy
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Stats Section with Icons -->
+	<section class="stats-section">
+		<div class="container">
+			<h2 class="section-title" style="color: white;">By The <span style="color: #60a5fa;">Numbers</span></h2>
+			<p class="section-subtitle" style="color: #94a3b8;">Our impact and growth over the years</p>
+
+			<div class="stats-grid">
+				<div class="stat-card">
+					<div class="stat-icon">
+						<i class="fas fa-user-graduate"></i>
+					</div>
+					<span class="stat-number">500+</span>
+					<span class="stat-label">Professionals Trained</span>
+				</div>
+				<div class="stat-card">
+					<div class="stat-icon">
+						<i class="fas fa-chart-line"></i>
+					</div>
+					<span class="stat-number">50+</span>
+					<span class="stat-label">Industry Experts</span>
+				</div>
+				<div class="stat-card">
+					<div class="stat-icon">
+						<i class="fas fa-percentage"></i>
+					</div>
+					<span class="stat-number">98%</span>
+					<span class="stat-label">Job Placement Rate</span>
+				</div>
+				<div class="stat-card">
+					<div class="stat-icon">
+						<i class="fas fa-clock"></i>
+					</div>
+					<span class="stat-number">24/7</span>
+					<span class="stat-label">Mentor Support</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- About Content Section -->
+	<section class="section about-content-section">
+		<div class="container">
+			<div class="about-content-grid">
+				<div class="about-image-container">
+					<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80"
+						alt="CLIN-TECH Students Learning" class="about-image">
+					<div class="about-image-overlay">
+						<h3 style="color: white; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;">
+							<i class="fas fa-hands-helping"></i> Hands-On Learning Experience
+						</h3>
+						<p style="color: rgba(255, 255, 255, 0.9); font-size: 0.9rem;">Students collaborating on
+							real-world projects</p>
+					</div>
+				</div>
+
+				<div class="about-text-content">
+					<h2><i class="fas fa-star"></i> What Makes CLIN-TECH Different?</h2>
+					<p>At CLIN-TECH Code Camp, we believe that education is not just about acquiring knowledge—it's
+						about
+						developing the skills, mindset, and practical experience needed to succeed in today's
+						competitive
+						tech industry.</p>
+
+					<p>Our approach combines cutting-edge curriculum with industry mentorship, real-world projects,
+						and career support to ensure our graduates are job-ready from day one. We don't just teach
+						programming—we cultivate problem-solvers, innovators, and future tech leaders.</p>
+
+					<div class="about-features">
+						<div class="about-feature">
+							<i class="fas fa-laptop-code"></i>
+							<div>
+								<h4>Project-Based Learning</h4>
+								<p>Build real applications from day one</p>
+							</div>
+						</div>
+						<div class="about-feature">
+							<i class="fas fa-users"></i>
+							<div>
+								<h4>Industry Mentors</h4>
+								<p>Learn from experienced professionals</p>
+							</div>
+						</div>
+						<div class="about-feature">
+							<i class="fas fa-briefcase"></i>
+							<div>
+								<h4>Career Support</h4>
+								<p>Get hired with our placement assistance</p>
+							</div>
+						</div>
+						<div class="about-feature">
+							<i class="fas fa-certificate"></i>
+							<div>
+								<h4>Certification</h4>
+								<p>Earn industry-recognized credentials</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Values Section with Icons -->
+	<section class="section values-section">
+		<div class="container">
+			<h2 class="section-title">Our Core <span class="gradient-text">Values</span></h2>
+			<p class="section-subtitle">The principles that guide everything we do at CLIN-TECH</p>
+
+			<div class="values-grid">
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-graduation-cap"></i>
+					</div>
+					<h3>Excellence in Education</h3>
+					<p>We maintain the highest standards in curriculum design, teaching quality, and student outcomes to
+						ensure transformative learning experiences.</p>
+				</div>
+
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-handshake"></i>
+					</div>
+					<h3>Student Success First</h3>
+					<p>Every decision we make prioritizes student growth, career advancement, and long-term success in
+						the tech industry.</p>
+				</div>
+
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-lightbulb"></i>
+					</div>
+					<h3>Innovation & Progress</h3>
+					<p>We continuously evolve our programs to stay ahead of industry trends and technological
+						advancements.</p>
+				</div>
+
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-users"></i>
+					</div>
+					<h3>Community Building</h3>
+					<p>We foster a supportive, collaborative environment where students and alumni network, share
+						knowledge, and grow together.</p>
+				</div>
+
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-globe"></i>
+					</div>
+					<h3>Accessibility</h3>
+					<p>We're committed to making quality tech education accessible to diverse learners through flexible
+						learning paths and financial options.</p>
+				</div>
+
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-rocket"></i>
+					</div>
+					<h3>Industry Relevance</h3>
+					<p>Our curriculum is constantly updated to reflect current industry needs, tools, and best
+						practices.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Team Section with Icons -->
+	<section class="section team-section">
+		<div class="container">
+			<h2 class="section-title">Meet Our <span class="gradient-text">Leadership Team</span></h2>
+			<p class="section-subtitle">The passionate experts guiding CLIN-TECH's mission and student success</p>
+
+			<div class="team-grid">
+				<div class="team-card">
+					<div class="team-card-header">
+						<img src="images/creator/lec2.jpeg" alt="Mr. Jack" class="team-image">
+						<div class="team-overlay">
+							<div class="team-social">
+								<a href="#"><i class="fab fa-linkedin"></i></a>
+								<a href="#"><i class="fab fa-twitter"></i></a>
+								<a href="#"><i class="fab fa-github"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="team-card-content">
+						<h3 class="team-name">
+							<i class="fas fa-user-tie"></i> Mr. Jack
+						</h3>
+						<p class="team-role">
+							<i class="fas fa-chalkboard-teacher"></i> Lead Instructor & Curriculum Developer
+						</p>
+						<p class="team-description">
+							<i class="fas fa-quote-left"></i>
+							"You can teach a student a lesson for a day; but if you can teach him to learn by creating
+							curiosity, he will continue the learning process as long as he lives."
+						</p>
+						<div class="team-expertise">
+							<span class="expertise-tag"><i class="fab fa-python"></i> Python</span>
+							<span class="expertise-tag"><i class="fas fa-database"></i> Data Science</span>
+							<span class="expertise-tag"><i class="fas fa-robot"></i> Machine Learning</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="team-card">
+					<div class="team-card-header">
+						<img src="images/creator/lec1.jpeg" alt="Mr. Fabrice" class="team-image">
+						<div class="team-overlay">
+							<div class="team-social">
+								<a href="#"><i class="fab fa-linkedin"></i></a>
+								<a href="#"><i class="fab fa-twitter"></i></a>
+								<a href="#"><i class="fab fa-github"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="team-card-content">
+						<h3 class="team-name">
+							<i class="fas fa-user-tie"></i> Mr. Fabrice
+						</h3>
+						<p class="team-role">
+							<i class="fas fa-code"></i> Senior Web Development Instructor
+						</p>
+						<p class="team-description">
+							<i class="fas fa-quote-left"></i>
+							"The web is the canvas, and code is the paint. I teach students to create masterpieces."
+						</p>
+						<div class="team-expertise">
+							<span class="expertise-tag"><i class="fab fa-js"></i> JavaScript</span>
+							<span class="expertise-tag"><i class="fab fa-react"></i> React</span>
+							<span class="expertise-tag"><i class="fab fa-node"></i> Node.js</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="team-card">
+					<div class="team-card-header">
+						<img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+							alt="Dr. Sarah Chen" class="team-image">
+						<div class="team-overlay">
+							<div class="team-social">
+								<a href="#"><i class="fab fa-linkedin"></i></a>
+								<a href="#"><i class="fab fa-twitter"></i></a>
+								<a href="#"><i class="fab fa-github"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="team-card-content">
+						<h3 class="team-name">
+							<i class="fas fa-user-tie"></i> Dr. Sarah Chen
+						</h3>
+						<p class="team-role">
+							<i class="fas fa-brain"></i> AI & Machine Learning Director
+						</p>
+						<p class="team-description">
+							<i class="fas fa-quote-left"></i>
+							"AI is not about replacing humans, but augmenting human capabilities through intelligent
+							systems."
+						</p>
+						<div class="team-expertise">
+							<span class="expertise-tag"><i class="fas fa-brain"></i> AI/ML</span>
+							<span class="expertise-tag"><i class="fas fa-chart-line"></i> Deep Learning</span>
+							<span class="expertise-tag"><i class="fas fa-robot"></i> Neural Networks</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="cta-section">
+		<div class="container">
+			<div class="cta-content">
+				<div class="cta-icon">
+					<i class="fas fa-rocket"></i>
+				</div>
+				<h2>Ready to Launch Your Tech Career?</h2>
+				<p>Join hundreds of successful graduates who transformed their careers with CLIN-TECH Code Camp. Our
+					comprehensive programs and dedicated mentorship will equip you with the skills needed to thrive in
+					the tech industry.</p>
+				<div class="cta-buttons">
+					<a href="courses.html" class="btn btn-accent">
+						<i class="fas fa-play-circle"></i> Explore Courses
+					</a>
+					<a href="contact_us.html" class="btn btn-secondary">
+						<i class="fas fa-comments"></i> Talk to an Advisor
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-col">
+					<h3><i class="fas fa-graduation-cap"></i> CLIN-TECH</h3>
+					<p>Transforming beginners into professional developers through immersive, industry-focused education
+						since 2018.</p>
+					<div class="social-media">
+						<a href="#"><i class="fab fa-facebook"></i></a>
+						<a href="#"><i class="fab fa-twitter"></i></a>
+						<a href="#"><i class="fab fa-linkedin"></i></a>
+						<a href="#"><i class="fab fa-instagram"></i></a>
+						<a href="#"><i class="fab fa-youtube"></i></a>
+					</div>
+				</div>
+
+				<div class="footer-col">
+					<h3><i class="fas fa-book"></i> Programs</h3>
+					<ul class="footer-links">
+						<li><a href="#"><i class="fas fa-code"></i> Full-Stack Web Development</a></li>
+						<li><a href="#"><i class="fas fa-database"></i> Data Science & AI</a></li>
+						<li><a href="#"><i class="fas fa-mobile-alt"></i> Mobile App Development</a></li>
+						<li><a href="#"><i class="fas fa-shield-alt"></i> Cybersecurity</a></li>
+						<li><a href="#"><i class="fas fa-gamepad"></i> Game Development</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-col">
+					<h3><i class="fas fa-link"></i> Quick Links</h3>
+					<ul class="footer-links">
+						<li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+						<li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+						<li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+						<li><a href="contact_us.html"><i class="fas fa-envelope"></i> Contact</a></li>
+						<li><a href="#"><i class="fas fa-calendar"></i> Events</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-col">
+					<h3><i class="fas fa-envelope"></i> Newsletter</h3>
+					<p>Subscribe to get updates on new courses, tech trends, and career opportunities.</p>
+					<form class="newsletter-form">
+						<input type="email" placeholder="Your email address" required>
+						<button type="submit" class="btn btn-accent">Subscribe</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<p>&copy; 2024 CLIN-TECH Code Camp. All rights reserved. | Designed with <i class="fas fa-heart"
+						style="color: #ef4444;"></i> for aspiring developers</p>
+				<p><a href="#" style="color: #94a3b8; text-decoration: none;">Privacy Policy</a> | <a href="#"
+						style="color: #94a3b8; text-decoration: none;">Terms of Service</a> | <a href="#"
+						style="color: #94a3b8; text-decoration: none;">Cookie Policy</a></p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		// Enhanced JavaScript for About Page
+		document.addEventListener('DOMContentLoaded', function () {
+			// Mobile Navigation Toggle
+			const mobileToggle = document.getElementById('mobileToggle');
+			const navLinks = document.getElementById('navLinks');
+
+			if (mobileToggle && navLinks) {
+				mobileToggle.addEventListener('click', function () {
+					mobileToggle.classList.toggle('active');
+					navLinks.classList.toggle('active');
+					document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+				});
+
+				// Close mobile menu when clicking on a link
+				document.querySelectorAll('.nav-links a').forEach(link => {
+					link.addEventListener('click', () => {
+						mobileToggle.classList.remove('active');
+						navLinks.classList.remove('active');
+						document.body.style.overflow = '';
+					});
+				});
+
+				// Close mobile menu when clicking outside
+				document.addEventListener('click', (event) => {
+					if (!navLinks.contains(event.target) && !mobileToggle.contains(event.target)) {
+						mobileToggle.classList.remove('active');
+						navLinks.classList.remove('active');
+						document.body.style.overflow = '';
+					}
+				});
+			}
+
+			// Animated Background Elements for Hero Section
+			const techBg = document.getElementById('techBg');
+			const codeLines = ['function learn() {', 'const success = effort + consistency;', 'return mastery;', '}',
+				'<div class="component">', 'export default function App() {', 'useEffect(() => {', 'fetchData();', '}, []);',
+				'SELECT * FROM students', 'WHERE dedication = true;', 'print("Hello, World!")', 'git commit -m "progress"'
+			];
+
+			// Create floating code lines
+			for (let i = 0; i < 15; i++) {
+				const codeLine = document.createElement('div');
+				codeLine.className = 'code-line';
+				codeLine.textContent = codeLines[Math.floor(Math.random() * codeLines.length)];
+				codeLine.style.left = Math.random() * 100 + 'vw';
+				codeLine.style.animationDelay = Math.random() * 20 + 's';
+				techBg.appendChild(codeLine);
+			}
+
+			// Create binary dots
+			for (let i = 0; i < 20; i++) {
+				const binary = document.createElement('div');
+				binary.className = 'binary-dots';
+				binary.textContent = Math.random() > 0.5 ? '1' : '0';
+				binary.style.left = Math.random() * 100 + 'vw';
+				binary.style.top = Math.random() * 100 + 'vh';
+				binary.style.animationDelay = Math.random() * 25 + 's';
+				techBg.appendChild(binary);
+			}
+
+			// Create floating shapes
+			for (let i = 0; i < 10; i++) {
+				const shape = document.createElement('div');
+				shape.className = 'floating-shape';
+				shape.style.left = Math.random() * 100 + 'vw';
+				shape.style.animationDelay = Math.random() * 30 + 's';
+				shape.style.borderColor = `rgba(${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 100 + 155)}, 0.3)`;
+				techBg.appendChild(shape);
+			}
+
+			// Navbar scroll effect
+			const navbar = document.querySelector('.nav-container');
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 50) {
+					navbar.classList.add('scrolled');
+				} else {
+					navbar.classList.remove('scrolled');
+				}
+			});
+
+			// User authentication simulation
+			function checkAuth() {
+				const authButtons = document.getElementById('authButtons');
+				const userProfile = document.getElementById('userProfile');
+				const userInitial = document.getElementById('userInitial');
+
+				// Check if user is logged in (simulated)
+				const isLoggedIn = localStorage.getItem('clintech_logged_in');
+				const userName = localStorage.getItem('clintech_user_name') || 'User';
+
+				if (isLoggedIn === 'true') {
+					authButtons.style.display = 'none';
+					userProfile.style.display = 'block';
+					userInitial.textContent = userName.charAt(0).toUpperCase();
+				} else {
+					authButtons.style.display = 'block';
+					userProfile.style.display = 'none';
+				}
+			}
+
+			// Logout function
+			window.logout = function () {
+				localStorage.removeItem('clintech_logged_in');
+				localStorage.removeItem('clintech_user_name');
+				checkAuth();
+				window.location.href = 'index.html';
+			};
+
+			// Fade-in animation on scroll
+			const fadeElements = document.querySelectorAll('.fade-in');
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+					}
+				});
+			}, { threshold: 0.1 });
+
+			fadeElements.forEach(el => observer.observe(el));
+
+			// Initialize authentication check
+			checkAuth();
+
+			// Animate stats on scroll
+			const statNumbers = document.querySelectorAll('.stat-number');
+			const statObserver = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						animateCounter(entry.target);
+						statObserver.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.5 });
+
+			statNumbers.forEach(stat => statObserver.observe(stat));
+
+			function animateCounter(element) {
+				const target = parseInt(element.textContent);
+				if (isNaN(target)) { return; }
+				const duration = 2000;
+				const step = target / (duration / 16);
+				let current = 0;
+
+				const timer = setInterval(() => {
+					current += step;
+					if (current >= target) {
+						element.textContent = target + (element.textContent.includes('%') ? '%' : '+');
+						clearInterval(timer);
+					} else {
+						element.textContent = Math.floor(current) + (element.textContent.includes('%') ? '%' : '+');
+					}
+				}, 16);
+			}
+
+			// Enhanced hover effects for team cards
+			const teamCards = document.querySelectorAll('.team-card');
+			teamCards.forEach(card => {
+				card.addEventListener('mouseenter', () => {
+					card.style.transform = 'translateY(-15px) scale(1.02)';
+				});
+
+				card.addEventListener('mouseleave', () => {
+					card.style.transform = 'translateY(0) scale(1)';
+				});
+			});
+
+			// Tech icons interactive effect
+			const techIcons = document.querySelectorAll('.tech-icon-item');
+			techIcons.forEach(icon => {
+				icon.addEventListener('mouseenter', () => {
+					const iTag = icon.querySelector('i');
+					if (iTag) {
+						iTag.style.transform = 'scale(1.2) rotate(5deg)';
+						iTag.style.transition = 'transform 0.3s ease';
+					}
+				});
+
+				icon.addEventListener('mouseleave', () => {
+					const iTag = icon.querySelector('i');
+					if (iTag) {
+						iTag.style.transform = 'scale(1) rotate(0deg)';
+					}
+				});
+			});
+
+			// Smooth scrolling for anchor links
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+					const targetId = this.getAttribute('href');
+					if (targetId === '#') return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						window.scrollTo({
+							top: targetElement.offsetTop - 80,
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+
+			// Newsletter form submission
+			const newsletterForm = document.querySelector('.newsletter-form');
+			if (newsletterForm) {
+				newsletterForm.addEventListener('submit', function (e) {
+					e.preventDefault();
+					const email = this.querySelector('input[type="email"]').value;
+
+					// Simple validation
+					if (email && email.includes('@')) {
+						const button = this.querySelector('button');
+						const originalText = button.innerHTML;
+						button.innerHTML = '<span class="loading"></span>';
+						button.disabled = true;
+
+						// Simulate API call
+						setTimeout(() => {
+							button.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+							this.reset();
+							setTimeout(() => {
+								button.innerHTML = originalText;
+								button.disabled = false;
+							}, 2000);
+						}, 1500);
+					}
+				});
+			}
+		});
+	</script>
+</body>
+
+</html>
